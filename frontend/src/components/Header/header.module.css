@@ -1,0 +1,144 @@
+.header {
+  position: fixed;
+  z-index: 20;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #000;
+  color: #FFF;
+  min-height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 15px;
+  width: 100%;
+  max-width: 1250px;
+}
+
+.header__list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header__item {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 525px) {
+
+  .header__item span {
+    font-size: 24px;
+  }
+}
+
+.header__link {
+  text-decoration: none;
+  color: #FFF;
+}
+
+.header__button {
+  border: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: inherit;
+  background-size: contain;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  transition: all 0.3s;
+}
+
+@media screen and (max-width: 525px) {
+  .header__button {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.header__buttonSearch {
+  margin-top: 2px;
+  background-image: url('../../assets/icons/search.png');
+}
+
+.header__buttonSearch:hover {
+  background-image: url('../../assets/icons/search_active.png');
+}
+
+.header__buttonFavorite {
+  background-image: url('../../assets/icons/star.png');
+}
+
+.header__buttonFavorite:hover {
+  background-image: url('../../assets/icons/star_active.png');
+}
+
+.header__buttonFavorite_active {
+  background-image: url('../../assets/icons/star_active.png');
+}
+
+.header__item {
+  font-size: 25px;
+}
+
+.header__itemCheckbox {
+  position: relative;
+}
+
+.header__itemInput {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+}
+
+.header__itemSpan {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: inherit;
+  background-size: contain;
+}
+
+@media screen and (max-width: 525px) {
+
+  .header__itemInput,
+  .header__itemSpan {
+    width: 25px;
+    height: 25px;
+  }
+}
+
+.header__itemSpanTranspose {
+  background-image: url(../../assets/icons/tranpose.png);
+}
+
+.header__itemInput:checked+.header__itemSpanTranspose {
+  background-image: url(../../assets/icons/transpose_active.png);
+}
+
+.header__itemSpanAccord {
+  background-image: url(../../assets/icons/accord.png);
+}
+
+.header__itemInput:checked+.header__itemSpanAccord {
+  background-image: url(../../assets/icons/accord_active.png);
+}

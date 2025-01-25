@@ -1,0 +1,44 @@
+.hymn {
+  position: relative;
+  margin: 0 auto;
+  padding: 0 5px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-wrap: wrap;
+}
+
+.hymn__title {
+  text-align: center;
+  margin: 10px auto 0;
+}
+
+.hymn__textContainer {
+  display: flex;
+  padding: 0;
+}
+
+.hymn__text {
+  font-size: 10px;
+  text-wrap: wrap;
+}
+
+.hymn__str_text {
+  line-height: 40px;
+  font-size: var(--font-size-text);
+  text-wrap: wrap;
+}
+
+.hymn__str_accord {
+  margin: 0;
+  position: absolute;
+  transform: translate(-8px, -20px);
+  font-size: var(--font-size-text);
+  font-weight: 700;
+  color: rgb(241, 196, 15);
+  text-wrap: wrap;
+}
+
+.hymn__numberText {
+  /* padding-top: 20px; */
+}

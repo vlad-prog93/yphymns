@@ -1,0 +1,37 @@
+version: '3.3'
+
+services:
+  mongodb:
+    image: mongo:3.6.8
+    container_name: mongodb
+    ports:
+      - '27017:27017'
+  
+  server:
+    build: 
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongodb
+  
+#  client:
+#    build:
+#      context: ./client
+#      dockerfile: Dockerfile
+#    ports:
+#      - '80:80'
+#    depends_on:
+#      - mongodb
+#      - server
+  
+#  nginx:
+#    image: nginx   
+#    ports:
+#      - '80:80'
+#    volumes:
+#      - ./client/build:/usr/share/nginx/html
+#    depends_on:
+#      - client
+  
