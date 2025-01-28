@@ -21,6 +21,7 @@ services:
       - ./.env
     networks:
       - mongo_server
+      - nginx_server
     ports:
       - '5000:5000'
     depends_on:
@@ -41,15 +42,19 @@ services:
     container_name: nginx
     ports:
       - '80:80'
+    networks:
+      - nginx_server
     volumes:
       - frontend:/usr/share/nginx/html
-      - ./nginx:/etc/nginx/conf.d
+      - ./nginx/default:/etc/nginx/conf.d
     depends_on:
       - client
       - server
 
 networks:
   mongo_server:
+    driver: bridge
+  nginx_server:
     driver: bridge
 volumes:
   mongo_data:
