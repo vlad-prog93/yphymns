@@ -42,14 +42,23 @@ services:
     container_name: nginx
     ports:
       - '80:80'
+      - '443:443'
     networks:
       - nginx_server
     volumes:
       - frontend:/usr/share/nginx/html
       - ./nginx/default:/etc/nginx/conf.d
+      - ./certbot/www/:/var/www/certbot/:ro
+      - ./certbot/conf/:/etc/nginx/yphymns.ru/:ro
     depends_on:
       - client
       - server
+
+#  certbot:
+#    image: certbot/certbot:latest
+#    volumes:
+#      - ./certbot/www/:/var/www/certbot/:rw
+#      - ./certbot/conf/:/etc/letsencrypt/:rw
 
 networks:
   mongo_server:
