@@ -25,7 +25,7 @@ import { contextSettingsFont, stateSettingsFont } from './context/settingsSize';
 import { ROUTES } from './utils/routes';
 
 // localStorage
-import { getFavoriteHymnsLS } from './tools/storage';
+import { getFavoriteHymnsLS, getSettingFontLS } from './tools/storage';
 import Settings from './pages/Settings/Setting';
 
 // models
@@ -38,7 +38,7 @@ function App() {
   const { hymns, isLoading, error, favoriteHymns, foundedHymns, currentHymn, historyHymns, isTranposeOpen, isTextWithAccord, isShowAutoScroll } = useAppSelector(state => state.hymnReducer)
   const dispatch = useAppDispatch()
 
-  const [settingsFont, setSettingsFont] = useState<ISettingsFont>(stateSettingsFont)
+  const [settingsFont, setSettingsFont] = useState<ISettingsFont>(getSettingFontLS || stateSettingsFont)
 
   useEffect(() => {
     toFetchHymns(dispatch)

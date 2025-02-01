@@ -1,16 +1,20 @@
 import { useContext, useEffect, useRef } from 'react'
 import style from './Settings.module.css'
 import { contextSettingsFont, stateSettingsFont } from '../../context/settingsSize'
+import { setSettingFontLS } from '../../tools/storage'
 
 
 const Settings = () => {
   const context = useContext(contextSettingsFont)
 
-  const handleChangeFontSize = (e: any) => {
-    e.target.name === 'fontText' && context.setSettingsFont({ ...context, fontSizeText: e.target.value })
-    e.target.name === 'fontAccord' && context.setSettingsFont({ ...context, fontSizeAccord: e.target.value })
-    e.target.name === 'colorText' && context.setSettingsFont({ ...context, colorText: e.target.value })
-    e.target.name === 'colorAccord' && context.setSettingsFont({ ...context, colorAccord: e.target.value })
+  const handleChangeFontSetting = (e: any) => {
+    context.setSettingsFont({ ...context, [e.target.name]: e.target.value })
+    setSettingFontLS({ ...context, [e.target.name]: e.target.value })
+  }
+
+  const setDefaultFontSetting = () => {
+    context.setSettingsFont({ ...stateSettingsFont })
+    setSettingFontLS({ ...stateSettingsFont })
   }
 
   return (
@@ -24,9 +28,9 @@ const Settings = () => {
         </span>
         <input
           className={style.setting__range}
-          name='fontText'
+          name='fontSizeText'
           value={context.fontSizeText}
-          onChange={(e) => handleChangeFontSize(e)}
+          onChange={(e) => handleChangeFontSetting(e)}
           type="range"
           min="10"
           max="24" />
@@ -42,7 +46,7 @@ const Settings = () => {
           className={style.setting__color}
           value={context.colorText}
           name='colorText'
-          onChange={(e) => handleChangeFontSize(e)}
+          onChange={(e) => handleChangeFontSetting(e)}
           type="color" />
       </div>
 
@@ -54,9 +58,9 @@ const Settings = () => {
         </span>
         <input
           className={style.setting__range}
-          name='fontAccord'
+          name='fontSizeAccord'
           value={context.fontSizeAccord}
-          onChange={(e) => handleChangeFontSize(e)}
+          onChange={(e) => handleChangeFontSetting(e)}
           type="range"
           min="10"
           max="24" />
@@ -73,11 +77,11 @@ const Settings = () => {
           className={style.setting__color}
           value={context.colorAccord}
           name='colorAccord'
-          onChange={(e) => handleChangeFontSize(e)}
+          onChange={(e) => handleChangeFontSetting(e)}
           type="color" />
       </div>
 
-      <button onClick={() => context.setSettingsFont({ ...stateSettingsFont })}> По умолчанию</button>
+      <button onClick={setDefaultFontSetting}> По умолчанию</button>
 
     </div >
   )

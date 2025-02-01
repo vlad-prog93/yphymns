@@ -1,4 +1,5 @@
 import { IHistoryHymn, IHymn } from "../models/hymns"
+import { ISettingsFontLS } from "../models/settingsFont"
 
 export const getFavoriteHymnsLS = (): string[] => {
   const hymnsString = localStorage.getItem('favorite')
@@ -35,4 +36,13 @@ export const deleteHistoryHymnLS = () => {
   const hymnsString = localStorage.getItem('history')
   const hymnsList: IHistoryHymn[] = hymnsString ? JSON.parse(hymnsString) : []
   return localStorage.setItem('history', JSON.stringify(hymnsList.splice(1, hymnsList.length - 1)))
+}
+
+export const getSettingFontLS = () => {
+  const settingFont = localStorage.getItem('settingFont')
+  return settingFont ? JSON.parse(settingFont) : null
+}
+
+export const setSettingFontLS = (value: ISettingsFontLS) => {
+  return localStorage.setItem('settingFont', JSON.stringify(value))
 }
