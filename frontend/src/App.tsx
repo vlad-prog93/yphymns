@@ -25,7 +25,7 @@ import { contextSettingsFont, stateSettingsFont } from './context/settingsSize';
 import { ROUTES } from './utils/routes';
 
 // localStorage
-import { getFavoriteHymnsLS, getSettingFontLS } from './tools/storage';
+import { getFavoriteHymnsLS, getSettingFontLS, setSettingFontLS } from './tools/storage';
 import Settings from './pages/Settings/Setting';
 
 // models
@@ -35,10 +35,10 @@ import ButtonScroll from './components/ButtonScroll/ButtonScroll';
 import NewHymn from './pages/NewHymn/NewHymn';
 
 function App() {
-  const { hymns, isLoading, error, favoriteHymns, foundedHymns, currentHymn, historyHymns, isTranposeOpen, isTextWithAccord, isShowAutoScroll } = useAppSelector(state => state.hymnReducer)
+  const { hymns, isLoading, error, favoriteHymns, foundedHymns, currentHymn, historyHymns, isShowAutoScroll } = useAppSelector(state => state.hymnReducer)
   const dispatch = useAppDispatch()
 
-  const [settingsFont, setSettingsFont] = useState<ISettingsFont>(getSettingFontLS || stateSettingsFont)
+  const [settingsFont, setSettingsFont] = useState<ISettingsFont>(getSettingFontLS() || stateSettingsFont)
 
   useEffect(() => {
     toFetchHymns(dispatch)
@@ -46,7 +46,11 @@ function App() {
     dispatch(hymnsSlice.actions.getHistoryHymns())
   }, [hymns.length])
 
-
+  // useEffect(() => {
+  //   if (getSettingFontLS() !== null) {
+  //     setSettingsFont(prev => ({ ...prev, ... }))
+  //   }
+  // }, [])
 
   return (
     <contextSettingsFont.Provider value={{ ...settingsFont, setSettingsFont }}>
