@@ -46,12 +46,6 @@ function App() {
     dispatch(hymnsSlice.actions.getHistoryHymns())
   }, [hymns.length])
 
-  // useEffect(() => {
-  //   if (getSettingFontLS() !== null) {
-  //     setSettingsFont(prev => ({ ...prev, ... }))
-  //   }
-  // }, [])
-
   return (
     <contextSettingsFont.Provider value={{ ...settingsFont, setSettingsFont }}>
 

@@ -36,13 +36,16 @@
   border-radius: 2px;
 }
 
-.burger:hover .burger__item {
-  background-color: rgb(241, 196, 15);
+@media (hover: hover) {
+  .burger:hover .burger__item {
+    background-color: rgb(241, 196, 15);
+  }
+
+  .burger_active:hover .burger__item {
+    background-color: rgb(241, 196, 15);
+  }
 }
 
-.burger_active:hover .burger__item {
-  background-color: rgb(241, 196, 15);
-}
 
 .burger_active .burger__item_one,
 .burger_active .burger__item_three {
