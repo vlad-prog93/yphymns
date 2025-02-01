@@ -20,17 +20,17 @@ const NewHymn = () => {
 
   const AddVerse = () => {
     setQuantityVerse(prev => prev + 1)
-    newHymn && setNewHymn({ ...newHymn, collection: ' ', shortText: ' ', text: { ' ': ' ' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse + 1).toString() + ' verse']: ' ' } })
-    !newHymn && setNewHymn({ number: 0, collection: ' ', shortText: ' ', text: { ' ': ' ' }, text_with_accords: { [(quantityVerse + 1).toString() + ' verse']: ' ' } })
+    newHymn && setNewHymn({ ...newHymn, collection: '', shortText: '', text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse + 1).toString() + ' verse']: '' } })
+    !newHymn && setNewHymn({ number: 0, collection: '', shortText: '', text: { '': '' }, text_with_accords: { [(quantityVerse + 1).toString() + ' verse']: '' } })
   }
   const AddChorus = () => {
-    newHymn && setNewHymn({ ...newHymn, collection: ' ', shortText: ' ', text: { ' ': ' ' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' chorus']: ' ' } })
-    !newHymn && setNewHymn({ number: 0, collection: ' ', shortText: ' ', text: { ' ': ' ' }, text_with_accords: { [(quantityVerse).toString() + ' chorus']: ' ' } })
+    newHymn && setNewHymn({ ...newHymn, collection: '', shortText: '', text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' chorus']: '' } })
+    !newHymn && setNewHymn({ number: 0, collection: '', shortText: '', text: { '': '' }, text_with_accords: { [(quantityVerse).toString() + ' chorus']: '' } })
   }
   const AddBridge = () => {
     setQuantityBridge(prev => prev + 1)
-    newHymn && setNewHymn({ ...newHymn, collection: ' ', shortText: ' ', text: { ' ': ' ' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' verse ' + (quantityBridge).toString() + ' bridge']: ' ' } })
-    !newHymn && setNewHymn({ number: 0, collection: ' ', shortText: ' ', text: { ' ': ' ' }, text_with_accords: { [(quantityVerse).toString() + ' verse ' + (quantityBridge).toString() + ' bridge']: ' ' } })
+    newHymn && setNewHymn({ ...newHymn, collection: '', shortText: '', text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' verse ' + (quantityBridge).toString() + ' bridge']: '' } })
+    !newHymn && setNewHymn({ number: 0, collection: '', shortText: '', text: { '': '' }, text_with_accords: { [(quantityVerse).toString() + ' verse ' + (quantityBridge).toString() + ' bridge']: '' } })
   }
 
 
