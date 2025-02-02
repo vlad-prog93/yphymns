@@ -6,12 +6,13 @@ import { SPEED_CONFIG } from '../../utils/const'
 import MyButton from '../MyButton/MyButton'
 
 
-const ButtonScroll = () => {
+const ButtonScroll = ({ alreadyBottom }: { alreadyBottom: boolean }) => {
   const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null)
 
   const [speed, setSpeed] = useState<1 | 2 | 3>(1)
 
   const { isScroll } = useAppSelector(state => state.hymnReducer)
+  const { isMenuActive } = useAppSelector(state => state.menuReducer)
   const dispatch = useAppDispatch()
 
   const scroll = useCallback(() => {
@@ -43,6 +44,19 @@ const ButtonScroll = () => {
     }
   }
 
+  useEffect(() => {
+    if (alreadyBottom) {
+      stopScroll()
+    }
+  }, [alreadyBottom])
+
+  useEffect(() => {
+    stopScroll()
+  }, [isMenuActive])
+
+  useEffect(() => {
+    return stopScroll()
+  }, [])
 
   return (
     <div className={style.buttonContainer}>

@@ -19,7 +19,7 @@ const Hymn = () => {
   const context = useContext(contextSettingsFont)
 
   const navigate = useNavigate()
-  const ref = useRef<HTMLDivElement | null>(null)
+  const refScroll = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     !currentHymn && navigate('/')
@@ -42,7 +42,7 @@ const Hymn = () => {
 
 
   useEffect(() => {
-    const isNeedToScroll = ref?.current && window.innerHeight - 50 <= ref?.current?.offsetHeight
+    const isNeedToScroll = refScroll?.current && window.innerHeight - 50 <= refScroll?.current?.offsetHeight
     if (isNeedToScroll) {
       dispatch(hymnsSlice.actions.showAutoScroll())
     } else {
@@ -54,7 +54,7 @@ const Hymn = () => {
   }, [isTextWithAccord, currentHymn])
 
   return (
-    <div ref={ref} className={style.hymn}>
+    <div ref={refScroll} className={style.hymn}>
       <h3 className={style.hymn__title}>{currentHymn?.collection}</h3>
       {!isTextWithAccord
         ?

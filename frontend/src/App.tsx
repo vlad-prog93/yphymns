@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer'
+
 // стили
 import './styles/index.css'
 
@@ -35,6 +37,8 @@ import ButtonScroll from './components/ButtonScroll/ButtonScroll';
 import NewHymn from './pages/NewHymn/NewHymn';
 
 function App() {
+  const { ref, inView } = useInView({ rootMargin: '0px 0px' })
+
   const { hymns, isLoading, error, favoriteHymns, foundedHymns, currentHymn, historyHymns, isShowAutoScroll } = useAppSelector(state => state.hymnReducer)
   const dispatch = useAppDispatch()
 
@@ -55,7 +59,7 @@ function App() {
         <Header />
         <div className='App' >
           <div className='App__header'>
-            {isShowAutoScroll && <ButtonScroll />}
+            {isShowAutoScroll && <ButtonScroll alreadyBottom={inView} />}
           </div>
           <Routes>
             <Route path={ROUTES.home} element={<Search />} />
@@ -71,9 +75,11 @@ function App() {
             <Route path="*" element={<Navigate to="" replace />}
             />
           </Routes>
+          <div style={{ height: '1px' }} ref={ref} />
           <div className='App__footer'>
             {currentHymn && <Arrows />}
           </div>
+
         </div>
       </BrowserRouter>
     </contextSettingsFont.Provider>
