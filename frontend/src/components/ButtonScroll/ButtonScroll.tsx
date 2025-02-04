@@ -5,63 +5,61 @@ import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 import { SPEED_CONFIG } from '../../utils/const'
 import MyButton from '../MyButton/MyButton'
 
+// автоскролл работает по такому принципу:
+// 1 - если нажать кнопку "скроллить"
+
+// автоскролл останавливается по такому принципу:
+// 1 - если нажать кнопку "STOP"
+// 2 - если нажать на бургер для открытия меню
+// 3 - если полоса прокрутки дошла до конца (флагом являемтся тэг внизу гимна)
+// 4 - если нажать кнопку перелистывания гимнов
+// 5 - если нажать клавишу перелистывания гимнов
 
 const ButtonScroll = ({ alreadyBottom }: { alreadyBottom: boolean }) => {
+  // пригодится при скролле мы делаем через таймер. через id его потом останавливать и удалять
   const [intervalId, setIntervalId] = useState<NodeJS.Timer | null>(null)
-
-  const [speed, setSpeed] = useState<1 | 2 | 3>(1)
+  // скорость скролла. всего 3 скорости
+  const [speedScroll, setSpeedScroll] = useState<number>(0)
 
   const { isScroll } = useAppSelector(state => state.hymnReducer)
   const { isMenuActive } = useAppSelector(state => state.menuReducer)
   const dispatch = useAppDispatch()
 
   const scroll = useCallback(() => {
-    window.scrollBy(0, 1)
+    window.scrollBy({ top: 1, behavior: 'smooth' })
     console.log('scroll on')
   }, [])
 
-  const handleScroll = () => {
-    const interval = SPEED_CONFIG[speed]
-    setSpeed(prev => {
-      if (prev === 1) return 2
-      if (prev === 2) return 3
-      return 1
-    })
-    intervalId && clearInterval(intervalId)
-    setIntervalId(null)
-    dispatch(hymnsSlice.actions.offScroll())
-    const toScroll = setInterval(scroll, interval)
+
+  const runScroll = () => {
+    stopScroll()
+    const toScroll = setInterval(scroll, 100)
     setIntervalId(toScroll)
-    dispatch(hymnsSlice.actions.onScroll())
   }
 
   const stopScroll = () => {
-    if (isScroll) {
-      intervalId && clearInterval(intervalId)
-      setIntervalId(null)
-      dispatch(hymnsSlice.actions.offScroll())
-      setSpeed(1)
-    }
+    intervalId && clearInterval(intervalId)
+    setIntervalId(null)
   }
 
   useEffect(() => {
-    if (alreadyBottom) {
+    if (isMenuActive || alreadyBottom || !isScroll) {
       stopScroll()
+      isScroll && dispatch(hymnsSlice.actions.offScroll())
+      return
     }
-  }, [alreadyBottom])
 
-  useEffect(() => {
-    stopScroll()
-  }, [isMenuActive])
+    runScroll()
 
-  useEffect(() => {
-    return stopScroll()
-  }, [])
+    return () => { stopScroll() }
+
+  }, [isMenuActive, isScroll, alreadyBottom])
 
   return (
     <div className={style.buttonContainer}>
-      <MyButton onClick={() => stopScroll()}>S</MyButton>
-      <MyButton onClick={() => handleScroll()}>&darr;</MyButton>
+      <MyButton onClick={() => dispatch(hymnsSlice.actions.offScroll())}>S</MyButton>
+      {speedScroll}
+      <MyButton onClick={() => dispatch(hymnsSlice.actions.onScroll())}>&darr;</MyButton>
     </div>
   )
 }

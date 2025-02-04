@@ -21,10 +21,20 @@ const Arrows = () => {
     navigate(ROUTES.home + ROUTES.hymns + '/' + currentHymn?._id)
   }, [currentHymn])
 
+  const prevHymn = () => {
+    dispatch(hymnsSlice.actions.prevHymn())
+    dispatch(hymnsSlice.actions.offScroll())
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  const nextHymn = () => {
+    dispatch(hymnsSlice.actions.nextHymn())
+    dispatch(hymnsSlice.actions.offScroll())
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
   return (
     <div className={style.arrows}>
-      {currentHymn?.number !== 1 && <MyButton onClick={() => dispatch(hymnsSlice.actions.prevHymn())}>{'<'}</MyButton>}
-      {hymns.length !== currentHymn?.number && <MyButton onClick={() => dispatch(hymnsSlice.actions.nextHymn())}>{'>'}</MyButton>}
+      {currentHymn?.number !== 1 && <MyButton onClick={prevHymn}>{'<'}</MyButton>}
+      {hymns.length !== currentHymn?.number && <MyButton onClick={nextHymn}>{'>'}</MyButton>}
     </div>
   )
 }
