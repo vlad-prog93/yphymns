@@ -29,10 +29,12 @@ const Hymn = () => {
     const event = function (e: any) {
       if (e.key === 'ArrowRight') {
         dispatch(hymnsSlice.actions.nextHymn())
+        dispatch(hymnsSlice.actions.offScroll())
         return
       }
       if (e.key === 'ArrowLeft') {
         dispatch(hymnsSlice.actions.prevHymn())
+        dispatch(hymnsSlice.actions.offScroll())
         return
       }
     }
