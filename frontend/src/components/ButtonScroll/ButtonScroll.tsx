@@ -27,7 +27,6 @@ const ButtonScroll = ({ alreadyBottom }: { alreadyBottom: boolean }) => {
 
   const scroll = useCallback(() => {
     window.scrollBy({ top: 1, behavior: 'smooth' })
-    console.log('scroll on', SPEED_CONFIG[speedScroll])
   }, [])
 
   const stopScroll = () => {

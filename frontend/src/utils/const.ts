@@ -1,4 +1,4 @@
-export const SPEED_CONFIG = [2000, 800, 100]
+export const SPEED_CONFIG = [200, 150, 100]
 
 export const translate = {
     'verse': 'куплет',
