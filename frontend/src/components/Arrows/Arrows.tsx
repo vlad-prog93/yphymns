@@ -22,13 +22,13 @@ const Arrows = () => {
   }, [currentHymn])
 
   const prevHymn = () => {
-    dispatch(hymnsSlice.actions.prevHymn())
     dispatch(hymnsSlice.actions.offScroll())
+    dispatch(hymnsSlice.actions.prevHymn())
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   const nextHymn = () => {
-    dispatch(hymnsSlice.actions.nextHymn())
     dispatch(hymnsSlice.actions.offScroll())
+    dispatch(hymnsSlice.actions.nextHymn())
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
   return (

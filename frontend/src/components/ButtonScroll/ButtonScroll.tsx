@@ -27,39 +27,36 @@ const ButtonScroll = ({ alreadyBottom }: { alreadyBottom: boolean }) => {
 
   const scroll = useCallback(() => {
     window.scrollBy({ top: 1, behavior: 'smooth' })
-    console.log('scroll on')
+    console.log('scroll on', SPEED_CONFIG[speedScroll])
   }, [])
-
-
-  const runScroll = () => {
-    stopScroll()
-    const toScroll = setInterval(scroll, 100)
-    setIntervalId(toScroll)
-  }
 
   const stopScroll = () => {
     intervalId && clearInterval(intervalId)
     setIntervalId(null)
   }
 
+  const runScroll = () => {
+    dispatch(hymnsSlice.actions.onScroll())
+    setSpeedScroll(prev => prev === 3 ? 1 : ++prev)
+  }
+
   useEffect(() => {
+    stopScroll()
     if (isMenuActive || alreadyBottom || !isScroll) {
-      stopScroll()
       isScroll && dispatch(hymnsSlice.actions.offScroll())
+      setSpeedScroll(0)
       return
     }
+    const toScroll = setInterval(scroll, SPEED_CONFIG[speedScroll - 1])
+    setIntervalId(toScroll)
 
-    runScroll()
-
-    return () => { stopScroll() }
-
-  }, [isMenuActive, isScroll, alreadyBottom])
+  }, [isMenuActive, isScroll, alreadyBottom, speedScroll])
 
   return (
     <div className={style.buttonContainer}>
       <MyButton onClick={() => dispatch(hymnsSlice.actions.offScroll())}>S</MyButton>
       {speedScroll}
-      <MyButton onClick={() => dispatch(hymnsSlice.actions.onScroll())}>&darr;</MyButton>
+      <MyButton onClick={runScroll}>&darr;</MyButton>
     </div>
   )
 }

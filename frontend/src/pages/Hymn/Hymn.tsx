@@ -30,11 +30,13 @@ const Hymn = () => {
       if (e.key === 'ArrowRight') {
         dispatch(hymnsSlice.actions.nextHymn())
         dispatch(hymnsSlice.actions.offScroll())
+        window.scrollTo({ top: 0, behavior: 'smooth' })
         return
       }
       if (e.key === 'ArrowLeft') {
         dispatch(hymnsSlice.actions.prevHymn())
         dispatch(hymnsSlice.actions.offScroll())
+        window.scrollTo({ top: 0, behavior: 'smooth' })
         return
       }
     }
