@@ -5,6 +5,11 @@ import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 import { SPEED_CONFIG } from '../../utils/const'
 import MyButton from '../MyButton/MyButton'
 
+import icon_stop from '../../assets/icons/arrows/stop.png'
+import icon_run_0 from '../../assets/icons/arrows/arrow-down.png'
+import icon_run_1 from '../../assets/icons/arrows/arrow-down-1.png'
+import icon_run_2 from '../../assets/icons/arrows/arrow-down-2.png'
+import icon_run_3 from '../../assets/icons/arrows/arrow-down-3.png'
 // автоскролл работает по такому принципу:
 // 1 - если нажать кнопку "скроллить"
 
@@ -53,9 +58,15 @@ const ButtonScroll = ({ alreadyBottom }: { alreadyBottom: boolean }) => {
 
   return (
     <div className={style.buttonContainer}>
-      <MyButton onClick={() => dispatch(hymnsSlice.actions.offScroll())}>S</MyButton>
-      {speedScroll}
-      <MyButton onClick={runScroll}>&darr;</MyButton>
+      <MyButton onClick={() => dispatch(hymnsSlice.actions.offScroll())}>
+        <img src={icon_stop} alt="stop" />
+      </MyButton>
+      <MyButton onClick={runScroll}>
+        {speedScroll === 0 && <img src={icon_run_0} alt="run" />}
+        {speedScroll === 1 && <img src={icon_run_1} alt="run-1" />}
+        {speedScroll === 2 && <img src={icon_run_2} alt="run-2" />}
+        {speedScroll === 3 && <img src={icon_run_3} alt="run-3" />}
+      </MyButton>
     </div>
   )
 }

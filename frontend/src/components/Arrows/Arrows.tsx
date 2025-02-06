@@ -2,6 +2,9 @@ import { Link, useNavigate } from 'react-router-dom'
 
 // стили
 import style from './arrows.module.css'
+import arrow_back from '../../assets/icons/arrows/arrow-back.png'
+import arrow_next from '../../assets/icons/arrows/arrow-next.png'
+
 
 // redux
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
@@ -33,8 +36,12 @@ const Arrows = () => {
   }
   return (
     <div className={style.arrows}>
-      {currentHymn?.number !== 1 && <MyButton onClick={prevHymn}>{'<'}</MyButton>}
-      {hymns.length !== currentHymn?.number && <MyButton onClick={nextHymn}>{'>'}</MyButton>}
+      {currentHymn?.number !== 1 && <MyButton onClick={prevHymn}>
+        <img src={arrow_back} alt="back" />
+      </MyButton>}
+      {hymns.length !== currentHymn?.number && <MyButton onClick={nextHymn}>
+        <img src={arrow_next} alt="next" />
+      </MyButton>}
     </div>
   )
 }
