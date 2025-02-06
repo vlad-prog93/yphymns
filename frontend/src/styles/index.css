@@ -76,7 +76,7 @@ li {
 .App__footer {
   position: sticky;
   bottom: 0;
-  padding: 0 5px;
+  padding: 0 5px 10px;
 
   display: flex;
   flex-direction: row-reverse;

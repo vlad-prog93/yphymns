@@ -3,8 +3,11 @@
     cursor: pointer;
     background-color: inherit;
     transition: all .3s;
-    font-size: 30px;
     opacity: 0.3;
+    margin-top: 10px;
+    padding: 0;
+    width: 24px;
+    height: 24px;
 }
 
 
