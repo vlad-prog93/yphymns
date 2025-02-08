@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { v4 } from 'uuid'
 // styles
 import style from './EditHymn.module.css'
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { IHymn } from '../../models/hymns'
 import { toUpdateHymn } from '../../redux/reducers/ActionCreator'
@@ -26,7 +26,8 @@ const EditHymn = () => {
     }
   }, [params])
 
-  const saveHymn = () => {
+  const saveHymn = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (editHymn) {
       const hymn: IHymn = { ...editHymn, text_with_accords: moveAccordsInText(editHymn.text_with_accords) }
       hymn.text = deleteAccords(hymn.text_with_accords)

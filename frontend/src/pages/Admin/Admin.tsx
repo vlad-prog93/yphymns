@@ -1,15 +1,15 @@
 import style from './Admin.module.css'
 import { useAppSelector } from '../../redux/hooks'
 import { useDispatch } from 'react-redux'
-import { toDeleteHymn, toDownloadFileWithHymns, toUploadFile } from '../../redux/reducers/ActionCreator'
+import { toDeleteHymn, toDownloadFileWithHymns, toFetchHymns, toUploadFile } from '../../redux/reducers/ActionCreator'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../utils/routes'
 import Button from '../../components/UI/Button/Button'
-import { useId, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
+import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 
 const Admin = () => {
-  const id_input_file = useId()
   const navigate = useNavigate()
   const uploadRef = useRef<HTMLFormElement>(null)
 
@@ -31,6 +31,12 @@ const Admin = () => {
     e.target.files && toUploadFile(e.target.files[0])
   }
 
+  useEffect(() => {
+    window.scrollTo({ top: 1 })
+    dispatch(hymnsSlice.actions.deleteCurrentHymn())
+    toFetchHymns(dispatch)
+  }, [])
+
   return (
     <div className={style.admin}>
 
@@ -47,7 +53,7 @@ const Admin = () => {
       </div>
 
       <ul className={style.admin__list}>
-        {hymns.map(hymn => {
+        {[...hymns].sort((hymn_1, hymn_2) => hymn_1.number - hymn_2.number).map(hymn => {
           return (
             <li className={style.admin__item} key={hymn._id}>
               <span className={style.admin__number}>{hymn.number} - </span>

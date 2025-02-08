@@ -1,4 +1,4 @@
-import { createRef, useEffect, useId, useRef } from 'react'
+import { createRef, FormEvent, useEffect, useId, useRef } from 'react'
 import style from './FormHymn.module.css'
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
@@ -8,21 +8,20 @@ import { balanceStr, handleTranslate } from '../../tools/workWithTextHymns'
 interface IFormHymnProps {
     hymn: IHymn,
     setHymn: (obj: IHymn) => void,
-    saveHymn: () => void,
+    saveHymn: (e: FormEvent<HTMLFormElement>) => void,
 }
 
 const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
     const idCol = useId()
     const idNum = useId()
     const refs: any = useRef(Object.keys(hymn.text_with_accords).map(() => createRef()))
-
-    const handleDeleteFragment = (key: string) => {
-        if (hymn) {
-            const state = hymn?.text_with_accords
-            delete state[key]
-            hymn && setHymn({ ...hymn, text_with_accords: { ...state } })
-        }
-    }
+    // const handleDeleteFragment = (key: string) => {
+    //     if (hymn) {++6
+    //         const state = hymn?.text_with_accords
+    //         delete state[key]
+    //         hymn && setHymn({ ...hymn, text_with_accords: { ...state } })
+    //     }
+    // }
 
     const generateAccords = () => {
         if (hymn.text_with_accords) {
@@ -75,7 +74,7 @@ const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
 
     }
     return (
-        <form className={style.formHymn__form} onSubmit={(e) => e.preventDefault()}>
+        <form className={style.formHymn__form} onSubmit={(e) => saveHymn(e)}>
             <div className={style.formHymn__inputContainer}>
                 <label htmlFor={idCol} className={style.formHymn__label}>Сборник</label>
                 <Input
@@ -110,12 +109,12 @@ const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
                             value={hymn.text_with_accords[key]}
                             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setHymn({ ...hymn, text_with_accords: { ...hymn.text_with_accords, [e.target.name]: e.target.value } })}
                         />
-                        <Button onClick={() => handleDeleteFragment(key)} children='Удалить' />
+                        {/* <Button onClick={() => handleDeleteFragment(key)} children='Удалить' /> */}
                     </div >
                 )
             })}
-            <Button children='Генерировать аккорды' onClick={generateAccords} />
-            <Button children='Сохранить' onClick={() => saveHymn()} />
+            <Button type='button' children='Генерировать аккорды' onClick={() => generateAccords()} />
+            <Button type='submit' children='Сохранить' />
 
         </form>
     )

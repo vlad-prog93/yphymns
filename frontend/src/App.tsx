@@ -37,7 +37,7 @@ import ButtonScroll from './components/ButtonScroll/ButtonScroll';
 import NewHymn from './pages/NewHymn/NewHymn';
 
 function App() {
-  const { ref, inView } = useInView({ rootMargin: '0px 0px' })
+  const [refView, inView] = useInView({ rootMargin: '0px 0px' })
 
   const { hymns, isLoading, error, favoriteHymns, foundedHymns, currentHymn, historyHymns, isShowAutoScroll } = useAppSelector(state => state.hymnReducer)
   const dispatch = useAppDispatch()
@@ -75,7 +75,7 @@ function App() {
             <Route path="*" element={<Navigate to="" replace />}
             />
           </Routes>
-          <div style={{ height: '1px' }} ref={ref} />
+          {currentHymn && <div style={{ height: '1px' }} ref={refView} />}
           <div className='App__footer'>
             {currentHymn && <Arrows />}
           </div>
