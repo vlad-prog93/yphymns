@@ -4,6 +4,7 @@
   flex: 1;
   gap: 10px;
   margin: 0 auto;
+  min-width: 80%;
 }
 
 .newHymn__link {
