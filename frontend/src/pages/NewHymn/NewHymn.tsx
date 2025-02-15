@@ -9,6 +9,7 @@ import Button from '../../components/UI/Button/Button'
 import FormHymn from '../../components/FormHymn/FormHymn'
 import { toCreateHymn } from '../../redux/reducers/ActionCreator'
 import { useAppDispatch } from '../../redux/hooks'
+import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 
 const NewHymn = () => {
   const [newHymn, setNewHymn] = useState<IHymn>()
@@ -42,6 +43,14 @@ const NewHymn = () => {
       hymn.text = deleteAccords(hymn.text_with_accords)
       if (!hymn.shortText) {
         hymn.shortText = hymn.text['1 verse']?.split('\n')[0] || 'Названия гимна пока что нет'
+      }
+      if (!hymn.collection) {
+        dispatch(hymnsSlice.actions.setError('Заполните поле "сборник"'))
+        return
+      }
+      if (!hymn.number) {
+        dispatch(hymnsSlice.actions.setError('Заполните поле "номер"'))
+        return
       }
 
       setNewHymn({ ...hymn })
