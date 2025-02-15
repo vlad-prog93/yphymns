@@ -40,7 +40,10 @@ const NewHymn = () => {
     if (newHymn) {
       const hymn: IHymn = { ...newHymn, text_with_accords: moveAccordsInText(newHymn.text_with_accords) }
       hymn.text = deleteAccords(hymn.text_with_accords)
-      hymn.shortText = hymn.text['1 verse'].split('\n')[0]
+      if (!hymn.shortText) {
+        hymn.shortText = hymn.text['1 verse']?.split('\n')[0] || 'Названия гимна пока что нет'
+      }
+
       setNewHymn({ ...hymn })
       toCreateHymn(dispatch, hymn)
       navigate('/admin')

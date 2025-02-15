@@ -17,6 +17,7 @@ interface IFormHymnProps {
 const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
     const idCol = useId()
     const idNum = useId()
+    const idShortText = useId()
     const refs: any = useRef(Object.keys(hymn.text_with_accords).map(() => createRef()))
     const dispatch = useAppDispatch()
     // const handleDeleteFragment = (key: string) => {
@@ -35,9 +36,9 @@ const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
             let TEXT_WITH_ACCORDS: { [key: string]: string } = {} // объект с куплетами и припевами
             let text_with_accords: string //куплет или припев
             const countRowsOfVersusWithAccords = hymn.text_with_accords['1 verse']
-                .split('\n').length
+                ?.split('\n').length || 0
             const countRowsOfChorusWithAccords = hymn.text_with_accords['1 chorus']
-                .split('\n').length
+                ?.split('\n').length || 0
 
             if (countRowsOfVersusWithAccords % 2 !== 0) {
                 dispatch(hymnsSlice.actions.setError('Ошибка! В 1 куплете. Не хватает строчки с аккордами или текстом'))
@@ -123,6 +124,15 @@ const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
                     type='text'
                     defaultValue={hymn?.number}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHymn({ ...hymn, number: Number(e.target.value) })}
+                />
+            </div>
+            <div className={style.formHymn__inputContainer}>
+                <label htmlFor={idNum} className={style.formHymn__label}>Название гимна</label>
+                <Input
+                    id={idShortText}
+                    type='text'
+                    defaultValue={hymn?.shortText}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setHymn({ ...hymn, shortText: e.target.value })}
                 />
             </div>
 
