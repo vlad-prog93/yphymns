@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '../../utils/routes'
 import style from './NewHymn.module.css'
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { IHymn } from '../../models/hymns'
 import Input from '../../components/UI/Input/Input'
 import { changeViewTextHymn, deleteAccords, handleTranslate, moveAccordsInText } from '../../tools/workWithTextHymns'
@@ -20,22 +20,23 @@ const NewHymn = () => {
 
   const AddVerse = () => {
     setQuantityVerse(prev => prev + 1)
-    newHymn && setNewHymn({ ...newHymn, collection: '', shortText: '', text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse + 1).toString() + ' verse']: '' } })
+    newHymn && setNewHymn({ ...newHymn, text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse + 1).toString() + ' verse']: '' } })
     !newHymn && setNewHymn({ number: 0, collection: '', shortText: '', text: { '': '' }, text_with_accords: { [(quantityVerse + 1).toString() + ' verse']: '' } })
   }
   const AddChorus = () => {
-    newHymn && setNewHymn({ ...newHymn, collection: '', shortText: '', text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' chorus']: '' } })
+    newHymn && setNewHymn({ ...newHymn, text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' chorus']: '' } })
     !newHymn && setNewHymn({ number: 0, collection: '', shortText: '', text: { '': '' }, text_with_accords: { [(quantityVerse).toString() + ' chorus']: '' } })
   }
   const AddBridge = () => {
     setQuantityBridge(prev => prev + 1)
-    newHymn && setNewHymn({ ...newHymn, collection: '', shortText: '', text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' verse ' + (quantityBridge).toString() + ' bridge']: '' } })
+    newHymn && setNewHymn({ ...newHymn, text: { '': '' }, text_with_accords: { ...newHymn.text_with_accords, [(quantityVerse).toString() + ' verse ' + (quantityBridge).toString() + ' bridge']: '' } })
     !newHymn && setNewHymn({ number: 0, collection: '', shortText: '', text: { '': '' }, text_with_accords: { [(quantityVerse).toString() + ' verse ' + (quantityBridge).toString() + ' bridge']: '' } })
   }
 
 
 
-  const saveHymn = () => {
+  const saveHymn = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     if (newHymn) {
       const hymn: IHymn = { ...newHymn, text_with_accords: moveAccordsInText(newHymn.text_with_accords) }
       hymn.text = deleteAccords(hymn.text_with_accords)
@@ -47,9 +48,9 @@ const NewHymn = () => {
     }
   }
 
-  useEffect(() => {
-    console.log(newHymn)
-  })
+  // useEffect(() => {
+  //   console.log(newHymn)
+  // })
 
   return (
     <section className={style.newHymn}>

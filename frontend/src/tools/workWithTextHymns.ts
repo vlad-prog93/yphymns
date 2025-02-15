@@ -67,10 +67,14 @@ export const changeViewTextHymn = (obj: { [key: string]: string }): { [key: stri
 
 export const moveAccordsInText = (obj: { [key: string]: string }): { [key: string]: string } => {
   const result = { ...obj }
+  try {
 
-  Object.keys(result).forEach((key, ind) => {
-    result[key] = accordsDown(result[key])
-  })
+    Object.keys(result).forEach((key, ind) => {
+      result[key] = accordsDown(result[key])
+    })
+  } catch (e) {
+    console.log(e)
+  }
 
   return result
 }

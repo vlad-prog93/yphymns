@@ -4,6 +4,9 @@ import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
 import { IHymn } from '../../models/hymns'
 import { balanceStr, handleTranslate } from '../../tools/workWithTextHymns'
+import { hymnsSlice } from '../../redux/reducers/HymnSlice'
+import { useAppDispatch } from '../../redux/hooks'
+import { translate } from '../../utils/const'
 
 interface IFormHymnProps {
     hymn: IHymn,
@@ -15,6 +18,7 @@ const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
     const idCol = useId()
     const idNum = useId()
     const refs: any = useRef(Object.keys(hymn.text_with_accords).map(() => createRef()))
+    const dispatch = useAppDispatch()
     // const handleDeleteFragment = (key: string) => {
     //     if (hymn) {++6
     //         const state = hymn?.text_with_accords
@@ -24,50 +28,78 @@ const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
     // }
 
     const generateAccords = () => {
+
         if (hymn.text_with_accords) {
             let arrAccordsVerse: string[] = []
             let arrAccordsChorus: string[] = []
-            let TEXT_WITH_ACCORDS: { [key: string]: string } = {}
+            let TEXT_WITH_ACCORDS: { [key: string]: string } = {} // объект с куплетами и припевами
+            let text_with_accords: string //куплет или припев
+            const countRowsOfVersusWithAccords = hymn.text_with_accords['1 verse']
+                .split('\n').length
+            const countRowsOfChorusWithAccords = hymn.text_with_accords['1 chorus']
+                .split('\n').length
 
+            if (countRowsOfVersusWithAccords % 2 !== 0) {
+                dispatch(hymnsSlice.actions.setError('Ошибка! В 1 куплете. Не хватает строчки с аккордами или текстом'))
+                return
+            }
+
+            if (countRowsOfChorusWithAccords % 2 !== 0) {
+                dispatch(hymnsSlice.actions.setError('Ошибка! В 1 припеве. Не хватает строчки с аккордами или текстом'))
+                return
+            }
+
+            // добавление аккордов с 1 куплета и 1 припева в массивы
             Object.keys(hymn.text_with_accords).forEach(key => {
+                const array_with_text = hymn.text_with_accords[key].split('\n')
+
+                if (key.endsWith(' verse') &&
+                    (array_with_text.length !== countRowsOfVersusWithAccords &&
+                        array_with_text.length !== (countRowsOfVersusWithAccords / 2))) {
+                    TEXT_WITH_ACCORDS[key] = hymn.text_with_accords[key]
+                    dispatch(hymnsSlice.actions.setError(`Ошибка! не хватает строчки или лишняя в: ${key}`))
+                    return
+                }
+
+                if (key.endsWith(' chorus') &&
+                    (array_with_text.length !== countRowsOfChorusWithAccords &&
+                        array_with_text.length !== (countRowsOfChorusWithAccords / 2))) {
+                    TEXT_WITH_ACCORDS[key] = hymn.text_with_accords[key]
+                    dispatch(hymnsSlice.actions.setError(`Ошибка! не хватает строчки или лишняя в: ${key}`))
+                    return
+                }
+
                 if (key === '1 verse') {
-                    TEXT_WITH_ACCORDS['1 verse'] = hymn.text_with_accords['1 verse']
-                    hymn.text_with_accords['1 verse']
-                        .split('\n')
-                        .forEach((el, ind) => ind % 2 === 0 && arrAccordsVerse.push(el))
+                    TEXT_WITH_ACCORDS[key] = hymn.text_with_accords[key]
+                    array_with_text.forEach((el, ind) => ind % 2 === 0 && arrAccordsVerse.push(el))
+                    return
                 }
                 if (key === '1 chorus') {
-                    TEXT_WITH_ACCORDS['1 chorus'] = hymn.text_with_accords['1 chorus']
-                    hymn.text_with_accords['1 chorus']
-                        .split('\n')
-                        .forEach((el, ind) => ind % 2 === 0 && arrAccordsChorus.push(el))
+                    TEXT_WITH_ACCORDS[key] = hymn.text_with_accords[key]
+                    array_with_text.forEach((el, ind) => ind % 2 === 0 && arrAccordsChorus.push(el))
+                    return
                 }
-            })
-
-            Object.keys(hymn.text_with_accords).forEach(key => {
                 if (key.endsWith(' verse')
-                    && key !== '1 verse'
-                    && hymn.text_with_accords[key].split('\n').length !== hymn.text_with_accords['1 verse'].split('\n').length) {
-                    const text_with_accords =
-                        hymn.text_with_accords[key]
-                            .split('\n')
-                            .map((el, ind) => arrAccordsVerse[ind] + '\n' + el)
-                            .join('\n')
+                    && array_with_text.length !== countRowsOfVersusWithAccords) {
+                    text_with_accords = array_with_text
+                        .map((el, ind) => arrAccordsVerse[ind] + '\n' + el)
+                        .join('\n')
                     TEXT_WITH_ACCORDS[key] = text_with_accords
+                    return
                 }
                 if (key.endsWith(' chorus')
-                    && key !== '1 chorus'
-                    && hymn.text_with_accords[key].split('\n').length !== hymn.text_with_accords['1 chorus'].split('\n').length) {
-                    const text_with_accords =
-                        hymn.text_with_accords[key]
-                            .split('\n')
-                            .map((el, ind) => arrAccordsChorus[ind] + '\n' + el)
-                            .join('\n')
+                    && hymn.text_with_accords[key].split('\n').length !== countRowsOfChorusWithAccords) {
+                    text_with_accords = array_with_text
+                        .map((el, ind) => arrAccordsChorus[ind] + '\n' + el)
+                        .join('\n')
                     TEXT_WITH_ACCORDS[key] = text_with_accords
+                    return
                 }
+                TEXT_WITH_ACCORDS[key] = hymn.text_with_accords[key]
+
             })
 
-            setHymn({ ...hymn, text_with_accords: { ...TEXT_WITH_ACCORDS } })
+            Object.keys(TEXT_WITH_ACCORDS).length && setHymn({ ...hymn, text_with_accords: { ...TEXT_WITH_ACCORDS } })
         }
 
 

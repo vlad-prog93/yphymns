@@ -1,7 +1,7 @@
 .buttonContainer {
   position: fixed;
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   z-index: 10;
 
   display: flex;
