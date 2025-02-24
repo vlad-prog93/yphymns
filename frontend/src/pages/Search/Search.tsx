@@ -92,7 +92,9 @@ const Search = () => {
           value={inputNumber ?? ''}
           onChange={(onChangeInputNumber)}
           type="number"
-          placeholder='Поиск по номеру' />
+          placeholder='Поиск по номеру'
+          autoFocus={true}
+        />
         <Input
           value={inputText}
           onChange={onChangeInputText}
