@@ -62,32 +62,22 @@ const Hymn = () => {
       <h3 className={style.hymn__title}>{currentHymn?.collection}</h3>
       {!isTextWithAccord
         ?
-        currentHymn && Object.keys(currentHymn.text).map((key) => {
-          if (key.endsWith(' verse')) {
+        <p key={v4()} className={style.hymn__textContainer}>
+          {currentHymn && Object.keys(currentHymn.text).map((key) => {
+            const spacesBeforeText = key.endsWith(' verse') ? '' : '   ' // это чтобы в тексте различать куплет от припева или перехода
             return (
-              <p key={v4()} className={style.hymn__textContainer}>
+              <>
                 <pre style={{ fontSize: context.fontSizeText + 'px', margin: 0 }} className={style.hymn__text}>
-                  {key.replace(/ verse/g, '. ')}
+                  {key.endsWith(' verse') ? key.replace(/ verse/g, '.') : ''}
                 </pre>
                 <pre
                   className={style.hymn__text}
                   style={{ fontSize: context.fontSizeText + 'px', color: context.colorText }}>
-                  {currentHymn.text[key].replace(/\n/g, '\n')}
+                  {spacesBeforeText + currentHymn.text[key].replace(/\n/g, `\n${spacesBeforeText}`)}
                 </pre>
-              </p>)
-          } else {
-            return (
-              <p key={v4()} className={style.hymn__textContainer}>
-                <pre>{'   '}</pre>
-                <pre
-                  className={style.hymn__text}
-                  style={{ fontSize: context.fontSizeText + 'px', color: context.colorText }}>
-                  {currentHymn.text[key].replace(/\n/g, '\n')}
-                </pre>
-              </p>
-            )
-          }
-        })
+              </>)
+          })}
+        </p>
         :
         currentHymn && Object.keys(currentHymn.text_with_accords).map((key) => {
           const text = key.endsWith(' verse') ? key.replace(/ verse/g, '. ') + currentHymn.text_with_accords[key] : '   ' + currentHymn.text_with_accords[key]
