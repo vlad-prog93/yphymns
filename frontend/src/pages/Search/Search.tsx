@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 // стили
@@ -23,6 +23,7 @@ const Search = () => {
   const { hymns } = useAppSelector(state => state.hymnReducer)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const inputNumberRef = useRef<HTMLInputElement>(null);
 
   const [inputNumber, setInputNumber] = useState<number | null>(null)
   const [inputText, setInputText] = useState<string>('')
@@ -84,6 +85,9 @@ const Search = () => {
     dispatch(hymnsSlice.actions.deleteCurrentHymn())
   }, [dispatch])
 
+  useEffect(() => {
+    inputNumberRef?.current?.focus()
+  }, [])
 
   return (
     <div className={style.search}>
@@ -93,7 +97,7 @@ const Search = () => {
           onChange={(onChangeInputNumber)}
           type="number"
           placeholder='Поиск по номеру'
-          autoFocus={true}
+          ref={inputNumberRef}
         />
         <Input
           value={inputText}
