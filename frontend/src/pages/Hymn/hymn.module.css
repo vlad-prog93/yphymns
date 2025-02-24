@@ -19,14 +19,16 @@
 }
 
 .hymn__text {
-  font-size: 10px;
+  font-size: 15px;
   text-wrap: wrap;
+  font-family: Roboto;
 }
 
 .hymn__str_text {
-  line-height: 40px;
+  line-height: 50px;
   font-size: var(--font-size-text);
   text-wrap: wrap;
+  font-family: Roboto;
 }
 
 .hymn__str_accord {
@@ -34,9 +36,10 @@
   position: absolute;
   transform: translate(-8px, -20px);
   font-size: var(--font-size-text);
-  font-weight: 700;
   color: rgb(241, 196, 15);
   text-wrap: wrap;
+  font-family: Roboto;
+  font-weight: 500;
 }
 
 .hymn__numberText {
