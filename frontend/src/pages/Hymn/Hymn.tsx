@@ -59,7 +59,18 @@ const Hymn = () => {
 
   return (
     <div ref={refScroll} className={style.hymn}>
-      <h3 className={style.hymn__title}>{currentHymn?.collection}</h3>
+      <h3
+        style={{ fontSize: (1.2 * Number(context.fontSizeText)).toString() + 'px' }}
+        className={style.hymn__title}
+      >
+        Сборник:
+      </h3>
+      <h3
+        style={{ fontSize: (1.2 * Number(context.fontSizeText)).toString() + 'px' }}
+        className={style.hymn__title}
+      >
+        {currentHymn?.collection}
+      </h3>
       {!isTextWithAccord
         ?
         <p key={v4()} className={style.hymn__textContainer}>
