@@ -1,12 +1,15 @@
+import { forwardRef } from 'react'
+
 import style from './Input.module.css'
 
 
-const Input = (props: any) => {
+const Input = forwardRef((props: any, ref) => {
   return (
     <input
       className={style.input}
-      {...props} />
+      {...props}
+      ref={ref} />
   )
-}
+})
 
 export default Input
