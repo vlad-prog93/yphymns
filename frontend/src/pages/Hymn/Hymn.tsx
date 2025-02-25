@@ -73,7 +73,7 @@ const Hymn = () => {
       </h3>
       {!isTextWithAccord
         ?
-        <p key={v4()} className={style.hymn__textContainer}>
+        <p className={style.hymn__textContainer}>
           {currentHymn && Object.keys(currentHymn.text).map((key) => {
             const spacesBeforeText = key.endsWith(' verse') ? '0px' : '10px' // это чтобы в тексте различать куплет от припева или перехода
             return (
@@ -88,30 +88,32 @@ const Hymn = () => {
                   className={style.hymn__text}
                   style={{ fontSize: context.fontSizeText + 'px', color: context.colorText, paddingLeft: spacesBeforeText }}
                 >
-                  {currentHymn.text[key].replace(/\n/g, `\n`)}
+                  {currentHymn.text[key]}
                 </pre>
               </>)
           })}
         </p>
         :
-        currentHymn && Object.keys(currentHymn.text_with_accords).map((key) => {
-          const text = key.endsWith(' verse') ? key.replace(/ verse/g, '. ') + currentHymn.text_with_accords[key] : '   ' + currentHymn.text_with_accords[key]
-          return (
-            <p key={v4()} className={style.hymn__textContainer}>
-              <pre style={{ fontSize: context.fontSizeText + 'px', margin: 0 }} className={style.hymn__str_text}>
-                {text.slice(0, 3)}
-              </pre>
-              <pre
-                className={style.hymn__str_text}
-                style={{ fontSize: context.fontSizeText + 'px', color: context.colorText }}
-                dangerouslySetInnerHTML={{
-                  __html: text.slice(3).replace(/{[^\}]*\}/g, (v): any => {
-                    return `<span class=${style.hymn__str_accord} style="font-size:${context.fontSizeAccord + 'px'}; color: ${context.colorAccord}" >${v.slice(1, v.length - 1)}</span>`
-                  }).replace(/\n/g, '    \n')
-                }} />
-            </p>
-          )
-        })
+        <p className={style.hymn__textContainer}>
+          {currentHymn && Object.keys(currentHymn.text_with_accords).map((key) => {
+            const spacesBeforeText = key.endsWith(' verse') ? '0px' : '13px' // это чтобы в тексте различать куплет от припева или перехода
+            return (
+              <>
+                <pre style={{ fontSize: context.fontSizeText + 'px', margin: 0 }} className={style.hymn__str_text}>
+                  {key.endsWith(' verse') ? key.replace(/ verse/g, '.') : ''}
+                </pre>
+                <pre
+                  className={style.hymn__str_text}
+                  style={{ fontSize: context.fontSizeText + 'px', color: context.colorText, paddingLeft: spacesBeforeText }}
+                  dangerouslySetInnerHTML={{
+                    __html: currentHymn.text_with_accords[key].replace(/{[^\}]*\}/g, (v): any => {
+                      return `<span class=${style.hymn__str_accord} style="font-size:${context.fontSizeAccord + 'px'}; color: ${context.colorAccord}" >${v.slice(1, v.length - 1)}</span>`
+                    })
+                  }} />
+              </>
+            )
+          })}
+        </p>
       }
     </div >
   )
