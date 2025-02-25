@@ -2,8 +2,8 @@ import React from "react";
 import { ISettingsFont } from '../models/settingsFont'
 
 export const stateSettingsFont: ISettingsFont = {
-  fontSizeText: '14',
-  fontSizeAccord: '14',
+  fontSizeText: '18',
+  fontSizeAccord: '18',
 
   colorText: '#000000',
   colorAccord: '#000000',

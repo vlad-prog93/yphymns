@@ -32,7 +32,7 @@ const Settings = () => {
           value={context.fontSizeText}
           onChange={(e) => handleChangeFontSetting(e)}
           type="range"
-          min="10"
+          min="14"
           max="24" />
       </div>
 
@@ -62,7 +62,7 @@ const Settings = () => {
           value={context.fontSizeAccord}
           onChange={(e) => handleChangeFontSetting(e)}
           type="range"
-          min="10"
+          min="14"
           max="24" />
       </div>
 
