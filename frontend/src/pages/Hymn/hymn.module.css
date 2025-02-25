@@ -18,7 +18,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 20px 8px;
-  padding: 0 5px;
+  padding: 0 15px 0 5px;
   margin-top: 20px;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .hymn__str_text {
-  line-height: 50px;
+  line-height: 60px;
   font-size: var(--font-size-text);
   text-wrap: wrap;
   font-family: Roboto;
@@ -38,9 +38,9 @@
 .hymn__str_accord {
   margin: 0;
   position: absolute;
-  transform: translate(-8px, -20px);
+  transform: translate(-10px, -25px);
   font-size: var(--font-size-text);
-  color: rgb(241, 196, 15);
+  /* color: rgb(241, 196, 15); */
   text-wrap: wrap;
   font-family: Roboto;
   font-weight: 500;
