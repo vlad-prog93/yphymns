@@ -75,16 +75,20 @@ const Hymn = () => {
         ?
         <p key={v4()} className={style.hymn__textContainer}>
           {currentHymn && Object.keys(currentHymn.text).map((key) => {
-            const spacesBeforeText = key.endsWith(' verse') ? '' : '   ' // это чтобы в тексте различать куплет от припева или перехода
+            const spacesBeforeText = key.endsWith(' verse') ? '0px' : '10px' // это чтобы в тексте различать куплет от припева или перехода
             return (
               <>
-                <pre style={{ fontSize: context.fontSizeText + 'px', margin: 0 }} className={style.hymn__text}>
+                <pre
+                  style={{ fontSize: context.fontSizeText + 'px', margin: 0 }}
+                  className={style.hymn__text}
+                >
                   {key.endsWith(' verse') ? key.replace(/ verse/g, '.') : ''}
                 </pre>
                 <pre
                   className={style.hymn__text}
-                  style={{ fontSize: context.fontSizeText + 'px', color: context.colorText }}>
-                  {spacesBeforeText + currentHymn.text[key].replace(/\n/g, `\n${spacesBeforeText}`)}
+                  style={{ fontSize: context.fontSizeText + 'px', color: context.colorText, paddingLeft: spacesBeforeText }}
+                >
+                  {currentHymn.text[key].replace(/\n/g, `\n`)}
                 </pre>
               </>)
           })}
