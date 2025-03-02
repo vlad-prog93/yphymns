@@ -1,3 +1,16 @@
+.hymnList__selectTitle {
+  padding-left: 15px;
+}
+
+.hymnList__select {
+  margin: 0 auto 0 10px;
+  padding: 0 5px;
+  /* appearance: none; */
+  padding: 4px;
+  border-color: #aaa;
+  border-radius: 3px;
+}
+
 .hymnList__list {
 
   margin: 0 auto;
@@ -17,6 +30,8 @@
   margin: 0;
   text-align: center;
   padding: 20px 0;
+  font-weight: 500;
+  font-family: 'Roboto';
 }
 
 .hymnList__Item {

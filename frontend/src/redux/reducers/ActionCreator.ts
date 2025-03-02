@@ -10,7 +10,7 @@ export const toFetchHymns = async (dispatch: AppDispatch) => {
     dispatch(hymnsSlice.actions.hymnsFetching())
     const { data } = await axios.get<IHymn[], any>(`${IP_SERVER}/api/hymns`)
     dispatch(hymnsSlice.actions.hymnsFetchingSuccess(data))
-    dispatch(hymnsSlice.actions.sortHymns())
+    // dispatch(hymnsSlice.actions.sortHymns())
 
   } catch (error) {
     console.log(error)

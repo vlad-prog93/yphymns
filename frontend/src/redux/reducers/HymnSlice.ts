@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
 import { IHistoryHymn, IHymn, IHymnText } from "../../models/hymns";
 import { deleteFavoriteHymnLS, deleteHistoryHymnLS, getHistoryHymnsLS, setFavoriteHymnLS, setHistoryHymnLS } from "../../tools/storage";
 
@@ -43,7 +43,7 @@ export const hymnsSlice = createSlice({
     hymnsFetchingSuccess(state, action: PayloadAction<IHymn[]>) {
       state.isLoading = false
       state.error = null
-      state.hymns = action.payload
+      state.hymns = [...action.payload.toSorted((a, b) => a.number - b.number)]
     },
 
     hymnsFetchingError(state, action: PayloadAction<any>) {
@@ -108,6 +108,8 @@ export const hymnsSlice = createSlice({
     },
 
     nextHymn(state) {
+      const current_state = current(state)
+      console.log(current_state)
       if (state.currentHymn) {
         const ind = state.hymns.length === state.currentHymn.number ? 1 : state.currentHymn.number + 1
         state.currentHymn = state.hymns.find(hymn => hymn.number === ind) || null
