@@ -40,25 +40,35 @@
   transition: border .3 ease-in;
 }
 
+.hymnList__Item_head {
+  display: grid;
+  grid-template-columns: 35% auto 25px;
+  width: 100%;
+}
+
 .hymnList__link {
   text-decoration: none;
   cursor: pointer;
   font-size: 16px;
   color: black;
-  transition: color .3;
 
   display: grid;
   grid-template-columns: 35% auto 25px;
   width: 100%;
-  /* display: flex;
-  justify-content: space-between; */
   transition: color .3 ease-in;
 }
 
-.hymnList__link span:last-of-type {
+.hymnList__link span:last-of-type,
+.hymnList__Item_head span:last-of-type {
   text-align: right;
 }
 
 .hymnList__link:hover {
   color: rgb(241, 196, 15);
+}
+
+.hymnList__info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

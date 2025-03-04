@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 // стили
 import style from './hymnList.module.css'
@@ -26,6 +26,7 @@ const HymnList = ({ list, isLoading, title }: IHymnListProps) => {
   const [selectSort, setSelectSort] = useState<string>('номер')
 
   const dispatch = useAppDispatch()
+  const location = useLocation()
 
   return (
     <div className={style.hymnList}>
@@ -35,37 +36,72 @@ const HymnList = ({ list, isLoading, title }: IHymnListProps) => {
         'Идет загрузка...'
         :
         <div>
-          <label className={style.hymnList__selectTitle}>Сортировать по:
-            <select
-              value={selectSort}
-              className={style.hymnList__select}
-              name='selectSort'
-              onChange={e => setSelectSort(e.target.value)}>
-              <option value="номер">номер</option>
-              <option value="название">название</option>
-              <option value="сборник">сборник</option>
-            </select>
-          </label>
+          {
+            location.pathname !== ROUTES.foundedHymns
+            &&
+            list.length !== 0
+            &&
+            <label className={style.hymnList__selectTitle}>Сортировать по:
+              <select
+                value={selectSort}
+                className={style.hymnList__select}
+                name='selectSort'
+                onChange={e => setSelectSort(e.target.value)}>
+                <option value="номер">номер</option>
+                <option value="название">название</option>
+                <option value="сборник">сборник</option>
+              </select>
+            </label>
+          }
 
           <ul className={style.hymnList__list}>
-            {list.toSorted((a, b) => {
-              if (selectSort === 'номер') {
-                return a.number - b.number
-              }
-              if (selectSort === 'название') {
-                return a.shortText.localeCompare(b.shortText)
-              }
-              if (selectSort === 'сборник') {
-                return a.collection.localeCompare(b.collection)
-              }
-              return -1
-            }).map(hymn => {
-              return <li key={hymn._id} className={style.hymnList__Item}>
-                <Link className={style.hymnList__link} onClick={() => dispatch(hymnsSlice.actions.setCurrentHymn(hymn))} to={ROUTES.home + ROUTES.hymns + '/' + hymn._id}>
-                  <span>{hymn.collection}:</span><span>{hymn.shortText}</span><span>{hymn.number}</span>
-                </Link>
-              </li>
-            })}
+
+            {list.length !== 0
+              &&
+              <li className={style.hymnList__Item}>
+                <div className={style.hymnList__Item_head}>
+                  <span>Сборник</span>
+                  <span>Название</span>
+                  <span>№</span>
+                </div>
+              </li>}
+
+            {
+              list.length !== 0
+                ?
+                list.toSorted((a, b) => {
+                  if (selectSort === 'номер') {
+                    return a.number - b.number
+                  }
+                  if (selectSort === 'название') {
+                    return a.shortText.localeCompare(b.shortText)
+                  }
+                  if (selectSort === 'сборник') {
+                    return a.collection.localeCompare(b.collection)
+                  }
+                  return -1
+                }).map(hymn => {
+                  return <li key={hymn._id} className={style.hymnList__Item}>
+                    <Link
+                      className={style.hymnList__link}
+                      onClick={() => dispatch(hymnsSlice.actions.setCurrentHymn(hymn))}
+                      to={ROUTES.home + ROUTES.hymns + '/' + hymn._id}
+                    >
+                      <span>
+                        {hymn.collection}:
+                      </span>
+                      <span>
+                        {hymn.shortText}
+                      </span>
+                      <span>
+                        {hymn.number}
+                      </span>
+                    </Link>
+                  </li>
+                })
+                :
+                <p className={style.hymnList__info}>Не найдено</p>
+            }
           </ul>
         </div>
       }
