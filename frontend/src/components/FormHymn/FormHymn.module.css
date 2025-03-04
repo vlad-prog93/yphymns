@@ -10,8 +10,17 @@
 }
 
 .formHymn__textarea {
+    padding: 16px 23px;
     font-family: monospace;
+    letter-spacing: 0.15em;
     white-space-collapse: pre-wrap;
     white-space: pre-wrap;
-    font-size: 20px;
+    font-size: 30px;
+    line-height: 30px;
+
+    background:
+        repeating-linear-gradient(transparent, transparent 20px, yellowgreen 21px),
+        repeating-linear-gradient(90deg,
+            transparent, transparent 20px, yellowgreen 21px);
+
 }

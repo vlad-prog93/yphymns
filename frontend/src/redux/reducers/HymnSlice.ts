@@ -101,18 +101,34 @@ export const hymnsSlice = createSlice({
 
     //перелистывание гимнов
     prevHymn(state) {
+      let index = 0
       if (state.currentHymn) {
-        const ind = state.currentHymn.number === 1 ? state.hymns.length : state.currentHymn.number - 1
-        state.currentHymn = state.hymns.find(hymn => hymn.number === ind) || null
+        state.hymns.forEach((hymn, ind) => {
+          if (hymn._id === state.currentHymn?._id) {
+            index = ind
+          }
+        })
+      }
+      if (index === 0) {
+        state.currentHymn = state.hymns[state.hymns.length - 1]
+      } else {
+        state.currentHymn = state.hymns[index - 1]
       }
     },
 
     nextHymn(state) {
-      const current_state = current(state)
-      console.log(current_state)
+      let index = 0
       if (state.currentHymn) {
-        const ind = state.hymns.length === state.currentHymn.number ? 1 : state.currentHymn.number + 1
-        state.currentHymn = state.hymns.find(hymn => hymn.number === ind) || null
+        state.hymns.forEach((hymn, ind) => {
+          if (hymn._id === state.currentHymn?._id) {
+            index = ind
+          }
+        })
+      }
+      if (index === state.hymns.length - 1) {
+        state.currentHymn = state.hymns[0]
+      } else {
+        state.currentHymn = state.hymns[index + 1]
       }
     },
 
