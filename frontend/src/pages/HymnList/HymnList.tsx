@@ -37,7 +37,7 @@ const HymnList = ({ list, isLoading, title }: IHymnListProps) => {
         :
         <div>
           {
-            location.pathname !== ROUTES.foundedHymns
+            location.pathname === ROUTES.sortedHymns
             &&
             list.length !== 0
             &&
