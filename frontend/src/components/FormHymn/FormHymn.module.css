@@ -24,3 +24,11 @@
             transparent, transparent 20px, yellowgreen 21px);
 
 }
+
+@media screen and (max-width: 550px) {
+    .formHymn__textarea {
+        font-size: 14px;
+        line-height: 14px;
+    }
+
+}

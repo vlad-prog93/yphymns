@@ -44,7 +44,7 @@ const Admin = () => {
       <div className={style.admin__buttonContainer}>
         <Link className={style.admin__link} to={ROUTES.admin + ROUTES.hymns + ROUTES.newHymn} children='Создать гимн' />
         <button className={style.admin__link} onClick={toDownloadFileWithHymns} children='Скачать файл из БД' />
-        <form ref={uploadRef}>
+        <form className={style.admin__form} ref={uploadRef}>
           <label className={style.input__file}>
             <input type="file" name="file" onChange={(e) => uploadFile(e)} />
             <span>Загрузить файл в БД</span>
