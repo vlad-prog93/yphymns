@@ -27,8 +27,9 @@
 
 @media screen and (max-width: 550px) {
     .formHymn__textarea {
-        font-size: 14px;
-        line-height: 14px;
+        padding: 5px 5px;
+        font-size: 10px;
+        line-height: 10px;
     }
 
 }
