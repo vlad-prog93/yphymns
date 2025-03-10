@@ -41,7 +41,7 @@ const ButtonScroll = ({ alreadyBottom }: { alreadyBottom: boolean }) => {
 
   const runScroll = () => {
     dispatch(hymnsSlice.actions.onScroll())
-    setSpeedScroll(prev => prev === 3 ? 1 : ++prev)
+    setSpeedScroll(prev => prev === SPEED_CONFIG.length ? 1 : ++prev)
   }
 
   useEffect(() => {
@@ -61,11 +61,12 @@ const ButtonScroll = ({ alreadyBottom }: { alreadyBottom: boolean }) => {
       <MyButton onClick={() => dispatch(hymnsSlice.actions.offScroll())}>
         <img src={icon_stop} alt="stop" />
       </MyButton>
+      <span className={style.speedScroll}>{speedScroll}</span>
       <MyButton onClick={runScroll}>
-        {speedScroll === 0 && <img src={icon_run_0} alt="run" />}
-        {speedScroll === 1 && <img src={icon_run_1} alt="run-1" />}
+        {(speedScroll === 0 || speedScroll) && <img src={icon_run_0} alt="run" />}
+        {/* {speedScroll === 1 && <img src={icon_run_1} alt="run-1" />}
         {speedScroll === 2 && <img src={icon_run_2} alt="run-2" />}
-        {speedScroll === 3 && <img src={icon_run_3} alt="run-3" />}
+        {speedScroll === 3 && <img src={icon_run_3} alt="run-3" />} */}
       </MyButton>
     </div>
   )
