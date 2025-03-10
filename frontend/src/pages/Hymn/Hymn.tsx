@@ -106,8 +106,8 @@ const Hymn = () => {
                   className={style.hymn__str_text}
                   style={{ fontSize: context.fontSizeText + 'px', color: context.colorText, paddingLeft: spacesBeforeText }}
                   dangerouslySetInnerHTML={{
-                    __html: currentHymn.text_with_accords[key].replace(/{[^\}]*\}/g, (v): any => {
-                      return `<span class=${style.hymn__str_accord} style="font-size:${context.fontSizeAccord + 'px'}; color: ${context.colorAccord}" >${v.slice(1, v.length - 1)}</span>`
+                    __html: currentHymn.text_with_accords[key].replace(/\[(.+?)\]/g, (v): any => {
+                      return `<span class=${style.hymn__str_textAccord}>${v.slice(1, v.length - 1).replace(/\{(.+?)\}/g, (w): any => { return `<span style={{fontSize: ${context.fontSizeAccord}+'px', color: ${context.colorAccord}}} class=${style.hymn__str_accord}>${w.slice(1, w.length - 1)}</span>` })}</span >`
                     })
                   }} />
               </>

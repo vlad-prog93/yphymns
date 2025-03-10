@@ -35,13 +35,18 @@
   font-family: Roboto;
 }
 
+.hymn__str_textAccord {
+  position: relative;
+  text-wrap: nowrap;
+}
+
 .hymn__str_accord {
   margin: 0;
   position: absolute;
   transform: translate(-10px, -25px);
   font-size: var(--font-size-text);
   /* color: rgb(241, 196, 15); */
-  text-wrap: wrap;
+  text-wrap: nowrap;
   font-family: Roboto;
   font-weight: 500;
 }
