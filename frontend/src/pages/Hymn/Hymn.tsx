@@ -73,7 +73,7 @@ const Hymn = () => {
       </h3>
       {!isTextWithAccord
         ?
-        <p className={style.hymn__textContainer}>
+        <p className={style.hymn__text_container}>
           {currentHymn && Object.keys(currentHymn.text).map((key) => {
             const spacesBeforeText = key.endsWith(' verse') ? '0px' : '10px' // это чтобы в тексте различать куплет от припева или перехода
             return (
@@ -94,21 +94,33 @@ const Hymn = () => {
           })}
         </p>
         :
-        <p className={style.hymn__textContainer}>
+        <p className={style.hymn__text_container}>
           {currentHymn && Object.keys(currentHymn.text_with_accords).map((key) => {
             const spacesBeforeText = key.endsWith(' verse') ? '0px' : '13px' // это чтобы в тексте различать куплет от припева или перехода
             return (
               <>
-                <pre style={{ fontSize: context.fontSizeText + 'px', margin: 0 }} className={style.hymn__str_text}>
+                <pre
+                  style={{ fontSize: context.fontSizeText + 'px', margin: 0 }}
+                  className={style.hymn__text_with_accords}
+                >
                   {key.endsWith(' verse') ? key.replace(/ verse/g, '.') : ''}
                 </pre>
                 <pre
-                  className={style.hymn__str_text}
+                  className={style.hymn__text_with_accords}
                   style={{ fontSize: context.fontSizeText + 'px', color: context.colorText, paddingLeft: spacesBeforeText }}
                   dangerouslySetInnerHTML={{
-                    __html: currentHymn.text_with_accords[key].replace(/\[(.+?)\]/g, (v): any => {
-                      return `<span class=${style.hymn__str_textAccord}>${v.slice(1, v.length - 1).replace(/\{(.+?)\}/g, (w): any => { return `<span style={{fontSize: ${context.fontSizeAccord}+'px', color: ${context.colorAccord}}} class=${style.hymn__str_accord}>${w.slice(1, w.length - 1)}</span>` })}</span >`
-                    })
+                    __html: currentHymn.text_with_accords[key]
+                      .replace(/\[(.+?)\]/g, (v): any => {
+                        return `<span 
+                        class=${style.hymn__word_with_accord}>${v.slice(1, v.length - 1)
+                            .replace(/\{(.+?)\}/g, (w): any => {
+                              return `<button 
+                              style="font-size: ${context.fontSizeAccord + 'px'}; 
+                                   color: ${context.colorAccord}; 
+                                   transform: translate(calc(-0.6 * ${context.fontSizeAccord}px - 0.4px), calc(-1.75 * ${context.fontSizeAccord}px + 29.5px))" 
+                              class=${style.hymn__accord}>${w.slice(1, w.length - 1)}</button>`
+                            })}</span >`
+                      })
                   }} />
               </>
             )

@@ -12,7 +12,7 @@ export const changeViewTextHymn = (obj: { [key: string]: string }): { [key: stri
       let shift = 0
       let text_accords = []
       const obj: any = {}
-      let text_without_accords = str
+      let text_without_accords = str.replace(/\[/g, '').replace(/\]/g, '')
       while (text_without_accords.match(/{[^\}]*\}/)) {
         text_without_accords = text_without_accords.replace(/{[^\}]*\}/, (match: string) => {
           const a = match.replace(/{/, '').replace(/}/, '')
@@ -83,9 +83,8 @@ export const moveAccordsInText = (obj: { [key: string]: string }): { [key: strin
 export const deleteAccords = (obj: { [key: string]: string }): { [key: string]: string } => {
   const result = { ...obj }
   Object.keys(result).forEach((key) => {
-    result[key] = result[key].replace(/{[^\}]*\}/g, '')
+    result[key] = result[key].replace(/{[^\}]*\}/g, '').replace(/\[/g, '').replace(/\]/g, '')
   })
-  console.log(result)
   return result
 }
 
@@ -124,45 +123,6 @@ export const balanceStr = (text: string) => {
   })
 
   return arr_from_text.join('\n')
-}
-
-// AccordUP   ---- аккорды поднять наверх      --- дано: СТРОКА: "Бог{G} мудро{C} являет"           нужно получить строку: "   G       C\nБог мудро являет"
-export const accordUP = (text: string): string => {
-
-  // 1 часть результата
-  let text_with_accord: string
-
-  // 2 часть результата
-  let text_without_accord: string
-
-  let shift = 0  // смещение аккорда
-
-  const index_and_accord: { [key: number]: string } = {} // {2: G} , где 2 - индекс на котором находится аккорд, G - сам аккорд
-
-  text_without_accord = text // сейчас цикл while будет убирать поочередно аккорды и результат №2 получим
-  while (text_without_accord.match(/{[^\}]*\}/)) {
-    text_without_accord = text_without_accord.replace(/{[^\}]*\}/, (match: string) => {
-      const accord = match.replace(/{/, '').replace(/}/, '') // пример: G, F, F#m
-      index_and_accord[text_without_accord.indexOf(match) - 1 - shift] = accord
-      shift = shift + accord.length - 1
-      return ''
-    })
-  }
-
-  // получение результата №1
-  const arr_with_accord_and_undefined: string[] | undefined[] = []
-  for (let key in index_and_accord) {
-    arr_with_accord_and_undefined[Number(key)] = index_and_accord[key]
-  }
-
-  // функцию map нельзя использовать для обхода по пустым слотам, поэтому "for of"
-  let arr_with_accord_and_string: string[] = []
-  for (let i of arr_with_accord_and_undefined) {
-    !i ? arr_with_accord_and_string.push(' ') : arr_with_accord_and_string.push(i)
-  }
-  text_with_accord = arr_with_accord_and_string.join('') + '\n'  // результат №2
-
-  return text_with_accord + text_without_accord
 }
 
 // спускает аккорды вниз. работает с двумя строчками (в этой функции содержится сама логика спускания)
@@ -221,6 +181,10 @@ const accordsDown = (verse: string) => {
       result.push(zipper(arr_verse[index], arr_verse[index + 1]))
     }
   })
-
-  return result.join('\n')
+  return result.join(' \n ').split(' ').map((el) => {
+    if (el.includes('{')) {
+      return `[${el}]`
+    }
+    return el
+  }).join(' ').replace(/ \n /g, '\n')
 }
