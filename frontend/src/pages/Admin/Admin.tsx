@@ -5,8 +5,7 @@ import { toDeleteHymn, toDownloadFileWithHymns, toFetchHymns, toUploadFile } fro
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '../../utils/routes'
-import Button from '../../components/UI/Button/Button'
-import { useEffect, useId, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 
 const Admin = () => {
