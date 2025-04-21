@@ -3,6 +3,7 @@ import { IHymn } from "../../models/hymns"
 import { hymnsSlice } from "./HymnSlice"
 import axios from "axios"
 import { IP_SERVER } from "../../utils/const"
+import { useNavigate, useParams } from "react-router-dom"
 
 
 export const toFetchHymns = async (dispatch: AppDispatch) => {
@@ -74,4 +75,14 @@ export const toUploadFile = async (file: any) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+export const toFetchHymn = async (dispatch: AppDispatch, id: string) => {
+  dispatch(hymnsSlice.actions.hymnFetching())
+  const { data } = await axios.get<IHymn, any>(`${IP_SERVER}/api/hymns/${id}`)
+  if (!data) {
+    throw new Error('Гимн не найден')
+  }
+  dispatch(hymnsSlice.actions.hymnFetchingSuccess(data))
+  dispatch(hymnsSlice.actions.setCurrentHymn(data))
 }

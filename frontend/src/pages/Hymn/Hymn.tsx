@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 // стили
 import style from './hymn.module.css'
@@ -11,9 +11,11 @@ import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 // utils
 import { v4 } from 'uuid'
 import { contextSettingsFont } from '../../context/settingsSize'
+import { toFetchHymn } from '../../redux/reducers/ActionCreator'
 
 
 const Hymn = () => {
+  const params = useParams<{ id: string }>()
   const { currentHymn, isTextWithAccord } = useAppSelector(state => state.hymnReducer)
   const dispatch = useAppDispatch()
   const context = useContext(contextSettingsFont)
@@ -22,7 +24,14 @@ const Hymn = () => {
   const refScroll = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    !currentHymn && navigate('/')
+    const fetchHymn = async () => {
+      try {
+        params?.id && !currentHymn && await toFetchHymn(dispatch, params.id)
+      } catch (e) {
+        navigate('/')
+      }
+    }
+    fetchHymn()
   }, [currentHymn, navigate])
 
   useEffect(() => {
