@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { HymnsModule } from './hymns/hymns.module';
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from "@nestjs/config";
+import { CollectionsModule } from "src/collections/collections.module";
 //import configuration from "./config/configuration";
 
 @Module({
@@ -17,6 +18,7 @@ import { ConfigModule } from "@nestjs/config";
         pass: process.env.MONGODB_PASS || ''
       }),
     HymnsModule,
+    CollectionsModule
   ],
 })
 export class AppModule { }
