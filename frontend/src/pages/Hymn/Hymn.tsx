@@ -9,7 +9,6 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 
 // utils
-import { v4 } from 'uuid'
 import { contextSettingsFont } from '../../context/settingsSize'
 import { toFetchHymn } from '../../redux/reducers/ActionCreator'
 
@@ -32,7 +31,7 @@ const Hymn = () => {
       }
     }
     fetchHymn()
-  }, [currentHymn, navigate])
+  }, [currentHymn, navigate, dispatch, params])
 
   useEffect(() => {
     const event = function (e: any) {
@@ -64,7 +63,29 @@ const Hymn = () => {
     return (() => {
       dispatch(hymnsSlice.actions.hideAutoScroll())
     })
-  }, [isTextWithAccord, currentHymn])
+  }, [isTextWithAccord, currentHymn, dispatch])
+
+  const parseHymnText = (text: string) => {
+    return text.split(/\[(.+?)\]/g).map((t_1, i) => {
+      if (i % 2 === 0) return t_1
+      return t_1.split(/\{(.+?)\}/g).map((t_2, i) => {
+        if (i % 2 === 0) return t_2
+        return <button
+          key={t_2}
+          style={{
+            fontSize: context.fontSizeAccord + 'px',
+            color: context.colorAccord,
+            transform: `translate(calc(-0.6 * ${context.fontSizeAccord}px - 0.4px), calc(-0.6 * ${context.fontSizeAccord}px + 0.1px))`
+          }}
+          className={style.hymn__accord}
+          onClick={(e: React.MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.value)}
+          value={t_2}
+        >
+          {t_2}
+        </button>
+      })
+    })
+  }
 
   return (
     <div ref={refScroll} className={style.hymn}>
@@ -109,28 +130,17 @@ const Hymn = () => {
             return (
               <>
                 <pre
-                  style={{ fontSize: context.fontSizeText + 'px', margin: 0 }}
+                  style={{ fontSize: context.fontSizeText + 'px', margin: 0, lineHeight: `calc(${context.fontSizeText}px * 2)` }}
                   className={style.hymn__text_with_accords}
                 >
                   {key.endsWith(' verse') ? key.replace(/ verse/g, '.') : ''}
                 </pre>
                 <pre
                   className={style.hymn__text_with_accords}
-                  style={{ fontSize: context.fontSizeText + 'px', color: context.colorText, paddingLeft: spacesBeforeText }}
-                  dangerouslySetInnerHTML={{
-                    __html: currentHymn.text_with_accords[key]
-                      .replace(/\[(.+?)\]/g, (v): any => {
-                        return `<span 
-                        class=${style.hymn__word_with_accord}>${v.slice(1, v.length - 1)
-                            .replace(/\{(.+?)\}/g, (w): any => {
-                              return `<button 
-                              style="font-size: ${context.fontSizeAccord + 'px'}; 
-                                   color: ${context.colorAccord}; 
-                                   transform: translate(calc(-0.6 * ${context.fontSizeAccord}px - 0.4px), calc(-1.75 * ${context.fontSizeAccord}px + 29.5px))" 
-                              class=${style.hymn__accord}>${w.slice(1, w.length - 1)}</button>`
-                            })}</span >`
-                      })
-                  }} />
+                  style={{ fontSize: context.fontSizeText + 'px', color: context.colorText, paddingLeft: spacesBeforeText, lineHeight: `calc(${context.fontSizeText}px * 2)` }}
+                >
+                  {parseHymnText(currentHymn.text_with_accords[key])}
+                </pre>
               </>
             )
           })}
