@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import hymnReducer from './reducers/HymnSlice'
 import menuReducer from './reducers/MenuSlice'
+import accordsReducer from './reducers/AccordsSlice'
 
 export const store = configureStore({
   reducer: {
     hymnReducer,
-    menuReducer
+    menuReducer,
+    accordsReducer,
   }
 })
 

@@ -11,11 +11,13 @@ import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 // utils
 import { contextSettingsFont } from '../../context/settingsSize'
 import { toFetchHymn } from '../../redux/reducers/ActionCreator'
+import { accordsSlice } from '../../redux/reducers/AccordsSlice'
 
 
 const Hymn = () => {
   const params = useParams<{ id: string }>()
   const { currentHymn, isTextWithAccord } = useAppSelector(state => state.hymnReducer)
+  const { currentAccords } = useAppSelector(state => state.accordsReducer)
   const dispatch = useAppDispatch()
   const context = useContext(contextSettingsFont)
 
@@ -65,11 +67,17 @@ const Hymn = () => {
     })
   }, [isTextWithAccord, currentHymn, dispatch])
 
+  const setCurrentAccords = (value: string) => {
+    const accords = value.split('-')
+    dispatch(accordsSlice.actions.toogleModalActive(true))
+    dispatch(accordsSlice.actions.setCurrentAccords(accords))
+  }
+
   const parseHymnText = (text: string) => {
     return text.split(/\[(.+?)\]/g).map((t_1, i) => {
-      if (i % 2 === 0) return { t_1 }
+      if (i % 2 === 0) return t_1
       return <span
-        key={t_1}
+        // key={t_1}
         className={style.hymn__word_with_accord}
       >
         {t_1.split(/\{(.+?)\}/g).map((t_2, i) => {
@@ -82,7 +90,7 @@ const Hymn = () => {
               transform: `translate(calc(-0.6 * ${context.fontSizeAccord}px - 0.4px), calc(-0.6 * ${context.fontSizeAccord}px + 0.1px))`
             }}
             className={style.hymn__accord}
-            onClick={(e: React.MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.value)}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => setCurrentAccords(t_2)}
             value={t_2}
           >
             {t_2}
