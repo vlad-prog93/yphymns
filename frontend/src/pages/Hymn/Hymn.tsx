@@ -67,23 +67,28 @@ const Hymn = () => {
 
   const parseHymnText = (text: string) => {
     return text.split(/\[(.+?)\]/g).map((t_1, i) => {
-      if (i % 2 === 0) return t_1
-      return t_1.split(/\{(.+?)\}/g).map((t_2, i) => {
-        if (i % 2 === 0) return t_2
-        return <button
-          key={t_2}
-          style={{
-            fontSize: context.fontSizeAccord + 'px',
-            color: context.colorAccord,
-            transform: `translate(calc(-0.6 * ${context.fontSizeAccord}px - 0.4px), calc(-0.6 * ${context.fontSizeAccord}px + 0.1px))`
-          }}
-          className={style.hymn__accord}
-          onClick={(e: React.MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.value)}
-          value={t_2}
-        >
-          {t_2}
-        </button>
-      })
+      if (i % 2 === 0) return { t_1 }
+      return <span
+        key={t_1}
+        className={style.hymn__word_with_accord}
+      >
+        {t_1.split(/\{(.+?)\}/g).map((t_2, i) => {
+          if (i % 2 === 0) return t_2
+          return <button
+            key={t_2}
+            style={{
+              fontSize: context.fontSizeAccord + 'px',
+              color: context.colorAccord,
+              transform: `translate(calc(-0.6 * ${context.fontSizeAccord}px - 0.4px), calc(-0.6 * ${context.fontSizeAccord}px + 0.1px))`
+            }}
+            className={style.hymn__accord}
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => console.log(e.currentTarget.value)}
+            value={t_2}
+          >
+            {t_2}
+          </button>
+        })}
+      </span>
     })
   }
 
