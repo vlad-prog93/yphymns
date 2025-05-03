@@ -1,12 +1,9 @@
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { accordsSlice } from '../../redux/reducers/AccordsSlice'
 import style from './ModalAccords.module.css'
-import G from '../../assets/icons/accords/G.png'
-
+import ACCORDS from '../../utils/accords'
 const ModalAccords = () => {
-    const ACCORDS = {
-        G: G
-    }
+
     const { currentAccords } = useAppSelector(state => state.accordsReducer)
     const dispatch = useAppDispatch()
 
@@ -17,8 +14,7 @@ const ModalAccords = () => {
 
     const parseAccords = (accords: string[] | null) => {
         if (!accords) return 'Не выбрали аккорд'
-        if (accords.length === 1 && accords[0] === 'G') return <img className={style.ModalAccords__img} src={ACCORDS[accords[0]]} />
-        return accords[1]
+        return accords.map((accord, ind) => <img className={style.ModalAccords__img} src={ACCORDS[accord]} />)
     }
 
     return (
