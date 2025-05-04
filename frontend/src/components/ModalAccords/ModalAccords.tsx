@@ -25,7 +25,7 @@ const ModalAccords = () => {
                 className={style.ModalAccords__window}
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
             >
-                <h1>{parseAccords(currentAccords)}</h1>
+                <>{parseAccords(currentAccords)}</>
             </div>
 
         </div>
