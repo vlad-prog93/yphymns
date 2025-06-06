@@ -3,6 +3,7 @@ import { CollectionsController } from './collections.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { CollectionSchema } from 'src/collections/collections.schema';
 import { HymnSchema } from 'src/hymns/hymns.schema';
+import { CollectionsService } from 'src/collections/collecrions.service';
 
 @Module({
   imports: [MongooseModule.forFeature([
@@ -10,6 +11,6 @@ import { HymnSchema } from 'src/hymns/hymns.schema';
     { name: 'Hymn', schema: HymnSchema },
   ])],
   controllers: [CollectionsController],
-  providers: []
+  providers: [CollectionsService]
 })
 export class CollectionsModule { }

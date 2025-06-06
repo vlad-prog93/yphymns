@@ -9,7 +9,7 @@ export class Hymn {
   @Prop({ required: true })
   number: number;
 
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Collection' }] })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Collection' })
   collection: CollectionDocument;
 
   @Prop({ required: true })

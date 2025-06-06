@@ -6,7 +6,7 @@ export type CollectionDocument = Collection & mongoose.Document<mongoose.Types.O
 
 @Schema()
 export class Collection {
-  @Prop({ required: true })
+  @Prop({ required: true, unique: true })
   name: string;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Hymn' }] })
