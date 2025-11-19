@@ -19,7 +19,7 @@ export const toFetchHymns = async (dispatch: AppDispatch) => {
 
 export const toDeleteHymn = async (dispatch: AppDispatch, id: string) => {
   try {
-    const { data } = await axios.delete<string>(`${IP_SERVER}/api/hymns`, { data: { _id: id } })
+    const { data } = await axios.delete<string>(`${IP_SERVER}/api/hymns/${id}`)
     dispatch(hymnsSlice.actions.deleteHymn(data))
   } catch (error) {
     console.log(error)
@@ -28,7 +28,7 @@ export const toDeleteHymn = async (dispatch: AppDispatch, id: string) => {
 
 export const toUpdateHymn = async (dispatch: AppDispatch, hymn: IHymn) => {
   try {
-    const { data } = await axios.patch<IHymn>(`${IP_SERVER}/api/hymns`, { ...hymn })
+    const { data } = await axios.patch<IHymn>(`${IP_SERVER}/api/hymns/${hymn._id}`, { ...hymn })
     dispatch(hymnsSlice.actions.updateHymn(data))
   } catch (error) {
     console.log(error)

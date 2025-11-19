@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import mongoose, { Model, Mongoose } from 'mongoose';
 import { Injectable, Req, Res } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Hymn } from 'src/hymns/hymns.schema';
