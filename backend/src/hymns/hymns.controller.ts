@@ -58,6 +58,12 @@ export class HymnsController {
     return hymn._id
   }
 
+  @Delete('/deleteall')
+  async deleteAll() {
+    const hymns = await this.HymnsService.deleteAll()
+    return hymns
+  }
+
   @Patch()
   async update(@Body() hymn: UpdateHymnDto) {
     const updatedHymn = await this.HymnsService.toUpdate(hymn)

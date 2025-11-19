@@ -51,6 +51,10 @@ export class HymnsService {
     return this.hymnModel.findByIdAndDelete(id)
   }
 
+  async deleteAll(): Promise<any> {
+    return this.hymnModel.deleteMany({})
+  }
+
   async toUpdate(hymn: UpdateHymnDto): Promise<Hymn> {
     return this.hymnModel.findByIdAndUpdate({ _id: hymn._id }, { ...hymn }, { new: true })
   }
