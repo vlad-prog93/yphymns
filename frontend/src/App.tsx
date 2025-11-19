@@ -35,11 +35,13 @@ import { ISettingsFont } from './models/settingsFont'
 import Popup from './components/Popup/Popup';
 import ButtonScroll from './components/ButtonScroll/ButtonScroll';
 import NewHymn from './pages/NewHymn/NewHymn';
+import ModalAccords from './components/ModalAccords/ModalAccords';
 
 function App() {
   const [refView, inView] = useInView({ rootMargin: '0px 0px' })
 
   const { hymns, isLoading, error, favoriteHymns, foundedHymns, currentHymn, historyHymns, isShowAutoScroll } = useAppSelector(state => state.hymnReducer)
+  const { isModalActive } = useAppSelector(state => state.accordsReducer)
   const dispatch = useAppDispatch()
 
   const [settingsFont, setSettingsFont] = useState<ISettingsFont>(getSettingFontLS() || stateSettingsFont)
@@ -57,6 +59,7 @@ function App() {
         {error && <Popup />}
         <Menu />
         <Header />
+        {isModalActive && <ModalAccords />}
         <div className='App' >
           <div className='App__header'>
             {isShowAutoScroll && <ButtonScroll alreadyBottom={inView} />}

@@ -23,3 +23,14 @@
   border: 1px solid var(--border-color-active);
   box-shadow: 0 0 1px 1px var(--active-color);
 }
+
+
+
+
+@media screen and (max-width: 550px) {
+  .input {
+    font-size: 14px;
+    line-height: 14px;
+  }
+
+}

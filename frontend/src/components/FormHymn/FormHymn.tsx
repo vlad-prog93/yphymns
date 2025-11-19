@@ -3,10 +3,9 @@ import style from './FormHymn.module.css'
 import Input from '../UI/Input/Input'
 import Button from '../UI/Button/Button'
 import { IHymn } from '../../models/hymns'
-import { balanceStr, handleTranslate } from '../../tools/workWithTextHymns'
+import { handleTranslate } from '../../tools/workWithTextHymns'
 import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 import { useAppDispatch } from '../../redux/hooks'
-import { translate } from '../../utils/const'
 
 interface IFormHymnProps {
     hymn: IHymn,
@@ -136,7 +135,7 @@ const FormHymn = ({ hymn, setHymn, saveHymn }: IFormHymnProps) => {
                 />
             </div>
 
-            {Object.keys(hymn?.text_with_accords).map((key, index, arr) => {
+            {Object.keys(hymn?.text_with_accords).map((key, index) => {
                 return (
                     <div key={key} className={style.formHymn__inputContainer}>
                         <Input

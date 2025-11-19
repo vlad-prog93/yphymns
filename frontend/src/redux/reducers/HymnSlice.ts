@@ -40,13 +40,33 @@ export const hymnsSlice = createSlice({
       state.isLoading = true
     },
 
+    //Запрос гимна
+    hymnFetching(state) {
+      state.isLoading = true
+    },
+
+    //Запрос гимнов УСПЕХ
     hymnsFetchingSuccess(state, action: PayloadAction<IHymn[]>) {
       state.isLoading = false
       state.error = null
       state.hymns = [...action.payload.toSorted((a, b) => a.number - b.number)]
     },
 
+    //Запрос ОДНОГО гимна УСПЕХ
+    hymnFetchingSuccess(state, action: PayloadAction<IHymn>) {
+      state.isLoading = false
+      state.error = null
+      state.currentHymn = action.payload
+    },
+
+    //Запрос гимнов ОШИБКА
     hymnsFetchingError(state, action: PayloadAction<any>) {
+      state.isLoading = false
+      state.error = action.payload
+    },
+
+    //Запрос ОДНОГО гимна ОШИБКА
+    hymnFetchingError(state, action: PayloadAction<any>) {
       state.isLoading = false
       state.error = action.payload
     },

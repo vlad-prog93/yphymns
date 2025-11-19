@@ -21,8 +21,8 @@
   /* Предотвращаем появление контекстного меню на устройствах Apple */
   -webkit-touch-callout: none;
   /* Осторожно относимся к выбору контента */
-  -webkit-user-select: none;
-  user-select: none;
+  /* -webkit-user-select: none;
+  user-select: none; */
 }
 
 body {
@@ -64,6 +64,7 @@ li {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
 }
 
 .App__header {

@@ -14,12 +14,13 @@
   font-weight: 500;
 }
 
-.hymn__textContainer {
+.hymn__text_container {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 20px 8px;
-  padding: 0 15px 0 7px;
-  margin-top: 20px;
+  padding: 15px 20px 0 7px;
+  margin-top: 35px;
+  overflow: clip;
 }
 
 .hymn__text {
@@ -28,20 +29,28 @@
   font-family: Roboto;
 }
 
-.hymn__str_text {
+.hymn__text_with_accords {
   line-height: 60px;
   font-size: var(--font-size-text);
   text-wrap: wrap;
   font-family: Roboto;
 }
 
-.hymn__str_accord {
+.hymn__word_with_accord {
+  text-wrap: nowrap;
+}
+
+.hymn__accord {
+  display: inline;
+  border: none;
+  background: inherit;
+  padding: 0;
   margin: 0;
+
   position: absolute;
-  transform: translate(-10px, -25px);
+  cursor: pointer;
   font-size: var(--font-size-text);
-  /* color: rgb(241, 196, 15); */
-  text-wrap: wrap;
+  text-wrap: nowrap;
   font-family: Roboto;
   font-weight: 500;
 }

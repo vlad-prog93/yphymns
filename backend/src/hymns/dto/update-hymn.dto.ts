@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ApiProperty } from "@nestjs/swagger";
 import mongoose from "mongoose";
 import { HymnContent } from "src/hymns/dto/types";
@@ -27,4 +28,15 @@ export class UpdateHymnDto {
     }
   })
   text_with_accords: HymnContent
+=======
+import mongoose from "mongoose";
+
+export class UpdateHymnDto {
+  _id: mongoose.Schema.Types.ObjectId;
+  number: number;
+  collection: string;
+  shortText: string;
+  text: any;
+  text_with_accords: any
+>>>>>>> 189614972aa82f4d474c2598fff16f5afdb90c02
 }

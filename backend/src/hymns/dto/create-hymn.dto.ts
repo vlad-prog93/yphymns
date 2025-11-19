@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ApiProperty } from "@nestjs/swagger";
 import { HymnContent } from "src/hymns/dto/types";
 
@@ -26,4 +27,12 @@ export class CreateHymnDto {
     }
   })
   text_with_accords: HymnContent
+=======
+export class CreateHymnDto {
+  number: number;
+  collection: string;
+  shortText: string;
+  text: any;
+  text_with_accords: any
+>>>>>>> 189614972aa82f4d474c2598fff16f5afdb90c02
 }
