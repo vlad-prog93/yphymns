@@ -1,11 +1,11 @@
-<<<<<<< HEAD
-import mongoose, { Model, Mongoose } from 'mongoose';
-import { Injectable, Req, Res } from '@nestjs/common';
+import mongoose, { Model, Mongoose, Types } from 'mongoose';
+import { Injectable, Req, Res, StreamableFile } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Hymn } from 'src/hymns/hymns.schema';
 import { CreateHymnDto } from 'src/hymns/dto/create-hymn.dto';
 import { UpdateHymnDto } from 'src/hymns/dto/update-hymn.dto';
 import { Collection } from 'src/collections/collections.schema';
+import { createReadStream, writeFileSync } from 'fs';
 
 
 @Injectable()
@@ -16,7 +16,7 @@ export class HymnsService {
     @InjectModel(Collection.name) private collectionModel: Model<Collection>
   ) { }
   async getAll(): Promise<Hymn[]> {
-    return this.hymnModel.find().exec();
+    return this.hymnModel.find().lean().exec();
   }
 
   async getOne(id: string): Promise<Hymn> {
@@ -24,21 +24,16 @@ export class HymnsService {
     return hymn
   }
 
+
+
   async create(createHymnDto: CreateHymnDto): Promise<Hymn> {
     try {
-
-      const collection = await this.collectionModel.findOne({ name: createHymnDto.collection })
-
+      const collection = await this.collectionModel.findById(createHymnDto.collection)
       if (!collection) {
         throw 'Неверно задан сборник гимнов'
       }
       const createdHymn = new this.hymnModel({ ...createHymnDto, collection: collection._id })
       await createdHymn.save()
-
-      await this.collectionModel.updateOne(
-        { _id: collection._id },
-        { $push: { hymns: createdHymn._id } }
-      )
 
       return createdHymn
     }
@@ -48,51 +43,78 @@ export class HymnsService {
     }
   }
 
-  async delete(id: string): Promise<any> {
+  async delete(id: string): Promise<string> {
     return this.hymnModel.findByIdAndDelete(id)
   }
 
-  async deleteAll(): Promise<any> {
+  async deleteAll(): Promise<{ acknowledged: boolean, deletedCount: number }> {
     return this.hymnModel.deleteMany({})
   }
 
-  async toUpdate(hymn: UpdateHymnDto): Promise<Hymn> {
-    return this.hymnModel.findByIdAndUpdate({ _id: hymn._id }, { ...hymn }, { new: true })
+  async toUpdate(id: string, hymn: UpdateHymnDto): Promise<Hymn> {
+    const { _id, ...cleanHymn } = hymn
+
+    return this.hymnModel.findByIdAndUpdate(
+      id,
+      cleanHymn,
+      { new: true })
+      .lean()
   }
+
+  async deleteByCollection(id: string) {
+    return this.hymnModel.deleteMany({ collection: id })
+  }
+
+  async addFileWithHymns(file: Express.Multer.File) {
+    try {
+      const hymns = JSON.parse(file.buffer.toString()).map((hymn) => {
+        hymn._id && delete hymn._id
+        hymn.id && delete hymn.id
+        return hymn
+      })
+
+      await Promise.all(
+        hymns.map(async (hymn: CreateHymnDto) => {
+          const col = await this.collectionModel.findOne({ name: hymn.collection })
+
+          if (!col) {
+            const newCol = new this.collectionModel({ name: hymn.collection })
+            await newCol.save()
+
+            const newHymn: CreateHymnDto =
+            {
+              ...hymn,
+              collection: newCol._id
+            }
+            return this.create(newHymn)
+          } else {
+            return this.create({ ...hymn, collection: col._id })
+          }
+        })
+      )
+      return this.getAll()
+
+    } catch (error) {
+      throw error
+    }
+
+  }
+
+  async getDataBase() {
+    const data = await this.getAll()
+    writeFileSync('db.json', JSON.stringify(data, null, 4), { flag: 'w', encoding: 'utf8' })
+    const file = createReadStream('db.json', 'utf8')
+    return new StreamableFile(file)
+  }
+
+  // async getChangeDataBase() {
+  //   const data: CreateHymnDto[] = await this.getAll()
+  //   const newData = data.map(hymn => {
+  //     const { shortText, text_with_accords, ...newHymn } = { ...hymn, text: hymn.text_with_accords, title: hymn.shortText }
+  //     return newHymn
+  //   })
+  //   writeFileSync('db.json', JSON.stringify(newData, null, 4), { flag: 'w', encoding: 'utf8' })
+  //   const file = createReadStream('db.json', 'utf8')
+  //   return new StreamableFile(file)
+  // }
 }
-=======
-import { Model } from 'mongoose';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Hymn } from 'src/hymns/hymns.schema';
-import { CreateHymnDto } from 'src/hymns/dto/create-hymn.dto';
-import { UpdateHymnDto } from 'src/hymns/dto/update-hymn.dto';
-
-
-@Injectable()
-export class HymnsService {
-
-  constructor(@InjectModel(Hymn.name) private hymnModel: Model<Hymn>) { }
-  async getAll(): Promise<Hymn[]> {
-    return this.hymnModel.find().exec();
-  }
-
-  async getOne(id: string): Promise<Hymn> {
-    const hymn = await this.hymnModel.findById(id)
-    return hymn
-  }
-
-  async create(createHymnDto: CreateHymnDto): Promise<Hymn> {
-    const createdHymn = new this.hymnModel(createHymnDto)
-    return createdHymn.save()
-  }
-
-  async delete(id: string): Promise<any> {
-    return this.hymnModel.findByIdAndDelete(id)
-  }
-
-  async toUpdate(hymn: UpdateHymnDto): Promise<Hymn> {
-    return this.hymnModel.findByIdAndUpdate({ _id: hymn._id }, { ...hymn }, { new: true })
-  }
-}
->>>>>>> 189614972aa82f4d474c2598fff16f5afdb90c02

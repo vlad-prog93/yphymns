@@ -1,174 +1,148 @@
 .admin {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 10px;
-  margin: 0 auto;
+  padding: 24px;
+  background: var(--bg-color);
+  min-height: 100vh;
+  color: var(--font-color-dark);
 }
 
 .admin__title {
-  text-align: center;
-  font-size: 30px;
-  font-weight: 500;
-  margin: 20px 0 10px;
+  font-size: 20px;
+  margin: 20px 0 12px;
+  font-weight: 600;
 }
 
 .admin__buttonContainer {
   display: flex;
-  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
   align-items: center;
 }
 
-.admin__form {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 10px;
-
-  border: 1px solid var(--border-color);
-}
-
-.input__file {
-  position: relative;
-  display: inline-block;
-}
-
-.input__file span {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
-  font-size: 14px;
-  vertical-align: middle;
-  color: rgb(255 255 255);
-  text-align: center;
-  border-radius: 4px;
-  background-color: #419152;
-  line-height: 22px;
-  height: 40px;
-  padding: 10px 20px;
-  box-sizing: border-box;
-  border: none;
-  margin: 0;
-  transition: background-color 0.2s;
-}
-
-.input__file input[type=file] {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-  display: block;
-  width: 0;
-  height: 0;
-}
-
-/* Focus */
-.input__file input[type=file]:focus+span {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
-}
-
-/* Hover/active */
-.input__file:hover span {
-  background-color: #59be6e;
-}
-
-.input__file:active span {
-  background-color: #2E703A;
-}
-
-/* Disabled */
-.input__file input[type=file]:disabled+span {
-  background-color: #eee;
-}
 
 .admin__link {
   text-decoration: none;
+  padding: 10px 18px;
+  background: white;
+  border-radius: 12px;
   border: 1px solid var(--border-color);
-  border-radius: 5px;
-  align-self: start;
-  padding: 10px;
-  color: #000;
-  transition: .3s ease-in-out;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .2s ease;
+  color: black;
 }
 
 .admin__link:hover {
-  border: 1px solid var(--border-color-active);
+  border-color: var(--border-color-active);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+  transform: translateY(-1px);
 }
 
-.admin__button {
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding: 10px;
-  color: #000;
-  transition: .3s ease-in-out;
+.input__file input {
+  display: none;
+}
+
+.input__file span {
+  padding: 10px 18px;
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed var(--border-color);
   cursor: pointer;
+  transition: .2s ease;
 }
 
-.admin__button:hover {
-  border: 1px solid var(--border-color-active);
+.input__file span:hover {
+  background: #fafafa;
+  border-color: var(--active-color);
 }
 
 .admin__list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 10px;
-
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .admin__item {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding: 5px;
+  margin-bottom: 14px;
 }
 
-.admin__text {
+.admin__details {
+  background: white;
+  border-radius: 14px;
+  padding: 6px 12px;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.admin__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Убираем стандартный маркер браузера */
+.admin__summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin__summaryContent {
   margin-right: auto;
 }
 
+.admin__buttons {
+  display: flex;
+  gap: 10px;
+  border-bottom: 1px solid var(--active-color);
+}
 
-@media screen and (max-width: 550px) {
-  .admin__buttonContainer {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    width: 50%;
-    margin: 0 auto;
-    font-size: 14px;
-  }
+.admin__summary::before {
+  content: "+";
+  font-size: 30px;
+  font-weight: 300;
+  margin-right: 10px;
+  color: var(--active-color);
+  transition: .2s;
+}
 
-  .admin__link {
-    align-self: center;
-    width: 100%;
-    text-align: center;
-  }
+details[open]>.admin__summary::before {
+  content: "−";
+  transform: rotate(180deg);
+}
 
-  .admin__form {
-    width: 100%;
-  }
+.admin__item li {
+  display: grid;
+  grid-template-columns: 60px 1fr auto auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 6px;
+  border-bottom: 1px dashed var(--border-color);
+}
 
-  .admin__form label {
-    width: 100%;
-  }
+.admin__number {
+  font-weight: bold;
+  color: var(--active-color);
+}
 
-  .input__file span {
-    display: block;
-    width: 100%;
-  }
+.admin__text {
+  font-size: var(--font-size-text);
+  opacity: .9;
+}
 
-  .admin__list {
-    width: 91%;
-    margin: 0 auto;
-  }
+.admin__button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: .2s;
+  font-size: 13px;
+}
 
-  .admin__item {
-    font-size: 14px;
-  }
+.admin__button:hover {
+  background: var(--active-color);
+  color: black;
 }

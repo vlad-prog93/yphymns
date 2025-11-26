@@ -1,55 +1,27 @@
-<<<<<<< HEAD
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import mongoose from 'mongoose'
-import { CollectionDocument } from 'src/collections/collections.schema';
+import { HymnContent } from 'src/hymns/dto/types';
 
-export type HymnDocument = Hymn & mongoose.Document<mongoose.Types.ObjectId>
+export type HymnDocument = Hymn & mongoose.Document
 
 @Schema()
 export class Hymn {
   @Prop({ required: true })
   number: number;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Collection' })
-  collection: CollectionDocument;
+  @Prop({ type: mongoose.Types.ObjectId, required: true, ref: 'Collection' })
+  collection: mongoose.Types.ObjectId;
 
   @Prop({ required: true })
-  shortText: string;
+  title: string;
 
   @Prop({ type: mongoose.Schema.Types.Mixed, required: true })
-  text: any
+  text: HymnContent
 
-  @Prop({ type: mongoose.Schema.Types.Mixed, required: true })
-  text_with_accords: any
+  // @Prop({ type: mongoose.Schema.Types.Mixed, required: true })
+  // text_with_accords: HymnContent
 }
 
 
 export const HymnSchema = SchemaFactory.createForClass(Hymn)
 
-=======
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
-import mongoose from 'mongoose'
-
-
-@Schema()
-export class Hymn {
-  @Prop({ required: true })
-  number: number;
-
-  @Prop({ required: true })
-  collection: string;
-
-  @Prop({ required: true })
-  shortText: string;
-
-  @Prop({ type: mongoose.Schema.Types.Mixed, required: true })
-  text: any
-
-  @Prop({ type: mongoose.Schema.Types.Mixed, required: true })
-  text_with_accords: any
-}
-
-
-export const HymnSchema = SchemaFactory.createForClass(Hymn)
-
->>>>>>> 189614972aa82f4d474c2598fff16f5afdb90c02

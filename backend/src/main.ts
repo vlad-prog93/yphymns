@@ -1,10 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
 import { AppModule } from 'src/app.module';
 
 async function server() {
 
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, { bodyParser: false })
   const port = process.env.PORT || 5000
 
   const config = new DocumentBuilder()
@@ -17,6 +18,8 @@ async function server() {
   SwaggerModule.setup('api/docs', app, document);
 
   app.enableCors({ origin: process.env.CORS || '*' })
+  app.use(bodyParser.json({ limit: '20mb' }))
+  app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }))
 
   await app.listen(port, () => console.log(`Server has been started in PORT = ${port}`))
 }

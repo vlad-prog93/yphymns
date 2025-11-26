@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, current } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IHistoryHymn, IHymn, IHymnText } from "../../models/hymns";
 import { deleteFavoriteHymnLS, deleteHistoryHymnLS, getHistoryHymnsLS, setFavoriteHymnLS, setHistoryHymnLS } from "../../tools/storage";
 

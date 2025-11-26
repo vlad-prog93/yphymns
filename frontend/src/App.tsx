@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer'
 
@@ -27,7 +27,7 @@ import { contextSettingsFont, stateSettingsFont } from './context/settingsSize';
 import { ROUTES } from './utils/routes';
 
 // localStorage
-import { getFavoriteHymnsLS, getSettingFontLS, setSettingFontLS } from './tools/storage';
+import { getFavoriteHymnsLS, getSettingFontLS } from './tools/storage';
 import Settings from './pages/Settings/Setting';
 
 // models
@@ -36,21 +36,26 @@ import Popup from './components/Popup/Popup';
 import ButtonScroll from './components/ButtonScroll/ButtonScroll';
 import NewHymn from './pages/NewHymn/NewHymn';
 import ModalAccords from './components/ModalAccords/ModalAccords';
+import { toFetchCollections } from './redux/reducers/ActionCreatorCollections';
+import { ModalCreateCollection } from './components/ModalCreateCollection/ModalCreateCollection';
 
 function App() {
   const [refView, inView] = useInView({ rootMargin: '0px 0px' })
 
   const { hymns, isLoading, error, favoriteHymns, foundedHymns, currentHymn, historyHymns, isShowAutoScroll } = useAppSelector(state => state.hymnReducer)
   const { isModalActive } = useAppSelector(state => state.accordsReducer)
+  const collections = useAppSelector(state => state.collectionsReducer)
+
   const dispatch = useAppDispatch()
 
   const [settingsFont, setSettingsFont] = useState<ISettingsFont>(getSettingFontLS() || stateSettingsFont)
 
   useEffect(() => {
     toFetchHymns(dispatch)
+    toFetchCollections(dispatch)
     dispatch(hymnsSlice.actions.setFavoriteHymnsList(getFavoriteHymnsLS()))
     dispatch(hymnsSlice.actions.getHistoryHymns())
-  }, [hymns.length])
+  }, [hymns.length, dispatch])
 
   return (
     <contextSettingsFont.Provider value={{ ...settingsFont, setSettingsFont }}>
@@ -60,6 +65,8 @@ function App() {
         <Menu />
         <Header />
         {isModalActive && <ModalAccords />}
+        {collections.isModalShow && <ModalCreateCollection />}
+
         <div className='App' >
           <div className='App__header'>
             {isShowAutoScroll && <ButtonScroll alreadyBottom={inView} />}

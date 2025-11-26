@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import hymnReducer from './reducers/HymnSlice'
 import menuReducer from './reducers/MenuSlice'
 import accordsReducer from './reducers/AccordsSlice'
+import collectionsReducer from './reducers/CollectionSlice'
 
 export const store = configureStore({
   reducer: {
     hymnReducer,
     menuReducer,
     accordsReducer,
+    collectionsReducer
   }
 })
 
