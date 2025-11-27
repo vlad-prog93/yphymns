@@ -5,7 +5,7 @@ import style from './EditHymn.module.css'
 import React, { FormEvent, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { IHymn } from '../../models/hymns'
-import { toUpdateHymn } from '../../redux/reducers/ActionCreator'
+import { toUpdateHymn } from '../../redux/reducers/ActionCreatorHymns'
 import { handleTranslate, changeViewTextHymn, moveAccordsInText, deleteAccords } from '../../tools/workWithTextHymns'
 import FormHymn from '../../components/FormHymn/FormHymn'
 

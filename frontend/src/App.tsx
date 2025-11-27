@@ -18,7 +18,7 @@ import EditHymn from './pages/EditHymn/EditHymn';
 // redux
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { hymnsSlice } from './redux/reducers/HymnSlice'
-import { toFetchHymns } from './redux/reducers/ActionCreator';
+import { toFetchHymns } from './redux/reducers/ActionCreatorHymns';
 
 // context
 import { contextSettingsFont, stateSettingsFont } from './context/settingsSize';

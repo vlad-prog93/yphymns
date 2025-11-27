@@ -10,7 +10,7 @@ import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 
 // utils
 import { contextSettingsFont } from '../../context/settingsSize'
-import { toFetchHymn } from '../../redux/reducers/ActionCreator'
+import { toFetchHymn } from '../../redux/reducers/ActionCreatorHymns'
 import { accordsSlice } from '../../redux/reducers/AccordsSlice'
 
 

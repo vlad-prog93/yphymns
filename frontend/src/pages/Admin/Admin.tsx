@@ -9,7 +9,7 @@ import style from './Admin.module.css'
 //импорт store
 import { useAppSelector } from '../../redux/hooks'
 import { useDispatch } from 'react-redux'
-import { toDeleteHymn, toDownloadFileWithHymns, toFetchHymns, toUploadFile } from '../../redux/reducers/ActionCreator'
+import { toDeleteHymn, toDownloadFileWithHymns, toFetchHymns, toUploadFile } from '../../redux/reducers/ActionCreatorHymns'
 import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 import { CollectionSlice } from '../../redux/reducers/CollectionSlice'
 

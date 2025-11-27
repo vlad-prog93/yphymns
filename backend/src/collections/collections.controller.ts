@@ -21,7 +21,7 @@ export class CollectionsController {
     return this.CollectionsService.getAll()
   }
 
-  @Get(':id')
+  @Get('/collection/:id')
   getOne(@Param('id') id: string): Promise<ICollection> {
     return this.CollectionsService.getOne(id)
   }
@@ -31,13 +31,18 @@ export class CollectionsController {
     return this.CollectionsService.create(dto)
   }
 
-  @Patch(':id')
-  updateOne(@Param('id') id: string, @Body() dto: updateColDTO): Promise<ICollection> {
-    return this.CollectionsService.update(id, dto)
+  @Patch('/collection/:id')
+  editOne(@Param('id') id: string, @Body() dto: updateColDTO): Promise<ICollection> {
+    return this.CollectionsService.editOne(id, dto)
   }
 
-  @Delete(':id')
-  async delete(@Param('id') id: string): Promise<ICollection> {
-    return this.CollectionsService.delete(id)
+  @Delete('/collection/:id')
+  async deleteOne(@Param('id') id: string): Promise<ICollection> {
+    return this.CollectionsService.deleteOne(id)
+  }
+
+  @Delete('')
+  async deleteAll(): Promise<{ acknowledged: boolean, deletedCount: number }> {
+    return this.CollectionsService.deleteAll()
   }
 }

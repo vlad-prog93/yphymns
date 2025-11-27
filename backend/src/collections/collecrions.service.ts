@@ -38,7 +38,7 @@ export class CollectionsService {
     }
   }
 
-  async update(id: string, dto: updateColDTO): Promise<ICollection> {
+  async editOne(id: string, dto: updateColDTO): Promise<ICollection> {
     try {
       return await this.collectionModel.findByIdAndUpdate(
         id,
@@ -54,8 +54,13 @@ export class CollectionsService {
     }
   }
 
-  async delete(id: string): Promise<ICollection> {
+  async deleteOne(id: string): Promise<ICollection> {
     await this.HymnsService.deleteByCollection(id)
     return this.collectionModel.findByIdAndDelete(id).lean()
+  }
+
+  async deleteAll(): Promise<{ acknowledged: boolean, deletedCount: number }> {
+    await this.HymnsService.deleteAll()
+    return this.collectionModel.deleteMany({})
   }
 }

@@ -7,7 +7,7 @@ import Input from '../../components/UI/Input/Input'
 import { changeViewTextHymn, deleteAccords, handleTranslate, moveAccordsInText } from '../../tools/workWithTextHymns'
 import Button from '../../components/UI/Button/Button'
 import FormHymn from '../../components/FormHymn/FormHymn'
-import { toCreateHymn } from '../../redux/reducers/ActionCreator'
+import { toCreateHymn } from '../../redux/reducers/ActionCreatorHymns'
 import { useAppDispatch } from '../../redux/hooks'
 import { hymnsSlice } from '../../redux/reducers/HymnSlice'
 

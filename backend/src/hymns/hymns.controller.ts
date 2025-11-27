@@ -15,7 +15,7 @@ export class HymnsController {
   @ApiOperation({ summary: 'Получение всех гимнов' })
   @ApiResponse({ status: 200, description: 'в json формате передается массив гимнов', type: [CreateHymnDto] })
   @Get()
-  getAll() {
+  async getAll() {
     return this.HymnsService.getAll()
   }
 
@@ -30,21 +30,21 @@ export class HymnsController {
     },
   })
   @Get('/database')
-  async getDataBase() {
-    return this.HymnsService.getDataBase()
+  async pullDataBase() {
+    return this.HymnsService.pullDataBase()
   }
 
   @ApiOperation({ summary: 'Получение одного гимна' })
   @ApiResponse({ status: 200, description: 'в json формате передается гимн', type: CreateHymnDto })
   @Get('/hymn/:id')
-  getOne(@Param('id') id: string) {
+  async getOne(@Param('id') id: string) {
     return this.HymnsService.getOne(id)
   }
 
   @ApiOperation({ summary: 'Создание гимна' })
   @ApiResponse({ status: 201, description: 'в ответе созданный гимн в формате json' })
   @Post()
-  create(@Body() createHymnDto: CreateHymnDto) {
+  async create(@Body() createHymnDto: CreateHymnDto) {
     return this.HymnsService.create(createHymnDto)
   }
 
@@ -67,16 +67,16 @@ export class HymnsController {
     limits: { fileSize: 10 * 1024 * 1024 }
   }))
   @Post('/database')
-  async addFile(@UploadedFile() file: Express.Multer.File): Promise<CreateHymnDto[]> {
-    return this.HymnsService.addFileWithHymns(file)
+  async pushDataBase(@UploadedFile() file: Express.Multer.File): Promise<CreateHymnDto[]> {
+    return this.HymnsService.pushDataBase(file)
   }
 
 
   @ApiOperation({ summary: 'Удаление гимна' })
   @ApiResponse({ status: 201, description: 'в ответе id гимна', schema: { type: 'string' } })
-  @Delete(':id')
-  async delete(@Param('id') id: string): Promise<string> {
-    return this.HymnsService.delete(id)
+  @Delete('/hymn/:id')
+  async deleteOne(@Param('id') id: string): Promise<string> {
+    return this.HymnsService.deleteOne(id)
   }
 
   @ApiOperation({ summary: 'Удаление всех гимнов' })
@@ -89,9 +89,9 @@ export class HymnsController {
   @ApiOperation({ summary: 'Изменение гимна' })
   @ApiParam({ name: 'id', required: true })
   @ApiResponse({ status: 201, description: 'в ответе измененный гимн в формате json', type: UpdateHymnDto })
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() hymn: UpdateHymnDto): Promise<CreateHymnDto> {
-    return this.HymnsService.toUpdate(id, hymn)
+  @Patch('/hymn/:id')
+  async editOne(@Param('id') id: string, @Body() hymn: UpdateHymnDto): Promise<CreateHymnDto> {
+    return this.HymnsService.editOne(id, hymn)
   }
 
   // @Get('/changedatabase')

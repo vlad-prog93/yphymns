@@ -43,7 +43,7 @@ export class HymnsService {
     }
   }
 
-  async delete(id: string): Promise<string> {
+  async deleteOne(id: string): Promise<string> {
     return this.hymnModel.findByIdAndDelete(id)
   }
 
@@ -51,7 +51,7 @@ export class HymnsService {
     return this.hymnModel.deleteMany({})
   }
 
-  async toUpdate(id: string, hymn: UpdateHymnDto): Promise<Hymn> {
+  async editOne(id: string, hymn: UpdateHymnDto): Promise<Hymn> {
     const { _id, ...cleanHymn } = hymn
 
     return this.hymnModel.findByIdAndUpdate(
@@ -65,7 +65,7 @@ export class HymnsService {
     return this.hymnModel.deleteMany({ collection: id })
   }
 
-  async addFileWithHymns(file: Express.Multer.File) {
+  async pushDataBase(file: Express.Multer.File) {
     try {
       const hymns = JSON.parse(file.buffer.toString()).map((hymn) => {
         hymn._id && delete hymn._id
@@ -100,7 +100,7 @@ export class HymnsService {
 
   }
 
-  async getDataBase() {
+  async pullDataBase() {
     const data = await this.getAll()
     writeFileSync('db.json', JSON.stringify(data, null, 4), { flag: 'w', encoding: 'utf8' })
     const file = createReadStream('db.json', 'utf8')
