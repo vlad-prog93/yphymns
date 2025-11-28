@@ -18,46 +18,41 @@ const initialState: ICollectionState = {
   error: null,
   isModalShow: false,
   currentCollection: null
-
-
 }
 
-export const CollectionSlice = createSlice({
-  'name': 'collection',
+export const collectionSlice = createSlice({
+  name: 'collection',
   initialState,
   reducers: {
-    fetching(state) {
+    setLoading(state) {
       state.isLoading = true
     },
 
-    fetchingSuccess(state, action: PayloadAction<ICollection[]>) {
-      state.collections = action.payload
+    setSuccess(state) {
       state.isLoading = false
-      state.error = ''
+      state.error = null
     },
 
-    fetchingError(state, action: PayloadAction<string>) {
+    setCollections(state, action: PayloadAction<ICollection[]>) {
+      state.collections = action.payload
+    },
+
+    setError(state, action: PayloadAction<string>) {
       state.error = action.payload
       state.isLoading = false
     },
 
-    createSuccess(state, action: PayloadAction<ICollection>) {
+    create(state, action: PayloadAction<ICollection>) {
       state.collections.push(action.payload)
       state.isModalShow = false
-      state.error = ''
     },
 
-    createError(state, action: PayloadAction<string>) {
-      state.error = action.payload
-    },
-
-    deleteSuccess(state, action: PayloadAction<string>) {
+    deleteOne(state, action: PayloadAction<string>) {
       state.collections.filter(el => el._id !== action.payload)
-      state.error = ''
     },
 
-    deleteError(state, action: PayloadAction<string>) {
-      state.error = action.payload
+    deleteAll(state) {
+      state.collections = []
     },
 
     showModal(state) {
@@ -73,20 +68,13 @@ export const CollectionSlice = createSlice({
       state.currentCollection = action.payload
     },
 
-    updateSuccess(state, action: PayloadAction<ICollection>) {
+    editCollection(state, action: PayloadAction<ICollection>) {
       state.collections = state.collections.map(col => {
-        if (col._id === action.payload._id) {
-          return action.payload
-        }
+        if (col._id === action.payload._id) return action.payload
         return col
       })
     }
-
-
-
-
   }
-
 })
 
-export default CollectionSlice.reducer
+export default collectionSlice.reducer

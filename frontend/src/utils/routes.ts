@@ -1,5 +1,4 @@
 export enum ROUTES {
-  root = '31.184.196.201:80',
   home = '',
   hymns = '/hymns',
   favoriteHymns = '/favoritehymns',
@@ -8,7 +7,7 @@ export enum ROUTES {
   settings = '/settings',
   sortedHymns = '/sortedhymns',
   admin = '/admin',
-  hymn = '/:id',
+  hymn = '/hymn/',
   newHymn = '/newhymn',
   api = '/api',
 }

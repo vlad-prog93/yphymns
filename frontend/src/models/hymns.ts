@@ -3,12 +3,11 @@ export interface IHymnText {
 }
 
 export interface IHymn {
-  _id?: string,
+  _id: string,
   number: number,
   collection: string,
-  shortText: string,
+  title: string,
   text: IHymnText,
-  text_with_accords: IHymnText
 }
 
 export enum Transpose {
@@ -16,6 +15,12 @@ export enum Transpose {
   DOWN = 'DOWN'
 }
 
-export interface IHistoryHymn extends IHymn {
+export interface IHistoryHymn {
+  _id: string
   time: number
+}
+
+export interface ISearchForm {
+  number: number | null,
+  text: string
 }

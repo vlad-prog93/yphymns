@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import Input from '../UI/Input/Input'
+import Input from '../../../components/UI/Input/Input'
 import style from './ModalCollectionForm.module.css'
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import Button from '../UI/Button/Button'
-import { toCreateCollection, toEditCollection } from '../../redux/reducers/ActionCreatorCollections'
-import { ICollection } from '../../models/collection'
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
+import Button from '../../../components/UI/Button/Button'
+import { toCreateCollection, toEditCollection } from '../../../redux/reducers/ActionCreatorCollections'
+import { ICollection } from '../../../models/collection'
 
 export const ModalCollectionForm = () => {
   const [name, setInputName] = useState('')

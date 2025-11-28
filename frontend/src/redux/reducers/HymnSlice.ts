@@ -1,19 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IHistoryHymn, IHymn, IHymnText } from "../../models/hymns";
-import { deleteFavoriteHymnLS, deleteHistoryHymnLS, getHistoryHymnsLS, setFavoriteHymnLS, setHistoryHymnLS } from "../../tools/storage";
+import { IHistoryHymn, IHymn, IHymnText, ISearchForm } from "../../models/hymns";
+import { LSFavoriteHymns, LSHistoryHymns } from "../../tools/storage";
+
+
 
 interface HymnState {
   hymns: IHymn[],
   currentHymn: IHymn | null,
-  favoriteHymns: IHymn[],
+  favoriteHymns: string[],
   historyHymns: IHistoryHymn[],
-  foundedHymns: IHymn[],
+  searchHymnsBy: ISearchForm,
+  foundedHymns: IHymn[] | null,
   isTextWithAccord: boolean,
   isTranposeOpen: boolean,
   isLoading: boolean,
   error: null | string,
-  isShowAutoScroll: boolean,
-  isScroll: boolean
 }
 
 const initialState: HymnState = {
@@ -21,13 +22,12 @@ const initialState: HymnState = {
   currentHymn: null,
   favoriteHymns: [],
   historyHymns: [],
+  searchHymnsBy: { number: 0, text: '' },
   foundedHymns: [],
   isTextWithAccord: false,
   isTranposeOpen: false,
   isLoading: false,
   error: null,
-  isShowAutoScroll: false,
-  isScroll: false
 }
 
 export const hymnsSlice = createSlice({
@@ -35,48 +35,26 @@ export const hymnsSlice = createSlice({
   initialState,
   reducers: {
 
-    //Запрос гимнов
-    hymnsFetching(state) {
+    // запрос
+    setLoading(state) {
       state.isLoading = true
     },
 
-    //Запрос гимна
-    hymnFetching(state) {
-      state.isLoading = true
+    //Запрос с ошибкой
+    setError(state, action: PayloadAction<string | null>) {
+      state.isLoading = false
+      state.error = action.payload
     },
 
-    //Запрос гимнов УСПЕХ
-    hymnsFetchingSuccess(state, action: PayloadAction<IHymn[]>) {
+    setSuccess(state) {
       state.isLoading = false
       state.error = null
+    },
+
+    setHymns(state, action: PayloadAction<IHymn[]>) {
       state.hymns = [...action.payload.toSorted((a, b) => a.number - b.number)]
     },
 
-    //Запрос ОДНОГО гимна УСПЕХ
-    hymnFetchingSuccess(state, action: PayloadAction<IHymn>) {
-      state.isLoading = false
-      state.error = null
-      state.currentHymn = action.payload
-    },
-
-    //Запрос гимнов ОШИБКА
-    hymnsFetchingError(state, action: PayloadAction<any>) {
-      state.isLoading = false
-      state.error = action.payload
-    },
-
-    //Запрос ОДНОГО гимна ОШИБКА
-    hymnFetchingError(state, action: PayloadAction<any>) {
-      state.isLoading = false
-      state.error = action.payload
-    },
-
-    //гимн с аккордами или без
-    toggleHymnText(state, action: PayloadAction<boolean>) {
-      state.isTextWithAccord = action.payload
-    },
-
-    // установить и удалить текущий гимн
     setCurrentHymn(state, action: PayloadAction<IHymn>) {
       state.currentHymn = action.payload
     },
@@ -85,38 +63,29 @@ export const hymnsSlice = createSlice({
       state.currentHymn = null
     },
 
-
-    setError(state, action: PayloadAction<string | null>) {
-      state.error = action.payload
-    },
-
-    // установить избранные гимны, добавить в избранные, удалить из избранных
-    setFavoriteHymnsList(state, action: PayloadAction<string[]>) {
-      const far: IHymn[] = []
-
-      action.payload.forEach(ID => {
-        state.hymns.forEach(hymn => {
-          if (hymn._id === ID) {
-            far.push(hymn)
-          }
-        })
-      })
-      state.favoriteHymns = far
+    getFavoriteHymns(state) {
+      state.favoriteHymns = LSFavoriteHymns.get()
     },
 
     setFavoriteHymn(state, action: PayloadAction<string>) {
-      setFavoriteHymnLS(action.payload)
-      state.favoriteHymns.push(...state.hymns.filter(hymn => hymn._id === action.payload))
+      LSFavoriteHymns.set(action.payload)
+      state.favoriteHymns.push(action.payload)
     },
 
     deleteFavoriteHymn(state, action: PayloadAction<string>) {
-      deleteFavoriteHymnLS(action.payload)
-      state.favoriteHymns = state.favoriteHymns.filter(hymn => hymn._id !== action.payload)
+      LSFavoriteHymns.delete(action.payload)
+      state.favoriteHymns = state.favoriteHymns.filter(id => id !== action.payload)
     },
 
-    // сортировка гимнов
-    sortHymns(state) {
-      state.hymns = [...state.hymns.sort((a, b) => a.shortText.toLowerCase().localeCompare(b.shortText.toLowerCase()))]
+    toggleFavoriteHymn(state, action: PayloadAction<string>) {
+      const isFavoriteHymn = state.favoriteHymns.includes(action.payload)
+      if (isFavoriteHymn) {
+        LSFavoriteHymns.delete(action.payload)
+        state.favoriteHymns = state.favoriteHymns.filter(id => id !== action.payload)
+      } else {
+        LSFavoriteHymns.set(action.payload)
+        state.favoriteHymns.push(action.payload)
+      }
     },
 
     //перелистывание гимнов
@@ -152,50 +121,43 @@ export const hymnsSlice = createSlice({
       }
     },
 
-
     // транспонирование гимнов
-    toggleTranposeMenu(state, action: PayloadAction<boolean>) {
-      state.isTranposeOpen = action.payload
+    toggleTranposeMenu(state) {
+      state.isTranposeOpen = !state.isTranposeOpen
     },
 
     transposeAccords(state, action: PayloadAction<IHymnText>) {
       if (state.currentHymn) {
-        state.currentHymn.text_with_accords = action.payload
+        state.currentHymn.text = action.payload
       }
     },
 
-    // найденные гимны
-    hymnsFounded(state, action: PayloadAction<IHymn[]>) {
+    setShowHymns(state, action: PayloadAction<IHymn[]>) {
       state.foundedHymns = action.payload
     },
 
-    // история
     getHistoryHymns(state) {
-      const hymns = getHistoryHymnsLS()
+      const hymns = LSHistoryHymns.get()
       state.historyHymns = hymns.sort((a, b) => b.time - a.time)
     },
 
-    addHistoryHymn(state, action: PayloadAction<IHistoryHymn>) {
+    setHistoryHymn(state, action: PayloadAction<IHistoryHymn>) {
       if (state.historyHymns.length === 5) {
-        deleteHistoryHymnLS()
-        state.historyHymns = state.historyHymns.splice(1, state.historyHymns.length - 1)
+        LSHistoryHymns.deleteLast()
+        state.historyHymns = LSHistoryHymns.get()
       }
-      const isAlreadyOpened = state.historyHymns.find(historyHymn => historyHymn._id === action.payload._id)
-      if (!isAlreadyOpened) {
-        state.historyHymns.unshift(action.payload)
-        setHistoryHymnLS(action.payload)
-      }
+      state.historyHymns = state.historyHymns.filter(historyHymn => historyHymn._id !== action.payload._id)
+      state.historyHymns.push(action.payload)
+      LSHistoryHymns.set(action.payload)
     },
 
     deleteHymn(state, action: PayloadAction<string>) {
       state.hymns = state.hymns.filter(hymn => hymn._id !== action.payload)
     },
 
-    updateHymn(state, action: PayloadAction<IHymn>) {
+    editOneHymn(state, action: PayloadAction<IHymn>) {
       state.hymns = state.hymns.map(hymn => {
-        if (hymn._id === action.payload._id) {
-          return action.payload
-        }
+        if (hymn._id === action.payload._id) return action.payload
         return hymn
       })
     },
@@ -204,20 +166,8 @@ export const hymnsSlice = createSlice({
       state.hymns.push(action.payload)
     },
 
-    showAutoScroll(state) {
-      state.isShowAutoScroll = true
-    },
-
-    hideAutoScroll(state) {
-      state.isShowAutoScroll = false
-    },
-
-    onScroll(state) {
-      state.isScroll = true
-    },
-
-    offScroll(state) {
-      state.isScroll = false
+    setSearchHymnsBy(state, action: PayloadAction<ISearchForm>) {
+      state.searchHymnsBy = action.payload
     }
   }
 })

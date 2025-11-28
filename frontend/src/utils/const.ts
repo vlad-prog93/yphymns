@@ -6,4 +6,3 @@ export const translate = {
     'chorus': 'припев',
 }
 
-export const IP_SERVER = process.env.REACT_APP_API_URL || 'http://localhost:5000'

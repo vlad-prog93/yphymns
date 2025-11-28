@@ -1,0 +1,35 @@
+.formHymn__form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formHymn__inputContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.formHymn__textarea {
+    padding: 16px 23px;
+    font-family: monospace;
+    letter-spacing: 0.15em;
+    white-space-collapse: pre-wrap;
+    white-space: pre-wrap;
+    font-size: 30px;
+    line-height: 30px;
+
+    background:
+        repeating-linear-gradient(transparent, transparent 20px, yellowgreen 21px),
+        repeating-linear-gradient(90deg,
+            transparent, transparent 20px, yellowgreen 21px);
+
+}
+
+@media screen and (max-width: 550px) {
+    .formHymn__textarea {
+        padding: 5px 5px;
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+}

@@ -5,8 +5,8 @@ import style from './ModalCreateCollection.module.css'
 import { ModalCollectionForm } from "../ModalCollectionForm/ModalCollectionForm"
 
 //импорт store
-import { useAppDispatch } from '../../redux/hooks'
-import { CollectionSlice } from '../../redux/reducers/CollectionSlice'
+import { useAppDispatch } from '../../../redux/hooks'
+import { CollectionSlice } from '../../../redux/reducers/CollectionSlice'
 
 
 

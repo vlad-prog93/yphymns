@@ -5,9 +5,9 @@ import style from './EditHymn.module.css'
 import React, { FormEvent, useEffect, useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../redux/hooks'
 import { IHymn } from '../../models/hymns'
-import { toUpdateHymn } from '../../redux/reducers/ActionCreatorHymns'
-import { handleTranslate, changeViewTextHymn, moveAccordsInText, deleteAccords } from '../../tools/workWithTextHymns'
-import FormHymn from '../../components/FormHymn/FormHymn'
+import { toEditHymn } from '../../redux/reducers/ActionCreatorHymns'
+import { handleTranslate, changeViewTextHymn, moveAccordsInText, deleteAccords } from '../../features/hymns/workWithTextHymns'
+import FormHymn from '../../features/hymns/FormHymn/FormHymn'
 
 const EditHymn = () => {
   const params = useParams()
