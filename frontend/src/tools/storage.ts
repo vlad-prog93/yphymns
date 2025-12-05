@@ -1,4 +1,5 @@
-import { IHistoryHymn } from "../models/hymns"
+import { ICollection } from "@models/collection"
+import { IHistoryHymn, IHymn } from "../models/hymns"
 import { ISettingsFont } from "../models/settingsFont"
 
 
@@ -13,22 +14,43 @@ class LSArray<T> {
     const data = this.get()
     data.push(value)
     localStorage.setItem(this.name, JSON.stringify(data))
+    return data
   }
 
   delete(value: T) {
     let data = this.get()
     data = data.filter((el: T) => el !== value)
     localStorage.setItem(this.name, JSON.stringify(data))
+    return data
   }
 
   deleteLast = () => {
     let data = this.get()
-    data = data.filter((_, index) => index !== -1)
+    data.pop()
     localStorage.setItem(this.name, JSON.stringify(data))
+    return data
   }
 
   clear() {
     localStorage.removeItem(this.name)
+  }
+
+  toggle(value: T) {
+    let data = this.get()
+
+    if (data.includes(value)) {
+      data = data.filter(el => el !== value)
+    } else {
+      data = [...data, value]
+    }
+
+    localStorage.setItem(this.name, JSON.stringify(data))
+    return data
+  }
+
+  setList(value: T[]) {
+    const data = localStorage.setItem(this.name, JSON.stringify(value))
+    return value
   }
 }
 
@@ -52,51 +74,5 @@ class LSValue<T> {
 export const LSFavoriteHymns = new LSArray<string>('favorite')
 export const LSHistoryHymns = new LSArray<IHistoryHymn>('history')
 export const LSSettingsFont = new LSValue<ISettingsFont>('settingFont')
-
-
-
-// export const getFavoriteHymnsLS = (): string[] => {
-//   const hymnsString = localStorage.getItem('favorite')
-//   return hymnsString ? JSON.parse(hymnsString) : []
-// }
-
-// export const setFavoriteHymnLS = (value: string) => {
-//   const hymnsString = localStorage.getItem('favorite')
-//   const hymnsList: string[] = hymnsString ? JSON.parse(hymnsString) : []
-//   hymnsList.push(value)
-//   return localStorage.setItem('favorite', JSON.stringify(hymnsList))
-// }
-
-// export const deleteFavoriteHymnLS = (value: string) => {
-//   const hymnsString = localStorage.getItem('favorite')
-//   const hymnsList: string[] = hymnsString ? JSON.parse(hymnsString) : []
-//   return localStorage.setItem('favorite', JSON.stringify(hymnsList.filter((id: string) => id !== value)))
-// }
-
-
-// export const getHistoryHymnsLS = (): IHistoryHymn[] => {
-//   const hymnsString = localStorage.getItem('history')
-//   return hymnsString ? JSON.parse(hymnsString) : []
-// }
-
-// export const setHistoryHymnLS = (value: IHistoryHymn) => {
-//   const hymnsString = localStorage.getItem('history')
-//   const hymnsList: IHistoryHymn[] = hymnsString ? JSON.parse(hymnsString) : []
-//   hymnsList.push(value)
-//   return localStorage.setItem('history', JSON.stringify(hymnsList))
-// }
-
-// export const deleteHistoryHymnLS = () => {
-//   const hymnsString = localStorage.getItem('history')
-//   const hymnsList: IHistoryHymn[] = hymnsString ? JSON.parse(hymnsString) : []
-//   return localStorage.setItem('history', JSON.stringify(hymnsList.splice(1, hymnsList.length - 1)))
-// }
-
-// export const getSettingFontLS = () => {
-//   const settingFont = localStorage.getItem('settingFont')
-//   return settingFont ? JSON.parse(settingFont) : null
-// }
-
-// export const setSettingFontLS = (value: ISettingsFontLS) => {
-//   return localStorage.setItem('settingFont', JSON.stringify(value))
-// }
+export const LSHymns = new LSArray<IHymn>('hymns')
+export const LSCollections = new LSArray<ICollection>('collections')

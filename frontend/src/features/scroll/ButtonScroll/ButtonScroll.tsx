@@ -3,7 +3,7 @@ import style from './ButtonScroll.module.css'
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import { hymnsSlice } from '../../../redux/reducers/HymnSlice'
 import { SPEED_CONFIG } from '../../../utils/const'
-import MyButton from '../../../components/MyButton/MyButton'
+import MyButton from '../../../components/UI/MyButton/MyButton'
 
 import icon_stop from '../../assets/icons/arrows/stop.png'
 import icon_run_0 from '../../assets/icons/arrows/arrow-down.png'

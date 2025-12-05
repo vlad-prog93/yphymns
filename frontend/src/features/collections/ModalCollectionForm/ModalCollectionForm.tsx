@@ -1,25 +1,23 @@
 import { useState } from 'react'
-import Input from '../../../components/UI/Input/Input'
+import Input from '@components/UI/Input/Input'
 import style from './ModalCollectionForm.module.css'
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
+import { useAppSelector } from '../../../redux/hooks'
 import Button from '../../../components/UI/Button/Button'
-import { toCreateCollection, toEditCollection } from '../../../redux/reducers/ActionCreatorCollections'
-import { ICollection } from '../../../models/collection'
+
 
 export const ModalCollectionForm = () => {
   const [name, setInputName] = useState('')
-  const col = useAppSelector(state => state.collectionsReducer)
-  const dispatch = useAppDispatch()
+  const col = useAppSelector(state => state.collections)
 
   const handleSubmitForm = (e: React.FormEvent) => {
     e.preventDefault()
-    if (col.currentCollection) {
-      const data: ICollection = { ...col.currentCollection, name }
-      toEditCollection(dispatch, data)
-      return
-    }
-    toCreateCollection(dispatch, name)
-    return
+    // if (col.currentCollection) {
+    //   const data: ICollection = { ...col.currentCollection, name }
+    //   toEditCollection(dispatch, data)
+    //   return
+    // }
+    // toCreateCollection(dispatch, name)
+    // return
   }
 
 

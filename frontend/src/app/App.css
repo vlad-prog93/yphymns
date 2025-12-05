@@ -1,0 +1,14 @@
+.app {
+  position: relative;
+  background-color: var(--bg-color);
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+
+  min-height: calc(100vh - 50px);
+  height: 100%;
+}
+
+.app__wrapper {
+  margin-top: 50px;
+}

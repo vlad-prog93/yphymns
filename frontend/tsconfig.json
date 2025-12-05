@@ -1,27 +1,67 @@
 {
+  "moduleResolution": "bundler",
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "lib": [
-      "ES2023.Array",
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "jsx": "react-jsx",
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "skipLibCheck": true,
+    "strict": true,
+    "paths": {
+      "@components/*": [
+        "./src/components/*"
+      ],
+      "@utils/*": [
+        "./src/utils/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@app/*": [
+        "./src/app/*"
+      ],
+      "@redux/*": [
+        "./src/redux/*"
+      ],
+      "@assets/*": [
+        "./src/assets/*"
+      ],
+      "@context/*": [
+        "./src/context/*"
+      ],
+      "@features/*": [
+        "./src/features/*"
+      ],
+      "@models/*": [
+        "./src/models/*"
+      ],
+      "@pages/*": [
+        "./src/pages/*"
+      ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
+      "@tools/*": [
+        "./src/tools/*"
+      ],
+      "@vendor/*": [
+        "./src/vendor/*"
+      ],
+      "*": [
+        "./src/*"
+      ]
+    },
+    "types": [
+      "vite/client"
+    ]
   },
   "include": [
-    "src"
+    "src",
+    "vite.config.ts"
   ]
 }

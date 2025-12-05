@@ -1,25 +1,27 @@
-const AppLayout = (children: any) => {
+import { ReactNode } from "react";
+import "./App.css"
+
+
+import Header from "@components/layout/Header/Header"
+import Menu from "@components/layout/Menu/Menu"
+import OverLays from "@components/layout/OverLays/OverLays"
+
+type AppLayoutProps = {
+  children: ReactNode;
+};
+
+const AppLayout = ({ children }: AppLayoutProps) => {
 
 
   return (
-    {(hymnReducer.error || collectionsReducer.error) && <PopupError />}
-{ (hymnReducer.isLoading || collectionsReducer.isLoading) && <PopupError /> }
-        <Menu />
-        <Header />
-{ isModalActive && <ModalAccords /> }
-{ collectionsReducer.isModalShow && <ModalCreateCollection /> }
-
-<div className='App' >
-  <div className='App__header'>
-    {scrollReducer.isShowAutoScroll && <ButtonScroll alreadyBottom={inView} />}
-  </div>
-  {children}
-  {hymnReducer.currentHymn && <div style={{ height: '1px' }} ref={refView} />}
-  <div className='App__footer'>
-    {hymnReducer.currentHymn && <Arrows />}
-  </div>
-
-</div>
+    <div className='app' >
+      <Menu />
+      <Header />
+      <main className='app__wrapper'>
+        {children}
+      </main>
+      <OverLays />
+    </div>
   )
 }
 

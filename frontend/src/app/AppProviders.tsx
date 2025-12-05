@@ -1,25 +1,28 @@
 // app/AppProviders.tsx
 import { Provider } from 'react-redux'
-import { store } from '../redux/store'
 import { BrowserRouter } from 'react-router-dom'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
-import { contextSettingsFont, stateSettingsFont } from '../context/settingsSize'
-import { LSSettingsFont } from '../tools/storage'
-import { ISettingsFont } from '../models/settingsFont'
+import { store } from '@redux/store'
+
+import { contextSettingsFont, stateSettingsFont } from '@context/settingsSize'
+import { LSSettingsFont } from '@tools/storage'
+import { ISettingsFont } from '@models/settingsFont'
 
 interface Props {
   children: React.ReactNode
 }
 
-export const AppProviders = ({ children }: Props) => {
-  const [settingsFont, setSettingsFont] = useState<ISettingsFont>(
-    LSSettingsFont.get() || stateSettingsFont
-  )
+const AppProviders = ({ children }: Props) => {
+  const [settingsFont, setSettingsFont] = useState<ISettingsFont>(LSSettingsFont.get() || stateSettingsFont)
+  const contextValue: ISettingsFont = useMemo(() => ({
+    ...settingsFont,
+    setSettingsFont
+  }), [settingsFont])
 
   return (
     <Provider store={store}>
-      <contextSettingsFont.Provider value={{ ...settingsFont, setSettingsFont }}>
+      <contextSettingsFont.Provider value={contextValue}>
         <BrowserRouter>
           {children}
         </BrowserRouter>
@@ -27,3 +30,5 @@ export const AppProviders = ({ children }: Props) => {
     </Provider>
   )
 }
+
+export default AppProviders

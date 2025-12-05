@@ -1,0 +1,16 @@
+.transpose {
+  position: absolute;
+  top: 31px;
+  left: -16px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  gap: 5px;
+  background-color: var(--font-color-dark);
+  border-radius: 6px;
+
+  z-index: 10;
+}

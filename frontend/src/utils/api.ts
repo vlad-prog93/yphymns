@@ -1,6 +1,6 @@
 import axios from "axios";
-
-const IP_SERVER = process.env.REACT_APP_API_URL || 'http://localhost:5000/api'
+// process.env.REACT_APP_API_URL || 
+const IP_SERVER = 'http://localhost:5000/api'
 const HYMNS = '/hymns'
 const HYMN = '/hymn'
 const COLLECTIONS = '/collections'

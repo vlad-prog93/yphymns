@@ -1,0 +1,66 @@
+.hymnList__selectTitle {
+  padding-left: 15px;
+}
+
+.hymnList__select {
+  margin: 0 auto 0 10px;
+  padding: 0 5px;
+  /* appearance: none; */
+  padding: 4px;
+  border-color: #aaa;
+  border-radius: 3px;
+}
+
+.hymnList__list {
+
+  margin: 0 auto;
+  padding: 0 5px;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  font-size: 16px;
+
+
+  list-style-type: none;
+}
+
+.hymnList__Item {
+  padding: 10px;
+  border-bottom: 1px solid black;
+  transition: border .3 ease-in;
+}
+
+.hymnList__Item_head {
+  display: grid;
+  grid-template-columns: 35% auto 25px;
+  width: 100%;
+}
+
+.hymnList__link {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: black;
+
+  display: grid;
+  grid-template-columns: 35% auto 25px;
+  width: 100%;
+  transition: color .3 ease-in;
+}
+
+.hymnList__link span:last-of-type,
+.hymnList__Item_head span:last-of-type {
+  text-align: right;
+}
+
+.hymnList__link:hover {
+  color: rgb(241, 196, 15);
+}
+
+.hymnList__info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

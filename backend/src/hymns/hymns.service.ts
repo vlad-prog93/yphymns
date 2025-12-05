@@ -86,9 +86,11 @@ export class HymnsService {
               ...hymn,
               collection: newCol._id
             }
-            return this.create(newHymn)
+            const h = new this.hymnModel(newHymn)
+            return await h.save()
           } else {
-            return this.create({ ...hymn, collection: col._id })
+            const h = new this.hymnModel({ ...hymn, collection: col._id })
+            return await h.save()
           }
         })
       )

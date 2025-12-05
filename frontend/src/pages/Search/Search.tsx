@@ -1,51 +1,46 @@
-import { useEffect, useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 // стили
-import style from './search.module.css'
-
-// redux
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { hymnsSlice } from '../../redux/reducers/HymnSlice'
-
-// utils
-import { ROUTES } from '../../utils/routes'
+import style from './Search.module.css'
 
 // components
-import Button from '../../components/UI/Button/Button'
-import Input from '../../components/UI/Input/Input'
+import Button from '@components/UI/Button/Button'
+import Input from '@components/UI/Input/Input'
+
+// const
+import { useSearchHymns } from '@features/hymns/hooks/useSearchHymns'
+
 
 
 const Search = () => {
-  const { searchHymnsBy } = useAppSelector(state => state.hymnReducer)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const inputNumberRef = useRef<HTMLInputElement>(null);
+  const { search, searchHymnsBy, setSearchHymnsBy, clear } = useSearchHymns()
 
-
-  const toSearch = (e: React.FormEvent): void => {
-    e.preventDefault()
-    navigate(ROUTES.foundedHymns)
+  const changeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchHymnsBy({
+      ...searchHymnsBy,
+      [e.target.type]: e.target.value
+    })
   }
 
-  useEffect(() => {
-    dispatch(hymnsSlice.actions.deleteCurrentHymn())
-    inputNumberRef?.current?.focus()
-  }, [dispatch])
+  useEffect(() => { clear() }, [])
+
+
 
   return (
     <div className={style.search}>
-      <form className={style.search__form} onSubmit={toSearch}>
+      <form className={style.search__form} onSubmit={(e) => {
+        e.preventDefault()
+        search()
+      }}>
         <Input
-          value={searchHymnsBy.number}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(hymnsSlice.actions.setSearchHymnsBy({ ...searchHymnsBy, number: Number(e.target.value) }))}
+          value={searchHymnsBy.number ?? ''}
+          onChange={changeInput}
           type="number"
           placeholder='Поиск по номеру'
-          ref={inputNumberRef}
         />
         <Input
-          value={searchHymnsBy.text}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => dispatch(hymnsSlice.actions.setSearchHymnsBy({ ...searchHymnsBy, text: e.target.value }))}
+          value={searchHymnsBy.text ?? ''}
+          onChange={changeInput}
           type="text"
           placeholder='Поиск по строке' />
         <Button
