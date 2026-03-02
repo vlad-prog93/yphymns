@@ -1,65 +1,62 @@
 .menu {
   position: fixed;
-  color: #FFF;
-  background-color: rgba(0, 0, 0, 0.7);
-  width: 100%;
-  height: calc(100% - 50px);
-  transition: all .3s;
   top: 50px;
-  left: -100%;
-  z-index: 4;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100vh;
+  width: 0;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  /* прозрачный фон, когда закрыто */
+  transition: background-color 0.3s, width 0.3s;
+  z-index: 999;
+  /* над контентом, под header если нужно */
+
+
 }
 
 .menu_active {
+  width: 250px;
+}
+
+.menu__content {
+  position: absolute;
+  top: 0;
   left: 0;
-}
-
-
-
-
-.menu__contain {
-  background-color: #000;
-  width: 30%;
   height: 100%;
-
-  transition: all .7s;
-}
-
-@media screen and (max-width: 1025px) {
-  .menu__contain {
-    width: 40%;
-
-  }
-}
-
-@media screen and (max-width: 778px) {
-  .menu__contain {
-    width: 50%;
-
-  }
-}
-
-@media screen and (max-width: 525px) {
-  .menu__contain {
-    width: 100%;
-
-  }
-}
-
-.menu .menu__contain {
-  margin-left: 0;
-}
-
-.menu_active .menu__contain {
-  margin-left: 100px;
-}
-
-@media screen and (max-width: 1480px) {
-  .menu_active .menu__contain {
-    margin-left: 0;
-  }
+  width: 250px;
+  background-color: #fff;
+  /* фон меню */
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .menu__list {
-  list-style-type: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.menu__list li {
+  /* если MenuItem возвращает <li> — можно добавить здесь общие стили */
+}
+
+.menu__list a {
+  text-decoration: none;
+  color: #333;
+  font-size: 1rem;
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: block;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.menu__list a:hover {
+  background-color: #f0f0f0;
+  color: #000;
 }

@@ -7,7 +7,7 @@ import { filterHymns } from "@features/hymns/filterHymns"
 
 export const useSelectHymns = (): IHymn[] => {
   const { pathname } = useLocation()
-  const { hymns, favoriteHymns, historyHymns, searchHymnsBy } = useAppSelector(state => state.hymn)
+  const { hymns, favoriteHymns, historyHymns, searchHymnsBy } = useAppSelector(s => s.hymn)
 
   const map = new Map(hymns.map((h) => [h._id, h]))
   if (pathname === Path_of_Routes.favoriteHymns) {

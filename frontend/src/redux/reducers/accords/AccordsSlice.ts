@@ -5,6 +5,7 @@ interface AccordsState {
     isModalActive: boolean,
     isShowAccords: boolean,
     isModalTransposeActive: boolean,
+    lvlTranspose: number
 }
 
 const initialState: AccordsState = {
@@ -12,30 +13,40 @@ const initialState: AccordsState = {
     isModalActive: false,
     isShowAccords: false,
     isModalTransposeActive: false,
+    lvlTranspose: 0
 }
 
 export const accordsSlice = createSlice({
     name: 'accords',
     initialState,
     reducers: {
+        // модальное окно с аккордами (возможно это не нужно)
         setModalActive(state, action: PayloadAction<boolean>) {
             state.isModalActive = action.payload
         },
         toggleModalActive(state, action: PayloadAction<boolean>) {
             state.isModalActive = action.payload
         },
+
+        // показать окно с аккордами 
         setCurrentAccords(state, action: PayloadAction<string[]>) {
+            state.isModalActive = true
             state.currentAccords = action.payload
         },
         clearCurrentAccords(state) {
+            state.isModalActive = false
             state.currentAccords = null
         },
+
+        // показать аккорды/скрыть аккорды в тексте
         setShowAccord(state, action: PayloadAction<boolean>) {
             state.isShowAccords = action.payload
         },
         toggleShowAccord(state) {
             state.isShowAccords = !state.isShowAccords
         },
+
+        // окно с транспонированием
         setModalTranspose(state, action: PayloadAction<boolean>) {
             state.isModalTransposeActive = action.payload
         },
@@ -43,6 +54,13 @@ export const accordsSlice = createSlice({
             state.isModalTransposeActive = !state.isModalTransposeActive
         },
 
+        // эффект кнопок транспонирования
+        transposeUp(state) {
+            state.lvlTranspose += 1
+        },
+        transposeDown(state) {
+            state.lvlTranspose -= 1
+        },
     }
 })
 

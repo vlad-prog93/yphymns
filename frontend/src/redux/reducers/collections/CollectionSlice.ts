@@ -35,6 +35,12 @@ export const collectionSlice = createSlice({
     setCurrentCollection(state, action: PayloadAction<ICollection | null>) {
       state.currentCollection = action.payload
     },
+    setError(state, action: PayloadAction<string>) {
+      state.error = action.payload
+    },
+    clearError(state) {
+      state.error = null
+    }
   },
   extraReducers(builder) {
     builder
@@ -58,7 +64,7 @@ export const collectionSlice = createSlice({
         state.collections = []
       })
       .addCase(toDeleteOneCol.fulfilled, (state, action) => {
-        state.collections = state.collections.filter(col => col._id !== action.payload)
+        state.collections = state.collections.filter(col => col._id !== action.payload._id)
       })
       .addMatcher(isPendingAction, setPending)
       .addMatcher(isRejectedAction, setRejected)

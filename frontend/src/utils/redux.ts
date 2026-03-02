@@ -18,7 +18,7 @@ export const isPendingAction = (action: any) =>
   action.type.endsWith("/pending");
 
 export const isRejectedAction = (action: any) =>
-  action.type.endsWith("/pending");
+  action.type.endsWith("/rejected");
 
 export const isFulfilledAction = (action: any) =>
   action.type.endsWith("/fulfilled");

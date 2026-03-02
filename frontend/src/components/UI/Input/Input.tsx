@@ -8,7 +8,7 @@ const Input = forwardRef((props: any, ref) => {
     <input
       className={style.input}
       {...props}
-      ref={ref} />
+    />
   )
 })
 

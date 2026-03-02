@@ -1,0 +1,48 @@
+.hymnText {
+  margin: 20px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-family: Roboto;
+}
+
+.hymnText__content {
+  display: grid;
+  grid-template-columns: 30px auto;
+}
+
+.hymnText__section,
+.hymnText__text {
+  font-family: Roboto;
+  font-size: 20px;
+}
+
+.hymnText__text_with_accords {
+  font-family: Roboto;
+  font-size: 20px;
+  line-height: 2.5;
+}
+
+.hymn__word_with_accord {
+  position: relative;
+  font-family: Roboto;
+  font-size: 20px;
+
+}
+
+.hymn__accord {
+  position: absolute;
+  transform: translate(calc(-10.6px), calc(-10.1px));
+
+  text-wrap: nowrap;
+  background: inherit;
+  border: none;
+  cursor: pointer;
+  display: inline;
+  font-family: Roboto;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+
+}

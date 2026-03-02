@@ -44,7 +44,7 @@
 
 .input__file span {
   padding: 10px 18px;
-  background: white;
+  background: var(--color-white);
   border-radius: 12px;
   border: 1px dashed var(--border-color);
   cursor: pointer;
@@ -52,7 +52,7 @@
 }
 
 .input__file span:hover {
-  background: #fafafa;
+  background: var(--color-grey-light);
   border-color: var(--active-color);
 }
 
@@ -63,63 +63,24 @@
 }
 
 .admin__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
   margin-bottom: 14px;
 }
 
-.admin__details {
-  background: white;
-  border-radius: 14px;
-  padding: 6px 12px;
-  border: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-}
-
-.admin__summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 6px;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-/* Убираем стандартный маркер браузера */
-.admin__summary::-webkit-details-marker {
-  display: none;
-}
-
-.admin__summaryContent {
+.admin__itemTitle {
   margin-right: auto;
+}
+
+.admin__itemNumber {
+  min-width: 30px;
 }
 
 .admin__buttons {
   display: flex;
   gap: 10px;
   border-bottom: 1px solid var(--active-color);
-}
-
-.admin__summary::before {
-  content: "+";
-  font-size: 30px;
-  font-weight: 300;
-  margin-right: 10px;
-  color: var(--active-color);
-  transition: .2s;
-}
-
-details[open]>.admin__summary::before {
-  content: "−";
-  transform: rotate(180deg);
-}
-
-.admin__item li {
-  display: grid;
-  grid-template-columns: 60px 1fr auto auto;
-  gap: 10px;
-  align-items: center;
-  padding: 8px 6px;
-  border-bottom: 1px dashed var(--border-color);
 }
 
 .admin__number {
@@ -132,17 +93,10 @@ details[open]>.admin__summary::before {
   opacity: .9;
 }
 
-.admin__button {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 8px;
-  transition: .2s;
-  font-size: 13px;
-}
-
-.admin__button:hover {
-  background: var(--active-color);
-  color: black;
+.details__config {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+  margin-bottom: 10px;
 }

@@ -16,7 +16,7 @@ export const toGetAllHymns = createAsyncThunk(
 export const toGetOneHymn = createAsyncThunk(
   "hymns/toGetOneHymn",
   async (id: string) => {
-    const { data } = await api.get<IHymn>(`${URL_RES.HYMNS.GET_ONE}${id}`)
+    const { data } = await api.get<IHymn>(`${URL_RES.HYMNS.GET_ONE}/${id}`)
     LSHymns.set(data)
     return data
   }
@@ -24,7 +24,7 @@ export const toGetOneHymn = createAsyncThunk(
 
 export const toCreateHymn = createAsyncThunk(
   "hymns/toCreateHymn",
-  async (hymn: IHymn) => {
+  async (hymn: Omit<IHymn, '_id'>) => {
     const { data } = await api.post<IHymn>(URL_RES.HYMNS.CREATE, { ...hymn })
     return data
   }
@@ -33,7 +33,7 @@ export const toCreateHymn = createAsyncThunk(
 export const toEditOneHymn = createAsyncThunk(
   "hymns/toEditOneHymn",
   async (hymn: IHymn) => {
-    const { data } = await api.patch<IHymn>(`${URL_RES.HYMNS.EDIT_ONE}${hymn._id}`, { ...hymn })
+    const { data } = await api.patch<IHymn>(`${URL_RES.HYMNS.EDIT_ONE}/${hymn._id}`, { ...hymn })
     return data
   }
 )
@@ -49,7 +49,7 @@ export const toDeleteAllHymns = createAsyncThunk(
 export const toDeleteOneHymn = createAsyncThunk(
   "hymns/toDeleteOneHymn",
   async (id: string) => {
-    const { data } = await api.delete<string>(`${URL_RES.HYMNS.DELETE_ONE}${id}`)
+    const { data } = await api.delete<IHymn>(`${URL_RES.HYMNS.DELETE_ONE}/${id}`)
     return data
   }
 )

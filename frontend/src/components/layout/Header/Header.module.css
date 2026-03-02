@@ -72,23 +72,23 @@
 
 .header__buttonSearch {
   margin-top: 2px;
-  background-image: url('../../assets/icons/search.png');
+  background-image: url('../../../assets/icons/search.png');
 }
 
 .header__buttonSearch:hover {
-  background-image: url('../../assets/icons/search_active.png');
+  background-image: url('../../../assets/icons/search_active.png');
 }
 
 .header__buttonFavorite {
-  background-image: url('../../assets/icons/star.png');
+  background-image: url('../../../assets/icons/star.png');
 }
 
 .header__buttonFavorite:hover {
-  background-image: url('../../assets/icons/star_active.png');
+  background-image: url('../../../assets/icons/star_active.png');
 }
 
 .header__buttonFavorite_active {
-  background-image: url('../../assets/icons/star_active.png');
+  background-image: url('../../../assets/icons/star_active.png');
 }
 
 .header__item {
@@ -133,17 +133,17 @@
 }
 
 .header__itemSpanTranspose {
-  background-image: url(../../assets/icons/tranpose.png);
+  background-image: url(../../../assets/icons/tranpose.png);
 }
 
 .header__itemInput:checked+.header__itemSpanTranspose {
-  background-image: url(../../assets/icons/transpose_active.png);
+  background-image: url(../../../assets/icons/transpose_active.png);
 }
 
 .header__itemSpanAccord {
-  background-image: url(../../assets/icons/accord.png);
+  background-image: url(../../../assets/icons/accord.png);
 }
 
 .header__itemInput:checked+.header__itemSpanAccord {
-  background-image: url(../../assets/icons/accord_active.png);
+  background-image: url(../../../assets/icons/accord_active.png);
 }

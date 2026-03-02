@@ -1,46 +1,48 @@
 // import { useMemo, useCallback } from 'react'
 // import { useAppSelector } from '@redux/hooks'
 // import { deleteAccords } from '@features/hymns/workWithTextHymns'
-// import { HymnText } from '@features/hymns/HymnText/HymnText'
+import { HymnText } from '@features/hymns/HymnText/HymnText'
 // import { useArrowNavigation } from '@hooks/routing/useArrowNavigation'
+import { useMapCollections } from '@features/collections/hooks/useMapCollections'
+import style from './hymn.module.css'
+import { useGetHymn } from "@features/hymns/hooks/useGetHymn"
+import { useParseTextHymn } from "@features/hymns/hooks/useParseTextHymn"
+import { useParams } from "react-router-dom"
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
+import { useEffect } from 'react'
+import { setHistoryHymn } from '@redux/reducers/hymns/ActionCreatorHymns'
 
 const Hymn = () => {
-  // const { currentHymn, isTextWithAccord } = useAppSelector(state => state.hymnReducer)
+  const { id } = useParams()
+  const dispatch = useAppDispatch()
+  const hymn = useGetHymn(id)
+  const collection = useMapCollections()
+  const parsedText = useParseTextHymn(hymn?.text || null)
+  const { isShowAccords } = useAppSelector(s => s.accords)
 
-  // const preparedText = useMemo(() => {
-  //   if (!currentHymn) return null
+  useEffect(() => {
 
-  //   return isTextWithAccord
-  //     ? currentHymn.text
-  //     : deleteAccords(currentHymn.text)
-  // }, [currentHymn, isTextWithAccord])
+    const timer = setTimeout(() => {
+      if (hymn) {
+        dispatch(setHistoryHymn(hymn._id))
+      }
+    }, 2000)
 
-  // const goNext = useCallback(() => {
-  //   return
-  // }, [])
+    return () => clearTimeout(timer)
 
-  // const goPrev = useCallback(() => {
-  //   return
-  // }, [])
+  }, [hymn, dispatch])
 
-  // useArrowNavigation(goPrev, goNext)
+  if (!hymn) return null
+  if (!parsedText) return null
 
-  // if (!currentHymn || !preparedText) return null
-
-  // return (
-  //   <div>
-  //     <h1>
-  //       {currentHymn.number}. {currentHymn.title}
-  //     </h1>
-
-  //     <HymnText
-  //       text={preparedText}
-  //       showAccords={isTextWithAccord}
-  //     />
-  //   </div>
-  // )
   return (
-    <>sdfdsf</>
+    <section className={style.hymn}>
+      <h3 className={style.hymn__title}>Сборник</h3>
+      <h3 className={style.hymn__title}>
+        {collection.get(hymn.collection)}
+      </h3>
+      {<HymnText text={parsedText} showAccords={isShowAccords} />}
+    </section>
   )
 }
 

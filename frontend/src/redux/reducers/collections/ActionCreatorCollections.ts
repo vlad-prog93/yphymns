@@ -31,7 +31,7 @@ export const toCreateCol = createAsyncThunk(
 export const toEditOneCol = createAsyncThunk(
   "collections/toEditOneCol",
   async (collection: ICollection) => {
-    const { data } = await api.patch<ICollection>(`${URL_RES.COLLECTIONS.EDIT_ONE}${collection._id}`, { ...collection })
+    const { data } = await api.patch<ICollection>(`${URL_RES.COLLECTIONS.EDIT_ONE}/${collection._id}`, { ...collection })
     return data
   })
 
@@ -46,17 +46,17 @@ export const toDeleteAllCols = createAsyncThunk(
 export const toDeleteOneCol = createAsyncThunk(
   "collections/toDeleteOneCol",
   async (id: string) => {
-    const { data } = await api.delete<string>(`${URL_RES.COLLECTIONS.DELETE_ONE}${id}`)
+    const { data } = await api.delete<ICollection>(`${URL_RES.COLLECTIONS.DELETE_ONE}/${id}`)
     return data
   })
 
 
-export const toPullDataCols = async () => {
-  // В бекенде пока что не реализовано
-  return
-}
+// export const toPullDataCols = async () => {
+//   // В бекенде пока что не реализовано
+//   return
+// }
 
-export const toPushDataCols = async (file: File) => {
-  // В бекенде пока что не реализовано
-  return
-}
+// export const toPushDataCols = async (file: File) => {
+//   // В бекенде пока что не реализовано
+//   return
+// }

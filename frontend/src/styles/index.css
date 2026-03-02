@@ -2,82 +2,63 @@
 @import url('../vendor/fonts.css');
 
 :root {
-  --bg-color: rgba(200, 200, 200, 0.2);
-  --font-color-light: white;
+  --color-white: #FFFFFF;
+
+  --color-black-dark: #515151;
+  --color-black-medium: #515151;
+  --color-black-light: #DDDDDD;
+
+  --color-grey-dark: #515151;
+  --color-grey-medium: #515151;
+  --color-grey-light: #DDDDDD;
+
+  --color-yellow-dark: #EFBF04;
+  --color-yellow-medium: #EFBF04;
+  --color-yellow-light: #EFBF04;
+
+  --light: rgb(255, 255, 255);
+  --active-color: rgba(241, 196, 15, 1);
+
+  --f-c-dark: var(--dark);
+  --f-c-light: rgba(255, 255, 255, 1);
+  --f-c-active: var(--active-color);
+
+  --bg-c-dark: var(--dark);
+  --bg-c-medium: rgba(200, 200, 200, 0.2);
+  --bg-c-light:
+
+    --font-color-light: white;
   --font-color-dark: black;
-  --active-color: rgb(241, 196, 15);
   --border-color: #e1e1e1;
   --border-color-active: #515151;
   --shadow-color-active: #EFBF04;
 
   --font-size-text: 14px;
 
+  --height-header: 50px;
+
+}
+
+#root {
+  font-family: Roboto, Inter, 'Arial', 'Helvetica CY', 'Nimbus Sans L';
+  width: 100%;
+  height: 100%;
 }
 
 * {
   box-sizing: border-box;
-  /* Синяя подсветка сливается с фоном */
   -webkit-tap-highlight-color: transparent;
-  /* Предотвращаем появление контекстного меню на устройствах Apple */
   -webkit-touch-callout: none;
-  /* Осторожно относимся к выбору контента */
-  /* -webkit-user-select: none;
-  user-select: none; */
-}
-
-body {
-  margin: 0;
-  padding: 0;
-
-  font-family: Roboto, Inter, 'Arial', 'Helvetica CY', 'Nimbus Sans L';
 }
 
 ul,
 li,
-pre {
+pre,
+h1, h2, h3, h4, h5, h6, p {
   margin: 0;
   padding: 0;
 }
 
 li {
   list-style-type: none;
-}
-
-#root {
-  width: 100%;
-  height: 100%;
-}
-
-
-
-.App__header {
-  position: absolute;
-  height: calc(100% - 50px);
-  top: 50px;
-  right: 0;
-  width: 50px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-.App__footer {
-  position: sticky;
-  bottom: 0;
-  padding: 0 5px 10px;
-
-  display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.App__footer_active {
-  background-color: rgba(200, 200, 200, 0.8);
-}
-
-.App__button-scroll {
-  position: absolute;
 }

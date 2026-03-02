@@ -5,24 +5,13 @@ import { useAppSelector } from '../../../redux/hooks'
 import Button from '../../../components/UI/Button/Button'
 
 
-export const ModalCollectionForm = () => {
+export const ModalCollectionForm = ({ submit }: { submit: (e: React.FormEvent, name: string) => void }) => {
   const [name, setInputName] = useState('')
   const col = useAppSelector(state => state.collections)
 
-  const handleSubmitForm = (e: React.FormEvent) => {
-    e.preventDefault()
-    // if (col.currentCollection) {
-    //   const data: ICollection = { ...col.currentCollection, name }
-    //   toEditCollection(dispatch, data)
-    //   return
-    // }
-    // toCreateCollection(dispatch, name)
-    // return
-  }
-
 
   return (
-    <form className={style.modalCollection__form} onSubmit={handleSubmitForm}>
+    <form className={style.modalCollection__form} onSubmit={(e) => submit(e, name)}>
       <h4
         className={style.modalCollection__title}
       >

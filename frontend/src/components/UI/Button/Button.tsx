@@ -1,8 +1,16 @@
 import style from './Button.module.css'
 
-const Button = (props: { disabled?: boolean, children: string, onClick?: () => void, type?: 'button' | 'submit' | 'reset' }) => {
+interface ButtonProps {
+  disabled?: boolean,
+  children?: string | React.ReactNode,
+  onClick?: () => void,
+  type?: 'button' | 'submit' | 'reset'
+  style?: any
+}
+
+const Button = (props: ButtonProps) => {
   return (
-    <button className={style.button} {...props} />
+    <button className={style.button} {...props}>{props.children}</button>
   )
 }
 

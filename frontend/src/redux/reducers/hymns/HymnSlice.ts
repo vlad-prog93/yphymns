@@ -22,7 +22,7 @@ const initialState: IHymnState = {
   favoriteHymns: [],
   historyHymns: [],
   searchHymnsBy: { number: null, text: '' },
-  isTextWithAccord: false,
+  isTextWithAccord: true,
   isLoading: false,
   error: null,
 }
@@ -61,7 +61,7 @@ export const hymnsSlice = createSlice({
         state.currentHymn = action.payload
       })
       .addCase(toDeleteOneHymn.fulfilled, (state, action) => {
-        state.hymns = state.hymns.filter(hymn => hymn._id !== action.payload)
+        state.hymns = state.hymns.filter(hymn => hymn._id !== action.payload._id)
       })
       .addCase(toEditOneHymn.fulfilled, (state, action) => {
         state.hymns = state.hymns.map((hymn: IHymn) => {
@@ -78,7 +78,6 @@ export const hymnsSlice = createSlice({
       .addCase(getHistoryHymn.fulfilled, (state, action) => {
         state.historyHymns = action.payload
       })
-      .addCase(getHistoryHymn.rejected, setRejected)
       .addMatcher(isPendingAction, setPending)
       .addMatcher(isRejectedAction, setRejected)
       .addMatcher(isFulfilledAction, setFulfilled)

@@ -1,66 +1,69 @@
-.hymnList__selectTitle {
-  padding-left: 15px;
-}
-
-.hymnList__select {
-  margin: 0 auto 0 10px;
-  padding: 0 5px;
-  /* appearance: none; */
-  padding: 4px;
-  border-color: #aaa;
-  border-radius: 3px;
-}
-
 .hymnList__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: sans-serif;
+}
 
-  margin: 0 auto;
-  padding: 0 5px;
-
+.hymnList__header,
+.hymnList__item {
   display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  font-size: 16px;
-
-
-  list-style-type: none;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
 }
 
-.hymnList__Item {
-  padding: 10px;
-  border-bottom: 1px solid black;
-  transition: border .3 ease-in;
+.hymnList__header {
+  background-color: #f5f5f5;
+  font-weight: 600;
 }
 
-.hymnList__Item_head {
-  display: grid;
-  grid-template-columns: 35% auto 25px;
-  width: 100%;
+.hymnList__headerItem {
+  text-align: center;
+}
+
+.hymnList__item:last-child {
+  border-bottom: none;
 }
 
 .hymnList__link {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
   text-decoration: none;
-  cursor: pointer;
-  font-size: 16px;
-  color: black;
-
-  display: grid;
-  grid-template-columns: 35% auto 25px;
-  width: 100%;
-  transition: color .3 ease-in;
-}
-
-.hymnList__link span:last-of-type,
-.hymnList__Item_head span:last-of-type {
-  text-align: right;
+  color: inherit;
+  padding: 4px 0;
+  transition: background-color 0.2s;
 }
 
 .hymnList__link:hover {
-  color: rgb(241, 196, 15);
+  background-color: #f9f9f9;
 }
 
-.hymnList__info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.hymnList__itemCollection,
+.hymnList__itemTitle,
+.hymnList__itemNumber {
+  flex: 1 1 0;
+}
+
+.hymnList__itemCollection {
+  flex: 0 0 120px;
+  font-style: italic;
+  color: #555;
+}
+
+.hymnList__itemTitle {
+  flex: 2 1 0;
+  color: #222;
+
+}
+
+.hymnList__itemNumber {
+  flex: 0 0 60px;
+  text-align: right;
+  color: #666;
 }

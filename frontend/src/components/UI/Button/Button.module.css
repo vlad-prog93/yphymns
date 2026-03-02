@@ -1,29 +1,20 @@
 .button {
-  height: 40px;
+  padding: 12px 0;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: var(--dark);
+  color: var(--light);
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  text-transform: uppercase;
-  color: var(--font-color-light);
-  background-color: var(--border-color-active);
-
+  border-radius: 6px;
   cursor: pointer;
-  transition: .3s all;
-}
-
-@media screen and (max-width: 525px) {
-  .search__button {
-    font-size: 14px;
-  }
-}
-
-.button:hover {
-  background-color: #313131;
-  color: var(--active-color);
+  transition: background-color 0.5s;
 }
 
 .button:disabled {
-  background-color: grey;
-  cursor: auto;
-  color: var(--font-color-light);
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.button:not(:disabled):hover {
+  background-color: var(--border-color-active);
 }

@@ -1,27 +1,27 @@
 // store
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
-import { accordsSlice } from '../../../redux/reducers/accords/AccordsSlice'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
+import { accordsSlice } from '@redux/reducers/accords/AccordsSlice'
 
 // style
 import style from './ModalAccords.module.css'
 
 // const
-import ACCORDS from '../../../utils/accords'
+import ACCORDS from '@utils/accords'
 
 
 const ModalAccords = () => {
 
-    const { currentAccords } = useAppSelector(state => state.accordsReducer)
+    const { currentAccords } = useAppSelector(s => s.accords)
     const dispatch = useAppDispatch()
 
     const handleClickModal = (e: React.MouseEvent<HTMLDivElement>) => {
-        dispatch(accordsSlice.actions.deleteCurrentAccords())
-        dispatch(accordsSlice.actions.toogleModalActive(false))
+        dispatch(accordsSlice.actions.clearCurrentAccords())
+        dispatch(accordsSlice.actions.toggleModalActive(false))
     }
 
     const parseAccords = (accords: string[] | null) => {
         if (!accords) return 'Не выбрали аккорд'
-        return accords.map((accord, ind) => <img key={accord} className={style.ModalAccords__img} src={ACCORDS[accord]} />)
+        return accords.map((accord) => <img key={accord} className={style.ModalAccords__img} src={ACCORDS[accord]} />)
     }
 
     return (

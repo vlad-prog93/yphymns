@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 // стили
 import style from './Header.module.css'
@@ -16,41 +16,53 @@ import { Link } from "react-router-dom"
 
 //components
 import { Path_of_Routes } from "@utils/routes"
+import { useGetHymn } from "@features/hymns/hooks/useGetHymn"
+import { toggleFavoriteHymn } from "@redux/reducers/hymns/ActionCreatorHymns"
 
 function Header() {
-  const { currentHymn, isTextWithAccord } = useAppSelector(state => state.hymn)
-  const { isModalTransposeActive } = useAppSelector(state => state.accords)
-  const dispatch = useAppDispatch()
   const navigate = useNavigate()
-
-  const toggleFavoriteHymn = (): void | null => {
-    if (!currentHymn) {
-      return null
-    }
-  }
+  const location = useLocation()
+  const { favoriteHymns } = useAppSelector(s => s.hymn)
+  const { isModalTransposeActive } = useAppSelector(s => s.accords)
+  const { isShowAccords } = useAppSelector(s => s.accords)
+  const dispatch = useAppDispatch()
+  const id = location.pathname.split("/")[3]
+  const hymn = useGetHymn(id)
 
   const returnToSearch = () => {
     navigate('/')
   }
 
   const isCurrentHymnFavorite = (): boolean => {
-    return true
-    // if (!currentHymn) {
-    //   return false
-    // }
-    // return !!favoriteHymns.find(hymn => hymn._id === currentHymn._id)
+    if (!hymn) return false
+    return !!favoriteHymns.find(h => h === hymn._id)
   }
 
   return (
     <header className={style.header}>
       <nav className={style.header__nav}>
         <ul className={style.header__list}>
-          <li className={style.header__item}><Burger /></li>
-          <li className={style.header__item}><span>{currentHymn ? <Link className={style.header__link} to={Path_of_Routes.hymn(currentHymn._id)}>Гимн {currentHymn.number}</Link> : 'Гимны'}</span></li>
+          <li className={style.header__item}>
+            <Burger />
+          </li>
+          <li className={style.header__item}>
+            <span>
+              {hymn
+                ?
+                <Link
+                  className={style.header__link}
+                  to={Path_of_Routes.hymn(hymn._id)}
+                >
+                  Гимн №{hymn.number}
+                </Link>
+                :
+                'Гимны'}
+            </span>
+          </li>
         </ul>
-        {currentHymn &&
+        {hymn &&
           <ul className={style.header__list}>
-            {isTextWithAccord &&
+            {isShowAccords &&
               <li className={`${style.header__item} ${style.header__itemCheckbox}`}>
                 <input
                   className={style.header__itemInput}
@@ -58,13 +70,13 @@ function Header() {
                   type="checkbox"
                   onChange={() => dispatch(accordsSlice.actions.toggleModalTranspose())} />
                 <span className={`${style.header__itemSpan} ${style.header__itemSpanTranspose}`} />
-                {currentHymn && isModalTransposeActive && isTextWithAccord && <Transposes />}
+                {hymn._id && isModalTransposeActive && isShowAccords && <Transposes />}
 
               </li>}
             <li className={style.header__item}>
               <button
                 className={`${style.header__button} ${isCurrentHymnFavorite() ? style.header__buttonFavorite_active : style.header__buttonFavorite}`}
-                onClick={toggleFavoriteHymn} />
+                onClick={() => dispatch(toggleFavoriteHymn(hymn?._id))} />
             </li>
             <li className={style.header__item}>
               <button
@@ -74,7 +86,7 @@ function Header() {
             <li className={`${style.header__item} ${style.header__itemCheckbox}`}>
               <input
                 className={style.header__itemInput}
-                defaultChecked={isTextWithAccord}
+                defaultChecked={isShowAccords}
                 type="checkbox"
                 onChange={() => dispatch(accordsSlice.actions.toggleShowAccord())} />
               <span className={`${style.header__itemSpan} ${style.header__itemSpanAccord}`} />

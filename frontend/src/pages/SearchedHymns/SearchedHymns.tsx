@@ -14,7 +14,7 @@ const SearchedHymns = () => {
   const hymns = useSelectHymns()
   const collections = useMapCollections()
   const { searchHymnsBy } = useAppSelector(s => s.hymn)
-  console.log(collections)
+
   useEffect(() => {
     if (!searchHymnsBy.number && !searchHymnsBy.text) navigate(Path_of_Routes.slash)
   }, [])
