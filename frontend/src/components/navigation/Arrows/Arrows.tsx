@@ -1,51 +1,35 @@
-// import { Link, useNavigate } from 'react-router-dom'
+import { useMatch } from 'react-router-dom'
 
 // стили
 import style from './arrows.module.css'
-// import arrow_back from '@assets/icons/arrows/arrow-back.png'
-// import arrow_next from '@assets/icons/arrows/arrow-next.png'
+import arrow_back from '@assets/icons/arrows/arrow-back.png'
+import arrow_next from '@assets/icons/arrows/arrow-next.png'
 
 
-// // redux
-// import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
-// import { hymnsSlice } from '@redux/reducers/hymns/HymnSlice'
-// // import { ROUTES } from '../../../utils/routes'
-// import { useEffect } from 'react'
+// // const
+import { Path_of_Routes } from '@utils/routes'
 
 // // components
-// import MyButton from '../../UI/MyButton/MyButton'
-// import { useArrowNavigation } from '@hooks/routing/useArrowNavigation'
+import Button from '@components/UI/Button/Button'
+import { useArrowNavigation } from '@hooks/routing/useArrowNavigation'
 
 const Arrows = () => {
-  // const { currentHymn, hymns } = useAppSelector(state => state.hymnReducer)
-  // const {prev, next} = useArrowNavigation()
-  // const dispatch = useAppDispatch()
-  // const navigate = useNavigate()
+  const match = useMatch(Path_of_Routes.hymn(':id'));
+  const { goPrev, goNext, hasPrev, hasNext } = useArrowNavigation();
 
-  // useEffect(() => {
-  //   navigate(ROUTES.home + ROUTES.hymns + ROUTES.hymn + currentHymn?._id)
-  // }, [currentHymn])
+  if (!match) return null;
 
-  // const prevHymn = () => {
-  //   dispatch(hymnsSlice.actions.offScroll())
-  //   dispatch(hymnsSlice.actions.prevHymn())
-  //   window.scrollTo({ top: 0, behavior: 'smooth' })
-  // }
-  // const nextHymn = () => {
-  //   dispatch(hymnsSlice.actions.offScroll())
-  //   dispatch(hymnsSlice.actions.nextHymn())
-  //   window.scrollTo({ top: 0, behavior: 'smooth' })
-  // }
   return (
     <div className={style.arrows}>
-      {/* {currentHymn?.number !== 1 && <MyButton onClick={prevHymn}>
+      <Button onClick={goPrev} disabled={!hasPrev}>
         <img src={arrow_back} alt="back" />
-      </MyButton>}
-      {hymns.length !== currentHymn?.number && <MyButton onClick={nextHymn}>
+      </Button>
+
+      <Button onClick={goNext} disabled={!hasNext}>
         <img src={arrow_next} alt="next" />
-      </MyButton>} */}
+      </Button>
     </div>
-  )
-}
+  );
+};
 
 export default Arrows

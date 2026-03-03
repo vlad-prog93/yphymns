@@ -11,10 +11,13 @@ import ButtonScroll from "@features/scroll/ButtonScroll/ButtonScroll"
 import { useAppDispatch, useAppSelector } from "@redux/hooks"
 import { collectionSlice } from "@redux/reducers/collections/CollectionSlice"
 import { hymnsSlice } from "@redux/reducers/hymns/HymnSlice"
+import { useMatch } from "react-router-dom"
+import { Path_of_Routes } from "@utils/routes"
 
 const OverLays = () => {
     // для компонента автоскролла
     const [refView, inView] = useInView({ rootMargin: '0px 0px' })
+    const match = useMatch(Path_of_Routes.hymn())
 
     const hymn = useAppSelector(s => s.hymn)
     const collections = useAppSelector(s => s.collections)
@@ -40,9 +43,9 @@ const OverLays = () => {
             {isLoading && <ModalLoading />}
             {accords.isModalActive && <ModalAccords />}
             {collections.isModalActive && <ModalCollection />}
-            {!inView && <ButtonScroll />}
+            {!inView && match && <ButtonScroll />}
             {<div style={{ height: '1px' }} ref={refView} />}
-            {hymn.currentHymn && <Arrows />}
+            {<Arrows />}
         </>
     )
 }

@@ -7,6 +7,7 @@ import MyButton from '@components/UI/Button/Button'
 import icon_stop from '@assets/icons/arrows/stop.png'
 import icon_run_0 from '@assets/icons/arrows/arrow-down.png'
 import { scrollSlice } from '@redux/reducers/scroll/ScrollSlice'
+import { useLocation } from 'react-router-dom'
 // автоскролл работает по такому принципу:
 // 1 - если нажать кнопку "скроллить"
 
@@ -21,7 +22,7 @@ import { scrollSlice } from '@redux/reducers/scroll/ScrollSlice'
 const ButtonScroll = () => {
   // пригодится при скролле мы делаем через таймер. через id его потом останавливать и удалять
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-
+  const location = useLocation()
   const { isScroll, speedScroll } = useAppSelector(s => s.scroll)
   const { isMenuActive } = useAppSelector(s => s.menu)
 
@@ -59,9 +60,7 @@ const ButtonScroll = () => {
     )
   }
 
-  useEffect(() => {
-    return stopScroll
-  }, [])
+  useEffect(() => stopScroll, [location.pathname])
 
   useEffect(() => {
     if (isMenuActive) {

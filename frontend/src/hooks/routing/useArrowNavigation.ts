@@ -1,15 +1,38 @@
 import { useAppSelector } from "@redux/hooks";
+import { Path_of_Routes } from "@utils/routes";
+import { useCallback, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export const useArrowNavigation = () => {
-  const hymns = useAppSelector(s => s.hymnReducer.hymns);
-  const current = useAppSelector(s => s.hymnReducer.currentHymn);
+  const hymns = useAppSelector(s => s.hymn.hymns);
+  const navigate = useNavigate();
+  const location = useLocation().pathname.split('/');
+  const hymnId = location[location.length - 1];
 
-  if (!current) return { next: null, prev: null };
+  const index = hymns.findIndex(h => h._id === hymnId);
 
-  const index = hymns.findIndex(h => h._id === current._id);
+  const hasPrev = index > 0;
+  const hasNext = index < hymns.length - 1;
 
-  return {
-    prev: hymns[(index - 1 + hymns.length) % hymns.length],
-    next: hymns[(index + 1) % hymns.length],
-  };
+  const goPrev = useCallback(() => {
+    if (!hasPrev) return;
+    navigate(Path_of_Routes.hymn(hymns[index - 1]._id));
+  }, [index, hasPrev, hymns, navigate]);
+
+  const goNext = useCallback(() => {
+    if (!hasNext) return;
+    navigate(Path_of_Routes.hymn(hymns[index + 1]._id));
+  }, [index, hasNext, hymns, navigate]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
+    };
+
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [goPrev, goNext]);
+
+  return { goPrev, goNext, hasPrev, hasNext };
 };

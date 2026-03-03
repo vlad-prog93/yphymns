@@ -1,6 +1,5 @@
 // import { useMemo, useCallback } from 'react'
 // import { useAppSelector } from '@redux/hooks'
-// import { deleteAccords } from '@features/hymns/workWithTextHymns'
 import { HymnText } from '@features/hymns/HymnText/HymnText'
 // import { useArrowNavigation } from '@hooks/routing/useArrowNavigation'
 import { useMapCollections } from '@features/collections/hooks/useMapCollections'
@@ -31,6 +30,10 @@ const Hymn = () => {
     return () => clearTimeout(timer)
 
   }, [hymn, dispatch])
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [id])
 
   if (!hymn) return null
   if (!parsedText) return null
