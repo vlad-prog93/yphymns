@@ -1,25 +1,21 @@
 .menu {
   position: fixed;
   top: 50px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(255, 255, 255, 0.6);
   height: 100vh;
   width: 0;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0);
-  /* прозрачный фон, когда закрыто */
   transition: background-color 0.3s, width 0.3s;
   z-index: 999;
-  /* над контентом, под header если нужно */
-
-
 }
 
 .menu_active {
-  width: 250px;
+  width: 100%;
 }
 
 .menu__content {
   position: absolute;
+  padding-top: 20px;
   top: 0;
   left: 0;
   height: 100%;
@@ -29,34 +25,11 @@
   box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  padding: 20px;
   box-sizing: border-box;
 }
 
 .menu__list {
   list-style: none;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.menu__list li {
-  /* если MenuItem возвращает <li> — можно добавить здесь общие стили */
-}
-
-.menu__list a {
-  text-decoration: none;
-  color: #333;
-  font-size: 1rem;
-  padding: 8px 12px;
-  border-radius: 4px;
-  display: block;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.menu__list a:hover {
-  background-color: #f0f0f0;
-  color: #000;
 }

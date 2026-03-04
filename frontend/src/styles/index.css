@@ -1,33 +1,56 @@
 @import url('../vendor/normalize.css');
 @import url('../vendor/fonts.css');
 
+/* позиционирование */
+
+/* бокс */
+
+/* размеры */
+
+/* отступы */
+
+/* цвета */
+
+/* текст */
+
+/* эффекты */
+
 :root {
+
   --color-white: #FFFFFF;
+  --color-black: #000000;
 
-  --color-black-dark: #515151;
-  --color-black-medium: #515151;
-  --color-black-light: #DDDDDD;
+  --color-dark-1: #1F1F1F;
+  --color-dark-2: #515151;
+  --color-dark-3: #515151;
+  --color-dark-4: #DDDDDD;
 
-  --color-grey-dark: #515151;
-  --color-grey-medium: #515151;
-  --color-grey-light: #DDDDDD;
 
-  --color-yellow-dark: #EFBF04;
-  --color-yellow-medium: #EFBF04;
-  --color-yellow-light: #EFBF04;
+  --color-grey-1: #515151;
+  --color-grey-2: #515151;
+  --color-grey-3: #888888;
+  --color-grey-4: #AAAAAA;
+  --color-grey-5: #CCCCCC;
+  --color-grey-6: #DDDDDD;
 
-  --light: rgb(255, 255, 255);
-  --active-color: rgba(241, 196, 15, 1);
+  --color-yellow-1: #EFBF04;
 
-  --f-c-dark: var(--dark);
-  --f-c-light: rgba(255, 255, 255, 1);
-  --f-c-active: var(--active-color);
+  --f-c-dark: var(--color-dark-1);
+  --f-c-light: var(--color-white);
+  --f-c-disabled: var(--color-grey-3);
+  --f-c-active: var(--color-yellow-1);
+  --f-c-hover: var();
 
-  --bg-c-dark: var(--dark);
-  --bg-c-medium: rgba(200, 200, 200, 0.2);
-  --bg-c-light:
+  --bg-c-dark: var(--color-black);
+  --bg-c-medium: rgba(200, 200, 200);
+  --bg-c-light: var(--color-white);
 
-    --font-color-light: white;
+  --border-c-dark: var(--color-grey-1);
+  --border-c-medium: var(--color-grey-2);
+  --border-c-light: var(--color-grey-3);
+
+
+  --font-color-light: white;
   --font-color-dark: black;
   --border-color: #e1e1e1;
   --border-color-active: #515151;

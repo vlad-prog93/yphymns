@@ -15,12 +15,14 @@
 .hymnText__text {
   font-family: Roboto;
   font-size: 20px;
+  text-wrap: wrap;
 }
 
 .hymnText__text_with_accords {
   font-family: Roboto;
   font-size: 20px;
   line-height: 2.5;
+  text-wrap: wrap;
 }
 
 .hymn__word_with_accord {

@@ -11,7 +11,6 @@ interface IHymnState {
   favoriteHymns: string[],
   historyHymns: IHistoryHymn[],
   searchHymnsBy: ISearchForm,
-  isTextWithAccord: boolean,
   isLoading: boolean,
   error: null | string,
 }
@@ -22,7 +21,6 @@ const initialState: IHymnState = {
   favoriteHymns: [],
   historyHymns: [],
   searchHymnsBy: { number: null, text: '' },
-  isTextWithAccord: true,
   isLoading: false,
   error: null,
 }

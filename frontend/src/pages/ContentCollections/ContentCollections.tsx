@@ -2,6 +2,7 @@ import { Path_of_Routes } from '@utils/routes'
 import style from './ContentCollections.module.css'
 import { useAppSelector } from '@redux/hooks'
 import { Link } from 'react-router-dom'
+import Title from '@components/UI/Title/Title'
 
 const ContentCollections = () => {
   const { hymns } = useAppSelector(s => s.hymn)
@@ -9,7 +10,7 @@ const ContentCollections = () => {
 
   return (
     <div className={style.collections}>
-      <h2 className={style.collections__title}>Сборники</h2>
+      <Title title='Сборники' />
 
       {collections.map((collection) => {
         const hymnsInCollection = hymns.filter(h => h.collection === collection._id)

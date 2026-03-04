@@ -49,10 +49,7 @@ function Header() {
             <span>
               {hymn
                 ?
-                <Link
-                  className={style.header__link}
-                  to={Path_of_Routes.hymn(hymn._id)}
-                >
+                <Link className={style.header__link} to={Path_of_Routes.hymn(hymn._id)} >
                   Гимн №{hymn.number}
                 </Link>
                 :
@@ -70,8 +67,7 @@ function Header() {
                   type="checkbox"
                   onChange={() => dispatch(accordsSlice.actions.toggleModalTranspose())} />
                 <span className={`${style.header__itemSpan} ${style.header__itemSpanTranspose}`} />
-                {hymn._id && isModalTransposeActive && isShowAccords && <Transposes />}
-
+                {/* {isModalTransposeActive && isShowAccords && <Transposes />} */}
               </li>}
             <li className={style.header__item}>
               <button
@@ -91,8 +87,6 @@ function Header() {
                 onChange={() => dispatch(accordsSlice.actions.toggleShowAccord())} />
               <span className={`${style.header__itemSpan} ${style.header__itemSpanAccord}`} />
             </li>
-
-
           </ul>
         }
       </nav>

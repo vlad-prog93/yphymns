@@ -1,14 +1,21 @@
 .app {
+  /* позиционирование */
   position: relative;
-  background-color: var(--bg-color);
-  margin: 0 auto;
+
+  /* размеры */
   width: 100%;
   max-width: 1280px;
-
   min-height: calc(100vh - 50px);
   height: 100%;
+
+  /* отступы */
+  margin: 0 auto;
+
+  /* эффекты */
+  background-color: var(--bg-c-light);
 }
 
 .app__wrapper {
+  /* отступы */
   margin-top: 50px;
 }

@@ -1,20 +1,22 @@
 .item {
-  padding: 10px;
   border-bottom: 1px solid white;
   transition: all .3 ease-in;
 }
 
 .link {
   display: block;
+  padding: 10px 0 10px 10px;
   text-decoration: none;
   color: white;
   font-size: 20px;
   transition: all .3 ease-in;
+  color: #333;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .item:hover {
   border-bottom: 1px solid rgb(241, 196, 15);
-
+  background-color: rgba(40, 40, 40, 0.1);
 }
 
 .item:hover .link {

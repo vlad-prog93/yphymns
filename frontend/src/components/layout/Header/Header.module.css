@@ -1,149 +1,194 @@
 .header {
+  /* позиционирование */
   position: fixed;
   top: 0;
   left: 0;
   z-index: 10;
 
-  width: 100%;
-  margin: 0 auto;
-
-  background-color: #000;
-  color: #FFF;
-
-  min-height: 50px;
-
+  /* бокс */
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* размеры */
+  width: 100%;
+  min-height: 50px;
+
+  /* отступы */
+  margin: 0 auto;
+
+  /* цвета */
+  background-color: var(--bg-c-dark);
+  color: var(--f-c-light);
 }
 
 .header__nav {
+  /* бокс */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 15px;
+
+  /* размеры */
   width: 100%;
   max-width: 1250px;
+
+  /* отступы */
+  margin: 0 15px;
 }
 
 .header__list {
+  /* бокс */
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .header__item {
+  /* бокс */
   display: flex;
   align-items: center;
+
+  /* отступы */
   padding: 0;
   margin: 0;
-}
 
-@media screen and (max-width: 525px) {
-
-  .header__item span {
-    font-size: 24px;
-  }
+  /* текст */
+  font-size: 25px;
 }
 
 .header__link {
+  /* цвета */
+  color: var(--f-c-light);
+
+  /* текст */
   text-decoration: none;
-  color: #FFF;
 }
 
 .header__button {
+  /* размеры */
+  width: 28px;
+  height: 28px;
+
+  /* эффекты */
   border: none;
   background-repeat: no-repeat;
   background-position: center;
   background-color: inherit;
   background-size: contain;
   cursor: pointer;
-  width: 28px;
-  height: 28px;
   transition: all 0.3s;
 }
 
-@media screen and (max-width: 525px) {
-  .header__button {
-    width: 25px;
-    height: 25px;
-  }
-}
-
 .header__buttonSearch {
+  /* отступы */
   margin-top: 2px;
+
+  /* эффекты */
   background-image: url('../../../assets/icons/search.png');
 }
 
 .header__buttonSearch:hover {
+  /* эффекты */
   background-image: url('../../../assets/icons/search_active.png');
 }
 
 .header__buttonFavorite {
+  /* эффекты */
   background-image: url('../../../assets/icons/star.png');
 }
 
 .header__buttonFavorite:hover {
+  /* эффекты */
   background-image: url('../../../assets/icons/star_active.png');
 }
 
 .header__buttonFavorite_active {
+  /* эффекты */
   background-image: url('../../../assets/icons/star_active.png');
 }
 
-.header__item {
-  font-size: 25px;
-}
-
 .header__itemCheckbox {
+  /* позиционирование */
   position: relative;
 }
 
 .header__itemInput {
-  display: block;
-  cursor: pointer;
+  /* позиционирование */
   position: relative;
   z-index: 1;
-  opacity: 0;
+
+  /* бокс */
+  display: block;
+
+  /* размеры */
   width: 28px;
   height: 28px;
+
+  /* отступы */
   margin: 0;
+
+  /* эффекты */
+  cursor: pointer;
+  opacity: 0;
 }
 
 .header__itemSpan {
-  display: block;
+  /* позиционирование */
   position: absolute;
   top: 0;
   left: 0;
+
+  /* бокс */
+  display: block;
+
+  /* размеры */
   width: 28px;
   height: 28px;
+
+  /* эффекты */
   background-repeat: no-repeat;
   background-position: center;
   background-color: inherit;
   background-size: contain;
 }
 
-@media screen and (max-width: 525px) {
-
-  .header__itemInput,
-  .header__itemSpan {
-    width: 25px;
-    height: 25px;
-  }
-}
-
 .header__itemSpanTranspose {
+  /* эффекты */
   background-image: url(../../../assets/icons/tranpose.png);
 }
 
 .header__itemInput:checked+.header__itemSpanTranspose {
+  /* эффекты */
   background-image: url(../../../assets/icons/transpose_active.png);
 }
 
 .header__itemSpanAccord {
+  /* эффекты */
   background-image: url(../../../assets/icons/accord.png);
 }
 
 .header__itemInput:checked+.header__itemSpanAccord {
+  /* эффекты */
   background-image: url(../../../assets/icons/accord_active.png);
+}
+
+
+@media screen and (max-width: 525px) {
+  .header__button {
+    /* размеры */
+    width: 25px;
+    height: 25px;
+  }
+
+  .header__item span {
+    /* текст */
+    font-size: 24px;
+  }
+
+  .header__itemInput,
+  .header__itemSpan {
+    /* размеры */
+    width: 25px;
+    height: 25px;
+  }
 }

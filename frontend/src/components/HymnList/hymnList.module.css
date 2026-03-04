@@ -1,69 +1,105 @@
 .hymnList__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  /* размеры */
   width: 100%;
   max-width: 800px;
+
+  /* отступы */
+  margin: 0;
+  padding: 0;
   margin-left: auto;
   margin-right: auto;
+
+  /* текст */
+  list-style: none;
   font-family: sans-serif;
 }
 
 .hymnList__header,
 .hymnList__item {
+  /* бокс */
   display: flex;
   justify-content: space-between;
+
+  /* отступы */
   padding: 12px 16px;
-  border-bottom: 1px solid #ddd;
+
+  /* эффекты */
+  border-bottom: 1px solid var(--color-grey-6);
 }
 
 .hymnList__header {
-  background-color: #f5f5f5;
+  /* текст */
   font-weight: 600;
+
+  /* эффекты */
+  background-color: var(--color-grey-7);
 }
 
 .hymnList__headerItem {
+  /* текст */
   text-align: center;
 }
 
 .hymnList__item:last-child {
+  /* эффекты */
   border-bottom: none;
 }
 
 .hymnList__link {
+  /* бокс */
   display: flex;
   justify-content: space-between;
   flex: 1;
+
+  /* отступы */
+  padding: 4px 0;
+
+  /* текст */
   text-decoration: none;
   color: inherit;
-  padding: 4px 0;
+
+  /* эффекты */
   transition: background-color 0.2s;
 }
 
 .hymnList__link:hover {
-  background-color: #f9f9f9;
+  background-color: var(--color-grey-8);
 }
 
 .hymnList__itemCollection,
 .hymnList__itemTitle,
 .hymnList__itemNumber {
+  /* бокс */
   flex: 1 1 0;
 }
 
 .hymnList__itemCollection {
+  /* бокс */
   flex: 0 0 120px;
+
+  /* текст */
   font-style: italic;
-  color: #555;
+
+  /* цвета */
+  color: var(--color-grey-2);
 }
 
 .hymnList__itemTitle {
+  /* бокс */
   flex: 2 1 0;
-  color: #222;
+
+  /* цвета */
+  color: var(--color-dark-1);
 
 }
 
 .hymnList__itemNumber {
+  /* бокс */
   flex: 0 0 60px;
+
+  /* текст */
   text-align: right;
-  color: #666;
+
+  /* цвета */
+  color: var(--color-dark-9);
 }

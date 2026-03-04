@@ -1,20 +1,30 @@
 .modal {
+  /* позиционирование */
   position: absolute;
   top: calc(50% - 40px);
   right: calc(50% - 150px);
-  border-radius: 10px;
-  width: 300px;
-  height: 80px;
-  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+
+  /* бокс */
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* размеры */
+  width: 300px;
+  height: 80px;
+
+  /* эффекты */
+  border-radius: 10px;
+  background-color: var(--bg-c-dark-opac);
   transition: all 0.3;
-  z-index: 1000;
 }
 
 .modal__text {
+  /* цвета */
+  color: var(--f-c-light);
+
+  /* текст */
   font-size: 20px;
-  color: #FFF;
   text-align: center;
 }
