@@ -3,9 +3,15 @@ import style from './Settings.module.css'
 import { contextSettingsFont, stateSettingsFont } from '@context/settingsSize'
 import { LSSettingsFont } from '@tools/storage'
 import Title from '@components/UI/Title/Title'
+import { useAppDispatch, useAppSelector } from '@redux/hooks'
+import { accordsSlice } from '@redux/reducers/accords/AccordsSlice'
+import Button from '@components/UI/Button/Button'
 
 
 const Settings = () => {
+  const { isRepeatAccords } = useAppSelector(s => s.accords)
+  const dispatch = useAppDispatch()
+
   const context = useContext(contextSettingsFont)
 
   const handleChangeFontSetting = (e: any) => {
@@ -17,10 +23,10 @@ const Settings = () => {
     context.setSettingsFont({ ...stateSettingsFont })
     LSSettingsFont.set({ ...stateSettingsFont })
   }
-
+  console.log(isRepeatAccords)
   return (
-    <div className={style.setting}>
-      <Title title='Настройки' />
+    <>
+      <Title>Настройки</Title>
       <div className={style.setting__fontContent}>
         <span
           className={style.setting__text}
@@ -81,10 +87,14 @@ const Settings = () => {
           onChange={(e) => handleChangeFontSetting(e)}
           type="color" />
       </div>
+      <label className={style.setting__text} htmlFor="repeat_accords">
+        Повторять аккорды:
+        <input id='repeat_accords' type="checkbox" onChange={() => dispatch(accordsSlice.actions.toggleRepeatAccord())} checked={isRepeatAccords} />
+      </label>
 
-      <button onClick={setDefaultFontSetting}> По умолчанию</button>
+      <Button onClick={setDefaultFontSetting}> По умолчанию</Button>
 
-    </div >
+    </>
   )
 
 }

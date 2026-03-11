@@ -3,22 +3,24 @@ import style from './ContentCollections.module.css'
 import { useAppSelector } from '@redux/hooks'
 import { Link } from 'react-router-dom'
 import Title from '@components/UI/Title/Title'
+import Details from '@components/UI/Details/Details'
+import Summary from '@components/UI/Summary/Summary'
 
 const ContentCollections = () => {
   const { hymns } = useAppSelector(s => s.hymn)
   const { collections } = useAppSelector(s => s.collections)
 
   return (
-    <div className={style.collections}>
-      <Title title='Сборники' />
+    <>
+      <Title>Сборники</Title>
 
       {collections.map((collection) => {
         const hymnsInCollection = hymns.filter(h => h.collection === collection._id)
         return (
-          <details key={collection._id} className={style.collections__details}>
-            <summary className={style.collections__summary}>
+          <Details key={collection._id}>
+            <Summary>
               {collection.name || `Сборник ${collection._id}`} — {hymnsInCollection.length} гимнов
-            </summary>
+            </Summary>
             <ul className={style.collections__list}>
               {hymnsInCollection.map(h => (
                 <li key={h._id} className={style.collections__item}>
@@ -29,10 +31,10 @@ const ContentCollections = () => {
                 </li>
               ))}
             </ul>
-          </details>
+          </Details>
         )
       })}
-    </div>
+    </>
   )
 }
 

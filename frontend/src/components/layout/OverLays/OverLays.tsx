@@ -2,7 +2,6 @@ import { useEffect } from "react"
 import { useInView } from 'react-intersection-observer'
 
 import ModalError from "@components/feedback/ModalError/ModalError"
-import ModalLoading from "@components/feedback/ModalLoading/ModalLoading"
 import Arrows from "@components/navigation/Arrows/Arrows"
 import ModalAccords from "@features/accords/ModalAccords/ModalAccords"
 import ModalCollection from "@features/collections/ModalCollection/ModalCollection"
@@ -27,7 +26,6 @@ const OverLays = () => {
     const dispatch = useAppDispatch()
 
     const error = hymn.error || collections.error
-    const isLoading = hymn.isLoading || collections.isLoading
 
     useEffect(() => {
         if (error) {
@@ -42,7 +40,6 @@ const OverLays = () => {
         <>
             <Transposes />
             {error && <ModalError error={error} />}
-            {isLoading && <ModalLoading />}
             {accords.isModalActive && <ModalAccords />}
             {collections.isModalActive && <ModalCollection />}
             {!inView && match && <ButtonScroll />}

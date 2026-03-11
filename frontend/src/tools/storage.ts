@@ -1,5 +1,5 @@
-import { ICollection } from "@models/collection"
-import { IHistoryHymn, IHymn } from "../models/hymns"
+import { ICollection } from "@features/collections/model/collection"
+import { IHistoryHymn, IHymn } from "../features/hymns/model/hymns"
 import { ISettingsFont } from "../models/settingsFont"
 
 

@@ -1,4 +1,4 @@
-import { IHymn, ISearchForm } from "@models/hymns"
+import { IHymn, ISearchForm } from "@features/hymns/model/hymns"
 
 export const filterHymns = (hymns: IHymn[], searchHymnsBy: ISearchForm) => {
   if (searchHymnsBy.number) {

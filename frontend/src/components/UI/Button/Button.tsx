@@ -1,16 +1,21 @@
 import style from './Button.module.css'
 
-interface ButtonProps {
-  disabled?: boolean,
-  children?: string | React.ReactNode,
-  onClick?: () => void,
-  type?: 'button' | 'submit' | 'reset'
-  style?: any
+type ButtonProps = React.ComponentProps<'button'> & {
+  variant?: 'primary' | 'control'
+  size?: 'sm' | 'md' | 'lg'
 }
 
-const Button = (props: ButtonProps) => {
+const Button = ({ variant = 'primary', className = '', ...props }: ButtonProps) => {
+  const classes = [
+    style.button,
+    style[variant],
+    className
+  ].join(' ')
+
   return (
-    <button className={style.button} {...props}>{props.children}</button>
+    <button className={classes} {...props}>
+      {props.children}
+    </button>
   )
 }
 

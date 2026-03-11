@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IHistoryHymn, IHymn, ISearchForm } from "@models/hymns";
+import { IHistoryHymn, IHymn, ISearchForm } from "@features/hymns/model/hymns";
 import { getHistoryHymn, setHistoryHymn, toCreateHymn, toDeleteAllHymns, toDeleteOneHymn, toEditOneHymn, toGetAllHymns, toGetOneHymn, toggleFavoriteHymn } from "@redux/reducers/hymns/ActionCreatorHymns";
 import { isFulfilledAction, isPendingAction, isRejectedAction, setFulfilled, setPending, setRejected } from "@utils/redux";
 

@@ -1,62 +1,57 @@
-import { IHymnText } from "@models/hymns"
+import { IHymnText } from "@features/hymns/model/hymns"
 import style from './HymnText.module.css'
 import { useAppDispatch, useAppSelector } from "@redux/hooks"
 import { accordsSlice } from "@redux/reducers/accords/AccordsSlice"
+import ParseHymnText from "@features/hymns/ParseHymnText/ParseHymnText"
+import transposeAccords from "@features/hymns/transposeAccords"
 
 interface Props {
   text: IHymnText
-  showAccords: boolean
+  showAccords: boolean,
+  isRepeatAccords: boolean
 }
 
-export const HymnText = ({ text, showAccords }: Props) => {
+export const HymnText = ({ text, showAccords, isRepeatAccords }: Props) => {
   const { lvlTranspose } = useAppSelector(s => s.accords)
   const dispatch = useAppDispatch();
 
-  const handleChordClick = (chord: string) => {
-    dispatch(accordsSlice.actions.setCurrentAccords(chord.split('-')));
-  };
+  const hideAccords = !showAccords
+  const hideRepeat = showAccords && !isRepeatAccords
 
-  const transposeAccords = (accords: string) => {
-    const baseAccords = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B',] // длина 12
-    const length = baseAccords.length
-
-    const normalized = ((lvlTranspose % length) + length) % length
-
-    return accords.replace(/[CDEFGAB]#?/g, (match: string) => {
-      const index = baseAccords.indexOf(match)
-      if (index === -1) return match   // защита на всякий случай
-      return baseAccords[(index + normalized) % length]
-    })
+  const checkStartSectionHymn = (section: string) => {
+    return (section.startsWith("1 verse") || section.endsWith("bridge") || section.startsWith("1 chorus"))
   }
 
-  const parseHymnText = (raw: string) =>
-    raw.split(/\[(.+?)\]/g).map((word, wordIndex) => {
-      // Простое слово
-      if (wordIndex % 2 === 0) return word;
+  const handleChordClick = (chord: string) => {
+    dispatch(accordsSlice.actions.setCurrentAccords(transposeAccords(chord, lvlTranspose).split('-')));
+  };
 
-      // Слово с аккордами
+  const renderContent = (section: string, content: string) => {
+
+    const isStartSection = checkStartSectionHymn(section)
+
+    if (hideAccords) {
+      return <pre className={style.hymnText__text}>{content}</pre>
+    }
+
+    if (hideRepeat && !isStartSection) {
       return (
-        <span
-          key={`word-${wordIndex}`}
-          className={style.hymn__word_with_accord}
-        >
-          {word.split(/\{(.+?)\}/g).map((spell, spellIndex) => {
-            if (spellIndex % 2 === 0) return spell;
+        <pre className={style.hymnText__text}>
+          {content.replace(/\[|\]|{.*?}/g, "")}
+        </pre>
+      )
+    }
 
-            return (
-              // аккорды (кнопка). может быть вид G-C, или просто А
-              <button
-                key={`inner-${wordIndex}-${spellIndex}`}
-                className={style.hymn__accord}
-                onClick={() => handleChordClick(spell)}
-              >
-                {transposeAccords(spell)}
-              </button>
-            );
-          })}
-        </span>
-      );
-    });
+    return (
+      <pre className={style.hymnText__text_with_accords}>
+        <ParseHymnText
+          raw={content}
+          lvlTranspose={lvlTranspose}
+          btnClick={handleChordClick}
+        />
+      </pre>
+    )
+  }
 
   return (
     <div className={style.hymnText}>
@@ -67,10 +62,7 @@ export const HymnText = ({ text, showAccords }: Props) => {
               ? section.replace(/ verse/g, ".")
               : ""}
           </span>
-
-          <pre className={showAccords ? style.hymnText__text_with_accords : style.hymnText__text}>
-            {showAccords ? parseHymnText(content) : content}
-          </pre>
+          {renderContent(section, content)}
         </div>
       ))}
     </div>

@@ -17,7 +17,8 @@ const Hymn = () => {
   const hymn = useGetHymn(id)
   const collection = useMapCollections()
   const parsedText = useParseTextHymn(hymn?.text || null)
-  const { isShowAccords } = useAppSelector(s => s.accords)
+  const { isRepeatAccords, isShowAccords } = useAppSelector(s => s.accords)
+
 
   useEffect(() => {
 
@@ -39,13 +40,13 @@ const Hymn = () => {
   if (!parsedText) return null
 
   return (
-    <section className={style.hymn}>
+    <>
       <h3 className={style.hymn__title}>Сборник</h3>
       <h3 className={style.hymn__title}>
         {collection.get(hymn.collection)}
       </h3>
-      {<HymnText text={parsedText} showAccords={isShowAccords} />}
-    </section>
+      {<HymnText text={parsedText} showAccords={isShowAccords} isRepeatAccords={isRepeatAccords} />}
+    </>
   )
 }
 

@@ -24,8 +24,6 @@ const Search = () => {
 
   useEffect(() => { clear() }, [])
 
-
-
   return (
     <div className={style.search}>
       <form className={style.search__form} onSubmit={(e) => {

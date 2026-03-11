@@ -1,7 +1,7 @@
 import Title from '@components/UI/Title/Title'
 import style from './ContentHymns.module.css'
 
-import HymnList from "@components/HymnList/HymnList"
+import HymnList from "@features/hymns/HymnList/HymnList"
 import { useSelectHymns } from '@features/hymns/hooks/useSelectHymns'
 import { useMemo, useState } from 'react'
 import { useMapCollections } from '@features/collections/hooks/useMapCollections'
@@ -23,7 +23,7 @@ const ContentHymns = () => {
 
   return (
     <>
-      <Title title='Содержание' />
+      <Title>Содержание</Title>
       <label className={style.hymnList__selectWrapper}>
         <span className={style.hymnList__selectTitle}>Сортировать по:</span>
         <select

@@ -11,7 +11,7 @@ import { toEditOneHymn } from '@redux/reducers/hymns/ActionCreatorHymns'
 import { toGetOneHymn } from "@redux/reducers/hymns/ActionCreatorHymns"
 
 
-import { IHymn } from '@models/hymns'
+import { IHymn } from '@features/hymns/model/hymns'
 import { handleTranslate, changeViewTextHymn, moveAccordsInText, deleteAccords } from '@features/hymns/workWithTextHymns'
 import FormHymn from '@features/hymns/FormHymn/FormHymn'
 import { Path_of_Routes } from '@utils/routes'
@@ -50,13 +50,13 @@ const EditHymn = () => {
   }
 
   return (
-    <section className={style.editHymn}>
+    <>
       <h4 className={style.editHymn__title}>
         Редактируемый гимн
       </h4>
       {editHymn && <FormHymn collections={collections} hymn={editHymn} setHymn={setEditHymn} saveHymn={saveHymn} />}
 
-    </section>
+    </>
   )
 }
 

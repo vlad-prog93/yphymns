@@ -2,11 +2,11 @@ import React, { createRef, FormEvent, useId, useRef, useState } from 'react'
 import style from './FormHymn.module.css'
 import Input from '@components/UI/Input/Input'
 import Button from '@components/UI/Button/Button'
-import { IHymn, IHymnText } from '@models/hymns'
+import { IHymn, IHymnText } from '@features/hymns/model/hymns'
 import { handleTranslate } from '../workWithTextHymns'
 import { hymnsSlice } from '@redux/reducers/hymns/HymnSlice'
 import { useAppDispatch } from '@redux/hooks'
-import { ICollection } from '@models/collection'
+import { ICollection } from '@features/collections/model/collection'
 
 interface IFormHymnProps {
     hymn: Omit<IHymn, '_id'>,

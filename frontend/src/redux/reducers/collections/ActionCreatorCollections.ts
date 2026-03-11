@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { ICollection } from "@models/collection"
+import { ICollection } from "@features/collections/model/collection"
 import { api, URL_RES } from "@utils/api"
 import { LSCollections } from "@tools/storage"
 

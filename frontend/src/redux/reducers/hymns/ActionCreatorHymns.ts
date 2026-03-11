@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
 
-import { IHistoryHymn, IHymn } from "@models/hymns"
+import { IHistoryHymn, IHymn } from "@features/hymns/model/hymns"
 
 import { api, URL_RES } from "@utils/api"
 import { LSFavoriteHymns, LSHistoryHymns, LSHymns } from "@tools/storage"

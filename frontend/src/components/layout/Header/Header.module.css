@@ -180,7 +180,7 @@
     height: 25px;
   }
 
-  .header__item span {
+  .header__item {
     /* текст */
     font-size: 24px;
   }

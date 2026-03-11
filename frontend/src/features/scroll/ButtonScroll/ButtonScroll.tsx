@@ -70,11 +70,11 @@ const ButtonScroll = () => {
 
   return (
     <div className={style.scrollContainer}>
-      <MyButton onClick={stopScroll}>
+      <MyButton variant='control' onClick={stopScroll}>
         <img src={icon_stop} alt="stop" />
       </MyButton>
       <span className={style.speedScroll}>{speedScroll}</span>
-      <MyButton onClick={runScroll}>
+      <MyButton variant='control' onClick={runScroll}>
         <img src={icon_run_0} alt="run" />
       </MyButton>
     </div>

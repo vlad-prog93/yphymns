@@ -1,7 +1,7 @@
 .transpose {
   /* позиционирование */
   position: fixed;
-  top: 50px;
+  top: 0px;
   left: 0;
   z-index: -1;
 
@@ -20,6 +20,7 @@
 
 .transpose_active {
   /* позиционирование */
+  top: 50px;
   z-index: 10;
 
   /* размеры */

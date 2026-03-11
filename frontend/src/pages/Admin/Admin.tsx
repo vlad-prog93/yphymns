@@ -13,10 +13,12 @@ import { collectionSlice } from '@redux/reducers/collections/CollectionSlice'
 
 //импорт констант
 import { Path_of_Routes } from '@utils/routes'
-import { ICollection } from '@models/collection'
+import { ICollection } from '@features/collections/model/collection'
 import { toDeleteOneCol } from '@redux/reducers/collections/ActionCreatorCollections'
-import { Details } from '@components/UI/Details/Details'
-import Button_2 from '@components/UI/Button_2/Button_2'
+import Details from '@components/UI/Details/Details'
+import Button from '@components/UI/Button/Button'
+import Summary from '@components/UI/Summary/Summary'
+import Title from '@components/UI/Title/Title'
 
 const Admin = () => {
   //работа с пакетами
@@ -54,15 +56,21 @@ const Admin = () => {
   }, [dispatch])
 
   return (
-    <section className={style.admin}>
+    <>
 
 
       {/* шапка страницы */}
-      <h3 className={style.admin__title}>Выберите действие</h3>
+      <Title>Выберите действие</Title>
       <div className={style.admin__buttonContainer}>
-        <Link className={style.admin__link} to={Path_of_Routes.newHymn} children='Создать гимн' />
-        <button className={style.admin__link} onClick={handleCreateCollection} children='Создать сборник' />
-        <button className={style.admin__link} onClick={() => dispatch(toPullDataHymns())} children='Скачать файл из БД' />
+        <Link to={Path_of_Routes.newHymn}>
+          <Button>Создать гимн</Button>
+        </Link>
+        <Button onClick={handleCreateCollection}>
+          Создать сборник
+        </Button>
+        <Button onClick={() => dispatch(toPullDataHymns())}>
+          Скачать файл из БД
+        </Button>
         <form>
           <label className={style.input__file}>
             <input type="file" name="file" onChange={uploadFile} />
@@ -72,33 +80,31 @@ const Admin = () => {
       </div>
 
       {/* основная информация */}
-      <h3 className={style.admin__title}>Сборники</h3>
+      <Title>Сборники</Title>
       {collections.map((collection) => {
         const hymnsInCollection = hymns.filter(h => h.collection === collection._id)
         return (
-          <Details
-            key={collection._id}
-            title={`${collection.name} - ${hymnsInCollection.length} гимнов`}
-          >
+          <Details key={collection._id}>
+            <Summary>{`${collection.name} - ${hymnsInCollection.length} гимнов`}</Summary>
             <div className={style.details__config}>
               <p>Сборник: </p>
-              <Button_2 onClick={() => handleEditCollection(collection)}>Редактировать</Button_2>
-              <Button_2 onClick={() => dispatch(toDeleteOneCol(collection._id))}>Удалить</Button_2>
+              <Button onClick={() => handleEditCollection(collection)}>Редактировать</Button>
+              <Button onClick={() => dispatch(toDeleteOneCol(collection._id))}>Удалить</Button>
             </div>
             <ul className={style.admin__list}>
               {hymnsInCollection.map(h => (
                 <li key={h._id} className={style.admin__item}>
                   <span className={style.admin__itemNumber}>{h.number}</span>
                   <span className={style.admin__itemTitle}>{h.title}</span>
-                  <Button_2 onClick={() => handleEdit(h._id)}>Редактировать</Button_2>
-                  <Button_2 onClick={() => handleDelete(h._id)}>Удалить</Button_2>
+                  <Button onClick={() => handleEdit(h._id)}>Редактировать</Button>
+                  <Button onClick={() => handleDelete(h._id)}>Удалить</Button>
                 </li>
               ))}
             </ul>
           </Details>
         )
       })}
-    </section>
+    </>
   )
 }
 

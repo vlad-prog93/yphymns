@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { hymnsSlice } from '@redux/reducers/hymns/HymnSlice'
 import { filterHymns } from '@features/hymns/filterHymns'
 import { Path_of_Routes } from '@utils/routes'
-import { ISearchForm } from '@models/hymns'
+import { ISearchForm } from '@features/hymns/model/hymns'
 
 export const useSearchHymns = () => {
   const dispatch = useAppDispatch()

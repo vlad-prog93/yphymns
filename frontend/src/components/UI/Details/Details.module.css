@@ -1,10 +1,9 @@
 .details {
-  border: 1px solid var(--color-grey-light);
+  border: 1px solid #ddd;
   border-radius: 6px;
   margin-bottom: 12px;
   transition: box-shadow 0.2s;
   overflow: hidden;
-  padding: 0 10px;
 }
 
 .details[open] {

@@ -11,42 +11,6 @@
   color: #222;
 }
 
-.collections__details {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  margin-bottom: 12px;
-  transition: box-shadow 0.2s;
-  overflow: hidden;
-}
-
-.collections__details[open] {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.collections__summary {
-  cursor: pointer;
-  padding: 12px 16px;
-  background-color: #f7f7f7;
-  font-weight: 500;
-  position: relative;
-  list-style: none;
-}
-
-.collections__summary::-webkit-details-marker {
-  display: none;
-}
-
-.collections__summary::after {
-  content: '▸';
-  position: absolute;
-  right: 16px;
-  transition: transform 0.2s;
-}
-
-.collections__details[open] .collections__summary::after {
-  transform: rotate(90deg);
-}
-
 .collections__list {
   margin: 0;
   padding: 8px 16px 12px;

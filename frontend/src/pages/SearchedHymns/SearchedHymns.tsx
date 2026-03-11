@@ -1,7 +1,7 @@
 import style from './SearchedHymns.module.css'
 
 import Title from '@components/UI/Title/Title'
-import HymnList from "@components/HymnList/HymnList"
+import HymnList from "@features/hymns/HymnList/HymnList"
 import { useSelectHymns } from '@features/hymns/hooks/useSelectHymns'
 import { useAppSelector } from '@redux/hooks'
 import { useNavigate } from 'react-router-dom'

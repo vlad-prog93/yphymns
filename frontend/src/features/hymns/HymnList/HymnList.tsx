@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import style from './HymnList.module.css'
-import { IHymn } from '../../models/hymns'
+import { IHymn } from '../model/hymns'
 import { Path_of_Routes } from '@utils/routes'
 
 interface IHymnListProps {

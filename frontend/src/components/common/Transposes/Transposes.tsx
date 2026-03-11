@@ -1,4 +1,5 @@
 // стили
+import Button from '@components/UI/Button/Button'
 import style from './Transposes.module.css'
 
 // redux
@@ -16,8 +17,8 @@ const Transposes = () => {
 
   return (
     <div className={isOpen ? `${style.transpose} ${style.transpose_active}` : style.transpose}>
-      <button className={style.transpose__button} onClick={() => dispatch(accordsSlice.actions.transposeUp())}>+</button>
-      <button className={style.transpose__button} onClick={() => dispatch(accordsSlice.actions.transposeDown())}>-</button>
+      <Button onClick={() => dispatch(accordsSlice.actions.transposeUp())}>+</Button>
+      <Button onClick={() => dispatch(accordsSlice.actions.transposeDown())}>-</Button>
     </div>
   )
 }

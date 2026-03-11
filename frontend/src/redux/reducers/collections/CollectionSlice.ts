@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-import { ICollection } from "@models/collection"
+import { ICollection } from "@features/collections/model/collection"
 import { toCreateCol, toDeleteAllCols, toDeleteOneCol, toEditOneCol, toGetAllCols, toGetOneCol } from "@redux/reducers/collections/ActionCreatorCollections"
 import { isFulfilledAction, isPendingAction, isRejectedAction, setFulfilled, setPending, setRejected } from "@utils/redux"
 

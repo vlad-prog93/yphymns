@@ -1,4 +1,4 @@
-import { IHymnText } from "@models/hymns"
+import { IHymnText } from "@features/hymns/model/hymns"
 import { useAppSelector } from "@redux/hooks"
 
 export const useParseTextHymn = (text: IHymnText | null) => {

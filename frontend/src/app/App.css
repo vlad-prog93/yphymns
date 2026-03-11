@@ -14,8 +14,3 @@
   /* эффекты */
   background-color: var(--bg-c-light);
 }
-
-.app__wrapper {
-  /* отступы */
-  margin-top: 50px;
-}

@@ -5,7 +5,8 @@ interface AccordsState {
     isModalActive: boolean,
     isShowAccords: boolean,
     isModalTransposeActive: boolean,
-    lvlTranspose: number
+    lvlTranspose: number,
+    isRepeatAccords: boolean,
 }
 
 const initialState: AccordsState = {
@@ -13,7 +14,8 @@ const initialState: AccordsState = {
     isModalActive: false,
     isShowAccords: false,
     isModalTransposeActive: false,
-    lvlTranspose: 0
+    lvlTranspose: 0,
+    isRepeatAccords: false
 }
 
 export const accordsSlice = createSlice({
@@ -44,6 +46,14 @@ export const accordsSlice = createSlice({
         },
         toggleShowAccord(state) {
             state.isShowAccords = !state.isShowAccords
+        },
+
+        // показать аккорды/скрыть аккорды в тексте
+        setRepeatAccord(state, action: PayloadAction<boolean>) {
+            state.isRepeatAccords = action.payload
+        },
+        toggleRepeatAccord(state) {
+            state.isRepeatAccords = !state.isRepeatAccords
         },
 
         // окно с транспонированием

@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom"
 
 import { useAppSelector } from "@redux/hooks"
-import { IHymn } from "@models/hymns"
+import { IHymn } from "@features/hymns/model/hymns"
 import { Path_of_Routes } from "@utils/routes"
 import { filterHymns } from "@features/hymns/filterHymns"
 

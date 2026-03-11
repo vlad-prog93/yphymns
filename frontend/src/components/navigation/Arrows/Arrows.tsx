@@ -17,15 +17,17 @@ const Arrows = () => {
   const match = useMatch(Path_of_Routes.hymn(':id'));
   const { goPrev, goNext, hasPrev, hasNext } = useArrowNavigation();
 
+  console.log(match)
+  console.log(true)
   if (!match) return null;
 
   return (
     <div className={style.arrows}>
-      <Button onClick={goPrev} disabled={!hasPrev}>
+      <Button variant='control' onClick={goPrev} disabled={!hasPrev}>
         <img src={arrow_back} alt="back" />
       </Button>
 
-      <Button onClick={goNext} disabled={!hasNext}>
+      <Button variant='control' onClick={goNext} disabled={!hasNext}>
         <img src={arrow_next} alt="next" />
       </Button>
     </div>

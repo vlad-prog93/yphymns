@@ -5,7 +5,7 @@ import style from './NewHymn.module.css'
 
 import { Path_of_Routes } from "@utils/routes"
 
-import { IHymn } from "@models/hymns"
+import { IHymn } from "@features/hymns/model/hymns"
 
 import FormHymn from "@features/hymns/FormHymn/FormHymn"
 import { useAppDispatch, useAppSelector } from "@redux/hooks"

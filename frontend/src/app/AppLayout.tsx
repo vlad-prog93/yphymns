@@ -5,6 +5,7 @@ import "./App.css"
 import Header from "@components/layout/Header/Header"
 import Menu from "@components/layout/Menu/Menu"
 import OverLays from "@components/layout/OverLays/OverLays"
+import WrapperPage from "@components/layout/WrapperPage/WrapperPage";
 
 type AppLayoutProps = {
   children: ReactNode;
@@ -17,9 +18,9 @@ const AppLayout = ({ children }: AppLayoutProps) => {
     <div className='app' >
       <Menu />
       <Header />
-      <main className='app__wrapper'>
+      <WrapperPage>
         {children}
-      </main>
+      </WrapperPage>
       <OverLays />
     </div>
   )
