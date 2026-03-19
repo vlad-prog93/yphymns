@@ -1,13 +1,15 @@
 .hymn__word_with_accord {
   position: relative;
   font-family: Roboto;
-  font-size: 20px;
+  font-size: var(--font-size-text);
+  color: var(--font-size-text);
+
 
 }
 
 .hymn__accord {
   position: absolute;
-  transform: translate(calc(-10.6px), calc(-10.1px));
+  transform: translate(calc(-0.6 * var(--font-size-accord) - 0.4px), calc(-0.6 * var(--font-size-accord) + 0.1px));
 
   text-wrap: nowrap;
   background: inherit;
@@ -19,5 +21,7 @@
   margin: 0;
   padding: 0;
   position: absolute;
+  font-size: var(--font-size-accord);
+  color: var(--color-accord);
 
 }

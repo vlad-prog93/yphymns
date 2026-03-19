@@ -34,15 +34,5 @@
   /* размеры */
   width: 100%;
   height: 100%;
-
-  /* цвета */
-  color: var(--f-c-dark);
-
-  /* текст */
-  font-size: 25px;
-
-  /* эффекты */
-  background-color: var(--bg-c-medium);
-  cursor: pointer;
-  border: 1px solid var(--border-c-light);
+  border-radius: 0%;
 }

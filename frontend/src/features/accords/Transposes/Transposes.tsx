@@ -17,8 +17,8 @@ const Transposes = () => {
 
   return (
     <div className={isOpen ? `${style.transpose} ${style.transpose_active}` : style.transpose}>
-      <Button onClick={() => dispatch(accordsSlice.actions.transposeUp())}>+</Button>
-      <Button onClick={() => dispatch(accordsSlice.actions.transposeDown())}>-</Button>
+      <Button className={style.transpose__button} onClick={() => dispatch(accordsSlice.actions.transposeUp())}>+</Button>
+      <Button className={style.transpose__button} onClick={() => dispatch(accordsSlice.actions.transposeDown())}>-</Button>
     </div>
   )
 }

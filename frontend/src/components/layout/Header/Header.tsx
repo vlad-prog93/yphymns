@@ -5,7 +5,7 @@ import style from './Header.module.css'
 
 // компоненты
 import Burger from "@components/layout/Burger/Burger"
-import Transposes from "@components/common/Transposes/Transposes"
+import Transposes from "@features/accords/Transposes/Transposes"
 
 // redux
 import { useAppDispatch, useAppSelector } from "@redux/hooks"

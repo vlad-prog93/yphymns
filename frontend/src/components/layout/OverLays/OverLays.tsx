@@ -12,7 +12,7 @@ import { collectionSlice } from "@redux/reducers/collections/CollectionSlice"
 import { hymnsSlice } from "@redux/reducers/hymns/HymnSlice"
 import { useMatch } from "react-router-dom"
 import { Path_of_Routes } from "@utils/routes"
-import Transposes from "@components/common/Transposes/Transposes"
+import Transposes from "@features/accords/Transposes/Transposes"
 
 const OverLays = () => {
     // для компонента автоскролла

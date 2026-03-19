@@ -14,16 +14,28 @@ const Settings = () => {
 
   const context = useContext(contextSettingsFont)
 
-  const handleChangeFontSetting = (e: any) => {
-    context.setSettingsFont({ ...context, [e.target.name]: e.target.value })
-    LSSettingsFont.set({ ...context, [e.target.name]: e.target.value })
+  const handleChangeFontSetting = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value, type } = e.target
+    const { setSettingsFont, ...settings } = context
+    const newValue = type === 'range' ? Number(value) : value
+
+    const updated = {
+      ...settings,
+      [name]: newValue
+    }
+
+    setSettingsFont(updated)
+    LSSettingsFont.set(updated)
   }
 
   const setDefaultFontSetting = () => {
     context.setSettingsFont({ ...stateSettingsFont })
     LSSettingsFont.set({ ...stateSettingsFont })
   }
-  console.log(isRepeatAccords)
+
+
   return (
     <>
       <Title>Настройки</Title>

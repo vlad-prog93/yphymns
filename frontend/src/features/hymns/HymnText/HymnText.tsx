@@ -1,70 +1,102 @@
 import { IHymnText } from "@features/hymns/model/hymns"
 import style from './HymnText.module.css'
+
 import { useAppDispatch, useAppSelector } from "@redux/hooks"
 import { accordsSlice } from "@redux/reducers/accords/AccordsSlice"
+
 import ParseHymnText from "@features/hymns/ParseHymnText/ParseHymnText"
 import transposeAccords from "@features/hymns/transposeAccords"
 
 interface Props {
   text: IHymnText
-  showAccords: boolean,
+  showAccords: boolean
   isRepeatAccords: boolean
 }
 
 export const HymnText = ({ text, showAccords, isRepeatAccords }: Props) => {
   const { lvlTranspose } = useAppSelector(s => s.accords)
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch()
 
   const hideAccords = !showAccords
   const hideRepeat = showAccords && !isRepeatAccords
 
-  const checkStartSectionHymn = (section: string) => {
-    return (section.startsWith("1 verse") || section.endsWith("bridge") || section.startsWith("1 chorus"))
-  }
+  const isStartSection = (section: string) =>
+    section.startsWith("1 verse") ||
+    section.startsWith("1 chorus") ||
+    section.endsWith("bridge")
 
   const handleChordClick = (chord: string) => {
-    dispatch(accordsSlice.actions.setCurrentAccords(transposeAccords(chord, lvlTranspose).split('-')));
-  };
+    const transposed = transposeAccords(chord, lvlTranspose)
 
-  const renderContent = (section: string, content: string) => {
-
-    const isStartSection = checkStartSectionHymn(section)
-
-    if (hideAccords) {
-      return <pre className={style.hymnText__text}>{content}</pre>
-    }
-
-    if (hideRepeat && !isStartSection) {
-      return (
-        <pre className={style.hymnText__text}>
-          {content.replace(/\[|\]|{.*?}/g, "")}
-        </pre>
+    dispatch(
+      accordsSlice.actions.setCurrentAccords(
+        transposed.split("-")
       )
-    }
-
-    return (
-      <pre className={style.hymnText__text_with_accords}>
-        <ParseHymnText
-          raw={content}
-          lvlTranspose={lvlTranspose}
-          btnClick={handleChordClick}
-        />
-      </pre>
     )
   }
 
+  const removeAccords = (text: string) =>
+    text.replace(/\[|\]|{.*?}/g, "")
+
+  const getTextClass = (section: string) => {
+    const startSection = isStartSection(section)
+
+    if (!showAccords) {
+      return style.hymnText__text
+    }
+
+    if (isRepeatAccords) {
+      return style.hymnText__text_with_accords
+    }
+
+    return startSection
+      ? style.hymnText__text_with_accords
+      : style.hymnText__text
+  }
+
+  const renderContent = (section: string, content: string) => {
+    const startSection = isStartSection(section)
+
+    if (hideAccords) {
+      return content
+    }
+
+    if (hideRepeat && !startSection) {
+      return removeAccords(content)
+    }
+
+    return (
+      <ParseHymnText
+        raw={content}
+        lvlTranspose={lvlTranspose}
+        btnClick={handleChordClick}
+      />
+    )
+  }
+
+  const renderSectionNumber = (section: string) => {
+    if (!section.endsWith(" verse")) return ""
+
+    return section.replace(/ verse/g, ".")
+  }
+
+  const sections = Object.entries(text)
+
   return (
     <div className={style.hymnText}>
-      {Object.entries(text).map(([section, content]) => (
+      {sections.map(([section, content]) => (
         <div key={section} className={style.hymnText__content}>
-          <span className={style.hymnText__section}>
-            {section.endsWith(" verse")
-              ? section.replace(/ verse/g, ".")
-              : ""}
+
+          <span className={getTextClass(section)}>
+            {renderSectionNumber(section)}
           </span>
-          {renderContent(section, content)}
+
+          <pre className={getTextClass(section)}>
+            {renderContent(section, content)}
+          </pre>
+
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

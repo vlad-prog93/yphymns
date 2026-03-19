@@ -1,11 +1,11 @@
-export interface ISettingsFontLS {
-  fontSizeText: string,
-  fontSizeAccord: string,
-
-  colorText: string,
+// models/settingsFont.ts
+export interface ISettingsFontState {
+  fontSizeText: number
+  fontSizeAccord: number
+  colorText: string
   colorAccord: string
 }
 
-export interface ISettingsFont extends ISettingsFontLS {
-  setSettingsFont: (obj: ISettingsFont) => void
+export interface ISettingsFontContext extends ISettingsFontState {
+  setSettingsFont: React.Dispatch<React.SetStateAction<ISettingsFontState>>
 }

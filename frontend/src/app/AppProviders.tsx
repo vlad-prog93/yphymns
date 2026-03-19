@@ -7,15 +7,15 @@ import { store } from '@redux/store'
 
 import { contextSettingsFont, stateSettingsFont } from '@context/settingsSize'
 import { LSSettingsFont } from '@tools/storage'
-import { ISettingsFont } from '@models/settingsFont'
+import { ISettingsFontContext, ISettingsFontState } from '@models/settingsFont'
 
 interface Props {
   children: React.ReactNode
 }
 
 const AppProviders = ({ children }: Props) => {
-  const [settingsFont, setSettingsFont] = useState<ISettingsFont>(LSSettingsFont.get() || stateSettingsFont)
-  const contextValue: ISettingsFont = useMemo(() => ({
+  const [settingsFont, setSettingsFont] = useState<ISettingsFontState>(LSSettingsFont.get() || stateSettingsFont)
+  const contextValue: ISettingsFontContext = useMemo(() => ({
     ...settingsFont,
     setSettingsFont
   }), [settingsFont])

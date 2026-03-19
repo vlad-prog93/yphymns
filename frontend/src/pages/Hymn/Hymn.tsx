@@ -40,13 +40,13 @@ const Hymn = () => {
   if (!parsedText) return null
 
   return (
-    <>
-      <h3 className={style.hymn__title}>Сборник</h3>
-      <h3 className={style.hymn__title}>
+    <section className={style.hymn}>
+      <h2 className={style.hymn__title}>Сборник</h2>
+      <h3 className={style.hymn__subtitle}>
         {collection.get(hymn.collection)}
       </h3>
       {<HymnText text={parsedText} showAccords={isShowAccords} isRepeatAccords={isRepeatAccords} />}
-    </>
+    </section>
   )
 }
 

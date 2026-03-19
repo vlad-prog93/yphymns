@@ -1,15 +1,14 @@
 import React from "react";
-import { ISettingsFont } from '../models/settingsFont'
+import { ISettingsFontContext, ISettingsFontState } from "@models/settingsFont";
 
-export const stateSettingsFont: ISettingsFont = {
-  fontSizeText: '18',
-  fontSizeAccord: '18',
-
+export const stateSettingsFont: ISettingsFontState = {
+  fontSizeText: 18,
+  fontSizeAccord: 18,
   colorText: '#000000',
   colorAccord: '#000000',
-
-  setSettingsFont: (obj: ISettingsFont) => { }
 }
 
-
-export const contextSettingsFont = React.createContext<ISettingsFont>(stateSettingsFont)
+export const contextSettingsFont = React.createContext<ISettingsFontContext>({
+  ...stateSettingsFont,
+  setSettingsFont: () => { }
+})

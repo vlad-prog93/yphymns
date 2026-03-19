@@ -1,5 +1,5 @@
 .hymnText {
-  margin: 20px auto 0;
+  margin: 40px auto 0;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -11,16 +11,17 @@
   grid-template-columns: 30px auto;
 }
 
-.hymnText__section,
 .hymnText__text {
   font-family: Roboto;
-  font-size: 20px;
+  font-size: var(--font-size-text);
+  color: var(--font-size-text);
   text-wrap: wrap;
 }
 
 .hymnText__text_with_accords {
   font-family: Roboto;
-  font-size: 20px;
-  line-height: 2.5;
+  font-size: var(--font-size-text);
+  color: var(--color-text);
+  line-height: calc(2.1 * var(--font-size-text));
   text-wrap: wrap;
 }
