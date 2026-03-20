@@ -3,6 +3,9 @@ import { HymnsModule } from './hymns/hymns.module';
 import { MongooseModule } from '@nestjs/mongoose'
 import { ConfigModule } from "@nestjs/config";
 import { CollectionsModule } from "src/collections/collections.module";
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { HymnEditsModule } from './hymn-edits/hymn-edits.module';
 //import configuration from "./config/configuration";
 
 @Module({
@@ -18,7 +21,10 @@ import { CollectionsModule } from "src/collections/collections.module";
         pass: process.env.MONGODB_PASS || ''
       }),
     HymnsModule,
-    CollectionsModule
+    CollectionsModule,
+    UsersModule,
+    AuthModule,
+    HymnEditsModule
   ],
 })
 export class AppModule { }

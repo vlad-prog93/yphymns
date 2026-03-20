@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
@@ -20,6 +21,14 @@ async function server() {
   app.enableCors({ origin: process.env.CORS || '*' })
   app.use(bodyParser.json({ limit: '20mb' }))
   app.use(bodyParser.urlencoded({ limit: '20mb', extended: true }))
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true, // убирает лишние поля
+      forbidNonWhitelisted: true, // ошибка если лишние поля
+      transform: true,
+    }),
+  );
 
   await app.listen(port, () => console.log(`Server has been started in PORT = ${port}`))
 }

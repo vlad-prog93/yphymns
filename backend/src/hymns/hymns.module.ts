@@ -13,6 +13,6 @@ import { CollectionsModule } from 'src/collections/collections.module';
   ],
   controllers: [HymnsController],
   providers: [HymnsService],
-  exports: [HymnsService]
+  exports: [HymnsService, MongooseModule]
 })
 export class HymnsModule { }

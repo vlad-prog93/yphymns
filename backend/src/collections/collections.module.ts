@@ -6,10 +6,12 @@ import { CollectionsService } from 'src/collections/collecrions.service';
 import { HymnsModule } from 'src/hymns/hymns.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([
-    { name: 'Collection', schema: CollectionSchema },
-  ]),
-  forwardRef(() => HymnsModule)],
+  imports: [
+    MongooseModule.forFeature([
+      { name: 'Collection', schema: CollectionSchema },
+    ]),
+    forwardRef(() => HymnsModule)
+  ],
   controllers: [CollectionsController],
   providers: [CollectionsService],
   exports: [CollectionsService, MongooseModule]

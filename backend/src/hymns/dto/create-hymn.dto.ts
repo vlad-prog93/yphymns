@@ -1,16 +1,22 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { IsNotEmpty, IsNumber, IsObject, IsString } from "class-validator";
 import { Types } from "mongoose";
-import { HymnContent } from "src/hymns/dto/types";
-
 
 
 export class CreateHymnDto {
   @ApiProperty({ example: 1 })
+  @IsNumber()
   number: number;
+
   @ApiProperty({ example: 'Молодежные гимны' })
+  @IsString()
   collection: Types.ObjectId | string;
+
   @ApiProperty({ example: 'Дух правый обнови во мне, о Бог' })
+  @IsString()
+  @IsNotEmpty()
   title: string;
+
   @ApiProperty({
     example: {
       "2 verse 1 bridge": "Дух правый обнови во мне, о Бог, \nСердце чистое сотвори во мне. ",
@@ -18,13 +24,6 @@ export class CreateHymnDto {
       "3 verse 1 bridge": "Дух правый обнови во мне, о Бог, \nСердце чистое сотвори во мне.  "
     }
   })
-  text: HymnContent;
-  // @ApiProperty({
-  //   example: {
-  //     "2 verse 1 bridge": "[Д{G}ух] правый [обнови{Bm}] во [мне{C},] о [Бог{D},] \n[С{G}ердце] чистое [со{D}твори] во [мне{C-D}.] ",
-  //     "2 verse 2 bridge": "[Н{C}е] отринь [меня{D}] от [лица{G}] [Твоего{Em},] \n[Д{C}уха] [Твоего{D}] не [отними{G-G7}.]  \n[В{C}озврати] мне [ра{D}дость] \n[Т{G}воего] [спасен{Em}ья] \n[И{C}] дух правый [о{D}бнови{D7}] во [мне{G}.]",
-  //     "3 verse 1 bridge": "[Д{G}ух] правый [обнови{Bm}] во [мне{C},] о [Бог{D},] \n[С{G}ердце] чистое [со{D}твори] во [мне{G-G7}.]  "
-  //   }
-  // })
-  // text_with_accords: HymnContent
+  @IsObject()
+  text: Record<string, string>;
 }
