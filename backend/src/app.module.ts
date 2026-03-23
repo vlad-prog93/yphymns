@@ -6,6 +6,7 @@ import { CollectionsModule } from "src/collections/collections.module";
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { HymnEditsModule } from './hymn-edits/hymn-edits.module';
+import { MailModule } from './mail/mail.module';
 //import configuration from "./config/configuration";
 
 @Module({
@@ -24,7 +25,8 @@ import { HymnEditsModule } from './hymn-edits/hymn-edits.module';
     CollectionsModule,
     UsersModule,
     AuthModule,
-    HymnEditsModule
+    HymnEditsModule,
+    MailModule
   ],
 })
 export class AppModule { }

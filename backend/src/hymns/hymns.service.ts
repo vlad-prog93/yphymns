@@ -109,14 +109,4 @@ export class HymnsService {
     return new StreamableFile(file)
   }
 
-  // async getChangeDataBase() {
-  //   const data: CreateHymnDto[] = await this.getAll()
-  //   const newData = data.map(hymn => {
-  //     const { shortText, text_with_accords, ...newHymn } = { ...hymn, text: hymn.text_with_accords, title: hymn.shortText }
-  //     return newHymn
-  //   })
-  //   writeFileSync('db.json', JSON.stringify(newData, null, 4), { flag: 'w', encoding: 'utf8' })
-  //   const file = createReadStream('db.json', 'utf8')
-  //   return new StreamableFile(file)
-  // }
 }

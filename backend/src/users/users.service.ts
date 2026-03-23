@@ -5,11 +5,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { ForbiddenException, NotFoundException } from '@nestjs/common';
+import { MailService } from 'src/mail/mail.service';
 
 export class UsersService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<UserDocument>,
+    private mailService: MailService,
 
   ) { }
 
@@ -34,7 +36,7 @@ export class UsersService {
     });
 
     // TODO: отправка email
-    console.log('PASSWORD:', plainPassword);
+    await this.mailService.sendPassword(email, plainPassword);
 
     return { message: 'Пользователь создан' };
   }
@@ -90,7 +92,34 @@ export class UsersService {
 
     // пока что выводим в консоль
     console.log('RESET PASSWORD:', newPassword);
+    await this.mailService.sendPassword(email, newPassword);
 
     return { message: 'If user exists, password was sent' };
   }
+
+  async getUserByEmail(email: string) {
+    return await this.userModel.find({ email })
+  }
+
+  async createAdminIfNotExists() {
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (!adminEmail || !adminPassword) return;
+
+    const existing = await this.userModel.findOne({ email: adminEmail });
+    if (existing) return;
+
+    const hashed = await bcrypt.hash(adminPassword, 10);
+
+    const admin = new this.userModel({
+      email: adminEmail,
+      password: hashed,
+      role: 'admin',
+    });
+
+    await admin.save();
+    console.log(`Admin user created: ${adminEmail}`);
+  }
+
 }

@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as bodyParser from 'body-parser';
 import { AppModule } from 'src/app.module';
+import { UsersService } from 'src/users/users.service';
 
 async function server() {
 
@@ -29,6 +30,9 @@ async function server() {
       transform: true,
     }),
   );
+
+  const usersService = app.get(UsersService);
+  await usersService.createAdminIfNotExists();
 
   await app.listen(port, () => console.log(`Server has been started in PORT = ${port}`))
 }
