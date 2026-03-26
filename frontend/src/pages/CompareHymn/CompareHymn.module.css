@@ -1,0 +1,16 @@
+.compareHymn {
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.compareHymn__footer {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  bottom: 0px;
+  background-color: rgba(250, 250, 255, 0.5);
+  height: 70px;
+  width: 100%;
+}

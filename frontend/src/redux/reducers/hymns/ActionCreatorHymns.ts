@@ -33,7 +33,7 @@ export const toCreateHymn = createAsyncThunk(
 export const toEditOneHymn = createAsyncThunk(
   "hymns/toEditOneHymn",
   async (hymn: IHymn) => {
-    const { data } = await api.patch<IHymn>(`${URL_RES.HYMNS.EDIT_ONE}/${hymn._id}`, { ...hymn })
+    const { data } = await api.post<IHymn>(URL_RES.EDIT_HYMNS.EDIT_HYMN, { ...hymn })
     return data
   }
 )

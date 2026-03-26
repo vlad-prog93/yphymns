@@ -46,7 +46,6 @@ export const hymnsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(toGetAllHymns.fulfilled, (state, action) => {
-        console.log('im here')
         state.hymns = action.payload.sort((a, b) => a.number - b.number)
       })
       .addCase(toCreateHymn.fulfilled, (state, action) => {

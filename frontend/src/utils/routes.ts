@@ -12,7 +12,11 @@ export const routes = {
   hymn: '/hymn',
   newHymn: '/newhymn',
   api: '/api',
-  id: "/:id"
+  id: "/:id",
+  signUp: "/signup",
+  signIn: "/signin",
+  editor: "/editor",
+  hymnEdit: "/hymn-edit",
 }
 
 
@@ -48,9 +52,21 @@ export class Path_of_Routes {
     return routes.home + routes.admin
   }
   static editHymn(id: string = ':id') {
-    return routes.home + routes.admin + routes.hymns + routes.hymn + '/' + id
+    return routes.home + routes.editor + routes.hymns + routes.hymn + '/' + id
   }
   static get newHymn() {
-    return routes.home + routes.admin + routes.hymns + routes.newHymn
+    return routes.home + routes.editor + routes.hymns + routes.newHymn
+  }
+  static get signUp() {
+    return routes.home + routes.signUp
+  }
+  static get signIn() {
+    return routes.home + routes.signIn
+  }
+  static get editor() {
+    return routes.home + routes.editor
+  }
+  static compareHymn(id: string = ':id') {
+    return routes.home + routes.admin + routes.hymnEdit + '/' + id
   }
 }

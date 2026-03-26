@@ -53,10 +53,10 @@ export class UsersService {
     const user = await this.userModel.findByIdAndDelete(id).lean().exec();
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Пользователь не найден');
     }
 
-    return { message: 'User deleted' };
+    return { email: user.email, message: 'Пользователь удален' };
   }
 
 

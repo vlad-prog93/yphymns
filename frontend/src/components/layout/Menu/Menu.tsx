@@ -5,7 +5,8 @@ import { menuSlice } from "@redux/reducers/menu/MenuSlice"
 import { Path_of_Routes } from "@utils/routes"
 
 const Menu = () => {
-  const { isMenuActive } = useAppSelector(state => state.menu)
+  const { isMenuActive } = useAppSelector(s => s.menu)
+  const { user, isAuthenticated } = useAppSelector(s => s.user)
   const dispatch = useAppDispatch()
 
   function hideMenu() {
@@ -22,7 +23,10 @@ const Menu = () => {
           <MenuItem link={Path_of_Routes.contentCollections} text='Сборники' />
           <MenuItem link={Path_of_Routes.historyHymns} text='История' />
           <MenuItem link={Path_of_Routes.settings} text='Настройки' />
-          <MenuItem link={Path_of_Routes.admin} text='Админ' />
+          <MenuItem link={Path_of_Routes.signUp} text='Регистрация' />
+          <MenuItem link={Path_of_Routes.signIn} text='Вход' />
+          {isAuthenticated && user?.role === 'admin' && <MenuItem link={Path_of_Routes.admin} text='Админ' />}
+          {isAuthenticated && <MenuItem link={Path_of_Routes.editor} text='Редактирование' />}
         </ul>
       </div>
     </div>

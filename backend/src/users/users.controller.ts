@@ -38,6 +38,4 @@ export class UsersController {
   resetPassword(@Body('email') email: string) {
     return this.usersService.resetPassword(email);
   }
-
-
 }

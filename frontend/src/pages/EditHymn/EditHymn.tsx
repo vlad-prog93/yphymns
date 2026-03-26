@@ -1,6 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import React, { FormEvent, useEffect, useState } from 'react'
-// import { v4 } from 'uuid'
 
 // styles
 import style from './EditHymn.module.css'
@@ -8,11 +7,10 @@ import style from './EditHymn.module.css'
 // redux
 import { useAppDispatch, useAppSelector } from '@redux/hooks'
 import { toEditOneHymn } from '@redux/reducers/hymns/ActionCreatorHymns'
-import { toGetOneHymn } from "@redux/reducers/hymns/ActionCreatorHymns"
 
 
 import { IHymn } from '@features/hymns/model/hymns'
-import { handleTranslate, changeViewTextHymn, moveAccordsInText, deleteAccords } from '@features/hymns/workWithTextHymns'
+import { changeViewTextHymn, moveAccordsInText } from '@features/hymns/workWithTextHymns'
 import FormHymn from '@features/hymns/FormHymn/FormHymn'
 import { Path_of_Routes } from '@utils/routes'
 
@@ -44,8 +42,15 @@ const EditHymn = () => {
     e.preventDefault()
     if (editHymn) {
       const hymn: IHymn = { ...editHymn, text: moveAccordsInText(editHymn.text) }
-      dispatch(toEditOneHymn(hymn))
-      navigate('/admin')
+      const cleanData = {
+        _id: hymn._id,
+        title: hymn.title,
+        text: hymn.text,
+        collection: hymn.collection,
+        number: hymn.number
+      }
+      dispatch(toEditOneHymn(cleanData))
+      navigate('/editor')
     }
   }
 
