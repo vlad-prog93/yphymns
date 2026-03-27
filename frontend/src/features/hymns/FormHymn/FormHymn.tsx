@@ -105,6 +105,11 @@ const FormHymn = ({ hymn, setHymn, saveHymn, collections }: IFormHymnProps) => {
         saveHymn(e)
     }
 
+    const handleChangeCol = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCol(e.target.value)
+        setHymn({ ...hymn, collection: e.target.value })
+    }
+
     if (collections.length === 0) return <>Создайте сперва хотя бы один сборник</>
     return (
         <form className={style.formHymn__form} onSubmit={(e) => save(e)}>
@@ -114,7 +119,7 @@ const FormHymn = ({ hymn, setHymn, saveHymn, collections }: IFormHymnProps) => {
                     name="Сборник"
                     defaultValue={selectedCol}
                     id={ids.title}
-                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSelectedCol(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeCol(e)}
                 >
                     {collections.map(col => {
                         return <option value={col._id}>{col.name}</option>
@@ -156,7 +161,6 @@ const FormHymn = ({ hymn, setHymn, saveHymn, collections }: IFormHymnProps) => {
                             value={hymn.text[key]}
                             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setHymn({ ...hymn, text: { ...hymn.text, [e.target.name]: e.target.value } })}
                         />
-                        {/* <Button onClick={() => handleDeleteFragment(key)} children='Удалить' /> */}
                     </div >
                 )
             })}

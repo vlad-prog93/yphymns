@@ -6,7 +6,7 @@ import { toApproveEdit, toGetAllEdits, toRejectEdit } from "@redux/reducers/edit
 
 
 export interface IHymnEdit {
-  _id: string
+  type: 'update' | 'create' | 'delete'
   hymnId: string,
   data: {
     _id: string
@@ -15,7 +15,7 @@ export interface IHymnEdit {
     title: string
     text: IHymnText
   },
-  status: string,
+  status: 'pending' | 'approved' | 'rejected',
   proposedBy: string
 }
 
@@ -42,10 +42,10 @@ export const editHymnsSlice = createSlice({
         state.edits = action.payload
       })
       .addCase(toApproveEdit.fulfilled, (state, action) => {
-        state.edits = state.edits.filter(e => e._id !== action.payload._id)
+        state.edits = state.edits.filter(e => e.hymnId !== action.payload._id)
       })
       .addCase(toRejectEdit.fulfilled, (state, action) => {
-        state.edits = state.edits.filter(e => e._id !== action.payload._id)
+        state.edits = state.edits.filter(e => e.hymnId !== action.payload._id)
       })
       .addMatcher(isPendingAction, setPending)
       .addMatcher(isRejectedAction, setRejected)

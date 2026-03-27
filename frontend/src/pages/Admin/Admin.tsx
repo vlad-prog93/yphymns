@@ -28,11 +28,11 @@ const Admin = () => {
 
         <ul className={style.admin__list}>
           {users?.map(user => (
-            <li className={style.admin__item} key={user._id}>
+            <li className={style.admin__item} key={user.id}>
               <span className={style.admin__email}>{user.email}</span>
 
               <Button onClick={() => resetPassword(user.email)}>Сбросить пароль</Button>
-              <Button onClick={() => dispatch(toDeleteUser(user._id))}>Удалить</Button>
+              <Button onClick={() => dispatch(toDeleteUser(user.id))}>Удалить</Button>
             </li>
           ))}
         </ul>

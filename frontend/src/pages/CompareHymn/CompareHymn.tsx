@@ -22,6 +22,7 @@ const CompareHymn = () => {
   const collections = useMapCollections()
   const users = useMapUsers()
 
+
   if (!currentEdit || !currentHymn || !id) return <p>Загрузка...</p>
 
   return (

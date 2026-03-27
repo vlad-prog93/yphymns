@@ -87,7 +87,7 @@ const Editor = () => {
           <Details key={collection._id}>
             <Summary>{`${collection.name} - ${hymnsInCollection.length} гимнов`}</Summary>
             <div className={style.details__config}>
-              <p>Сборник: </p>
+              <p className={style.details__intro}>Называние сборника: {collection.name}</p>
               <Button onClick={() => handleEditCollection(collection)}>Редактировать</Button>
               <Button onClick={() => dispatch(toDeleteOneCol(collection._id))}>Удалить</Button>
             </div>

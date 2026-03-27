@@ -52,12 +52,14 @@ export const userSlice = createSlice({
       })
       .addCase(toLoginUser.fulfilled, (state, action) => {
         localStorage.setItem('token', action.payload.token)
+        localStorage.setItem('user_id', action.payload.user.id)
         state.user = action.payload.user
         state.token = action.payload.token
         state.isAuthenticated = true
       })
       .addCase(toGetUser.fulfilled, (state, action) => {
         state.user = action.payload
+        state.isAuthenticated = true
       })
       .addMatcher(isPendingAction, setPending)
       .addMatcher(isRejectedAction, setRejected)

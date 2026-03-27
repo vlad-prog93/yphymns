@@ -4,6 +4,7 @@ import { IHistoryHymn, IHymn } from "@features/hymns/model/hymns"
 
 import { api, URL_RES } from "@utils/api"
 import { LSFavoriteHymns, LSHistoryHymns, LSHymns } from "@tools/storage"
+import { IHymnEdit } from "@redux/reducers/editHymns/EditHymnsSlice"
 
 export const toGetAllHymns = createAsyncThunk(
   "hymns/toGetAllHymns",
@@ -32,7 +33,7 @@ export const toCreateHymn = createAsyncThunk(
 
 export const toEditOneHymn = createAsyncThunk(
   "hymns/toEditOneHymn",
-  async (hymn: IHymn) => {
+  async (hymn: Partial<IHymnEdit>) => {
     const { data } = await api.post<IHymn>(URL_RES.EDIT_HYMNS.EDIT_HYMN, { ...hymn })
     return data
   }

@@ -2,8 +2,8 @@ import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards } from '@nest
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/auth/roles.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
+import { CreateHymnEditDto } from 'src/hymn-edits/dto/hymn-edits.dto';
 import { HymnEditsService } from 'src/hymn-edits/hymn-edits.service';
-import { UpdateHymnDto } from 'src/hymns/dto/update-hymn.dto';
 
 @Controller('api/hymn-edits')
 export class HymnEditsController {
@@ -12,10 +12,10 @@ export class HymnEditsController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   createEdit(
-    @Body() dto: UpdateHymnDto,
+    @Body() dto: CreateHymnEditDto,
     @Req() req: any
   ) {
-    return this.hymnEditsService.createEdit(dto._id, dto, req.user);
+    return this.hymnEditsService.createEdit(dto, req.user);
   }
 
   @UseGuards(AuthGuard('jwt'), RolesGuard)

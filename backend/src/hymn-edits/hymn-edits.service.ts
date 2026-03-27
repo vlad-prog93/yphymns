@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, Types } from "mongoose";
+import { CreateHymnEditDto } from "src/hymn-edits/dto/hymn-edits.dto";
 import { HymnEdit, HymnEditDocument } from "src/hymn-edits/schemas/hymn-edit.schema";
-import { UpdateHymnDto } from "src/hymns/dto/update-hymn.dto";
 import { Hymn, HymnDocument } from "src/hymns/hymns.schema";
 
 @Injectable()
@@ -14,10 +14,12 @@ export class HymnEditsService {
     private hymnModel: Model<HymnDocument>,
   ) { }
 
-  async createEdit(hymnId: string | Types.ObjectId, data: UpdateHymnDto, user: any) {
+  async createEdit(dto: CreateHymnEditDto, user: any) {
     return this.hymnEditModel.create({
-      hymnId,
-      data,
+      type: dto.type,
+      hymnId: dto.hymnId,
+      data: dto.data,
+      status: 'pending',
       proposedBy: user.sub,
     });
   }

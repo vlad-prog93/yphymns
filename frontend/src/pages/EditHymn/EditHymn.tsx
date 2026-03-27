@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import React, { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 
 // styles
 import style from './EditHymn.module.css'
@@ -13,6 +13,7 @@ import { IHymn } from '@features/hymns/model/hymns'
 import { changeViewTextHymn, moveAccordsInText } from '@features/hymns/workWithTextHymns'
 import FormHymn from '@features/hymns/FormHymn/FormHymn'
 import { Path_of_Routes } from '@utils/routes'
+import { IHymnEdit } from '@redux/reducers/editHymns/EditHymnsSlice'
 
 
 const EditHymn = () => {
@@ -41,13 +42,16 @@ const EditHymn = () => {
   const saveHymn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (editHymn) {
-      const hymn: IHymn = { ...editHymn, text: moveAccordsInText(editHymn.text) }
-      const cleanData = {
-        _id: hymn._id,
-        title: hymn.title,
-        text: hymn.text,
-        collection: hymn.collection,
-        number: hymn.number
+      const cleanData: Partial<IHymnEdit> = {
+        type: 'update',
+        hymnId: editHymn._id,
+        data: {
+          _id: editHymn._id,
+          collection: editHymn.collection,
+          number: editHymn.number,
+          title: editHymn.title,
+          text: moveAccordsInText(editHymn.text),
+        }
       }
       dispatch(toEditOneHymn(cleanData))
       navigate('/editor')

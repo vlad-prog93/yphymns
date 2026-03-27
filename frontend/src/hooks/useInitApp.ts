@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useAppDispatch } from "@redux/hooks";
 import { toGetAllHymns } from "@redux/reducers/hymns/ActionCreatorHymns";
 import { toGetAllCols } from "@redux/reducers/collections/ActionCreatorCollections";
+import { toGetUser } from "@redux/reducers/users/ActionCreatorUsers";
 
 export const useInitApp = () => {
   const dispatch = useAppDispatch();
@@ -9,5 +10,9 @@ export const useInitApp = () => {
   useEffect(() => {
     dispatch(toGetAllHymns());
     dispatch(toGetAllCols());
+    const id = localStorage.getItem('user_id')
+    if (id) {
+      dispatch(toGetUser(id))
+    }
   }, [dispatch]);
 };

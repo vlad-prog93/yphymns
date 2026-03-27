@@ -30,6 +30,7 @@ export const toGetUser = createAsyncThunk(
   "users/toGetUser",
   async (id: string) => {
     const { data } = await api.get<IUser>(`${URL_RES.USERS.GET_ONE}/${id}`)
+    console.log(data)
     return data
   }
 )
