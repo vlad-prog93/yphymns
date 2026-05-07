@@ -5,8 +5,8 @@ import { useMapCollections } from "@features/collections/hooks/useMapCollections
 import { HymnText } from "@features/hymns/HymnText/HymnText"
 import { IHymn } from "@features/hymns/model/hymns"
 import { useAppDispatch, useAppSelector } from "@redux/hooks"
-import { toApproveEdit, toRejectEdit } from "@redux/reducers/editHymns/ActionCreatorEditHymns"
-import { IHymnEdit } from "@redux/reducers/editHymns/EditHymnsSlice"
+import { toApproveEdit, toRejectEdit } from "@redux/reducers/editEntity/ActionCreatorEditEntity"
+import { IHymnEdit } from "@redux/reducers/editEntity/EditEntitySlice"
 import { useParams } from "react-router-dom"
 import { useMapUsers } from '@features/users/hooks/useMapUsers'
 

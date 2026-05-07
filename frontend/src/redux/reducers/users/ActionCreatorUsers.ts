@@ -2,25 +2,50 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 import { api, URL_RES } from "@utils/api"
 import { IUser } from "@features/users/model/user"
 
-interface LoginData {
+interface LoginRequets {
   email: string
   password: string
+}
+
+interface LoginResponse {
+  user: IUser
+  token: string
+}
+
+interface RegisterRequest {
+  email: string
+}
+
+interface RegisterResponse {
+  user: {
+    email: string
+  }
+  message: string
+}
+
+interface ResetPasswordResponse {
+  message: string
+}
+
+interface deleteUserResponse {
+  email: string
+  message: string
 }
 
 // Регистрация
 export const toRegisterUser = createAsyncThunk(
   "users/toRegisterUser",
-  async (email: string) => {
-    const { data } = await api.post<IUser>(URL_RES.USERS.CREATE, { email })
-    return data
+  async (data: RegisterRequest) => {
+    const res = await api.post<RegisterResponse>(URL_RES.USERS.CREATE, data)
+    return res.data
   }
 )
 
 // Логин
 export const toLoginUser = createAsyncThunk(
   "users/toLoginUser",
-  async (data: LoginData) => {
-    const res = await api.post<{ user: IUser; token: string }>(URL_RES.AUTH.LOGIN, data)
+  async (data: LoginRequets) => {
+    const res = await api.post<LoginResponse>(URL_RES.AUTH.LOGIN, data)
     return res.data
   }
 )
@@ -29,24 +54,23 @@ export const toLoginUser = createAsyncThunk(
 export const toGetUser = createAsyncThunk(
   "users/toGetUser",
   async (id: string) => {
-    const { data } = await api.get<IUser>(`${URL_RES.USERS.GET_ONE}/${id}`)
-    console.log(data)
-    return data
+    const res = await api.get<IUser>(`${URL_RES.USERS.GET_ONE}/${id}`)
+    return res.data
   }
 )
 
 export const toGetAllUsers = createAsyncThunk(
   "users/toGetAllUsers",
   async () => {
-    const { data } = await api.get<IUser[]>(URL_RES.USERS.GET_ALL)
-    return data
+    const res = await api.get<IUser[]>(URL_RES.USERS.GET_ALL)
+    return res.data
   }
 )
 
 export const resetPassword = createAsyncThunk(
   "users/resetPassword",
   async (email: string) => {
-    const res = await api.post<{ message: string }>(URL_RES.USERS.RESET_PASSWORD, { email })
+    const res = await api.post<ResetPasswordResponse>(URL_RES.USERS.RESET_PASSWORD, { email })
     return res.data
   }
 )
@@ -54,7 +78,7 @@ export const resetPassword = createAsyncThunk(
 export const toDeleteUser = createAsyncThunk(
   "users/toDeleteUser",
   async (id: string) => {
-    const { data } = await api.delete<{ email: string, message: string }>(`${URL_RES.USERS.DELETE}/${id}`)
-    return data
+    const res = await api.delete<deleteUserResponse>(`${URL_RES.USERS.DELETE}/${id}`)
+    return res.data
   }
 )

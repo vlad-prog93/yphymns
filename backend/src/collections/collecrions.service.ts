@@ -5,8 +5,8 @@ import { Model } from "mongoose";
 import { Collection } from "src/collections/collections.schema";
 
 // import типов и интерфейсов
-import { createColDTO } from "src/collections/dto/req/create-col.dto";
-import { updateColDTO } from "src/collections/dto/req/update-col.dto";
+import { CreateColDto } from "src/collections/dto/req/create-col.dto";
+import { UpdateColDto } from "src/collections/dto/req/update-col.dto";
 import { ICollection } from "src/collections/dto/types";
 import { HymnsService } from "src/hymns/hymns.service";
 
@@ -26,7 +26,7 @@ export class CollectionsService {
     return this.collectionModel.findById(id).lean()
   }
 
-  async create(dto: createColDTO): Promise<ICollection> {
+  async create(dto: CreateColDto): Promise<ICollection> {
     try {
       const collection = new this.collectionModel(dto)
       return await collection.save()
@@ -38,7 +38,7 @@ export class CollectionsService {
     }
   }
 
-  async editOne(id: string, dto: updateColDTO): Promise<ICollection> {
+  async editOne(id: string, dto: UpdateColDto): Promise<ICollection> {
     try {
       return await this.collectionModel.findByIdAndUpdate(
         id,

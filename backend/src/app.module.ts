@@ -5,7 +5,7 @@ import { ConfigModule } from "@nestjs/config";
 import { CollectionsModule } from "src/collections/collections.module";
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { HymnEditsModule } from './hymn-edits/hymn-edits.module';
+import { EntityEditsModule } from './entity-edits/entity-edits.module';
 import { MailModule } from './mail/mail.module';
 //import configuration from "./config/configuration";
 
@@ -25,7 +25,7 @@ import { MailModule } from './mail/mail.module';
     CollectionsModule,
     UsersModule,
     AuthModule,
-    HymnEditsModule,
+    EntityEditsModule,
     MailModule
   ],
 })

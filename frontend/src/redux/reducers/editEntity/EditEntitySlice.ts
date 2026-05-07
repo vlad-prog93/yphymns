@@ -1,26 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { IHymnText } from "@features/hymns/model/hymns";
+import { IHymn } from "@features/hymns/model/hymns";
 import { isFulfilledAction, isPendingAction, isRejectedAction, setFulfilled, setPending, setRejected } from "@utils/redux";
-import { toApproveEdit, toGetAllEdits, toRejectEdit } from "@redux/reducers/editHymns/ActionCreatorEditHymns";
+import { toApproveEdit, toGetAllEdits, toRejectEdit } from "@redux/reducers/editEntity/ActionCreatorEditEntity";
+import { ICollection } from "@features/collections/model/collection";
 
 
 
-export interface IHymnEdit {
+export interface IEntityEdit {
+  _id: string,
   type: 'update' | 'create' | 'delete'
-  hymnId: string,
-  data: {
-    _id: string
-    collection: string
-    number: number
-    title: string
-    text: IHymnText
-  },
+  entityType: 'hymn' | 'collection'
+  entityId?: string
+  data: IHymn | ICollection,
   status: 'pending' | 'approved' | 'rejected',
   proposedBy: string
 }
 
 interface State {
-  edits: IHymnEdit[]
+  edits: IEntityEdit[]
   isLoading: boolean
   error: string | null
 }
@@ -31,8 +28,8 @@ const initialState: State = {
   error: null
 }
 
-export const editHymnsSlice = createSlice({
-  name: 'editHymns',
+export const editEntitySlice = createSlice({
+  name: 'editEntyti',
   initialState,
   reducers: {
   },
@@ -42,10 +39,10 @@ export const editHymnsSlice = createSlice({
         state.edits = action.payload
       })
       .addCase(toApproveEdit.fulfilled, (state, action) => {
-        state.edits = state.edits.filter(e => e.hymnId !== action.payload._id)
+        state.edits = state.edits.filter(e => e.entityId !== action.payload._id)
       })
       .addCase(toRejectEdit.fulfilled, (state, action) => {
-        state.edits = state.edits.filter(e => e.hymnId !== action.payload._id)
+        state.edits = state.edits.filter(e => e.entityId !== action.payload._id)
       })
       .addMatcher(isPendingAction, setPending)
       .addMatcher(isRejectedAction, setRejected)
@@ -54,4 +51,4 @@ export const editHymnsSlice = createSlice({
 
 })
 
-export default editHymnsSlice.reducer
+export default editEntitySlice.reducer

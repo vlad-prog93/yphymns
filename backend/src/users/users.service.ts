@@ -4,8 +4,9 @@ import * as crypto from 'crypto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
-import { ForbiddenException, NotFoundException } from '@nestjs/common';
+import { BadRequestException, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { MailService } from 'src/mail/mail.service';
+import { RegisterDTO } from 'src/users/dto/register.dto';
 
 export class UsersService {
   constructor(
@@ -19,18 +20,18 @@ export class UsersService {
     return crypto.randomBytes(6).toString('hex'); // ~12 символов
   }
 
-  async create(email: string) {
+  async create({ email }: RegisterDTO) {
     const existing = await this.userModel.findOne({ email });
 
     if (existing) {
-      throw new Error('Пользователь уже существует');
+      throw new BadRequestException('Пользователь уже существует');
     }
 
     const plainPassword = this.generatePassword();
 
     const hashedPassword = await bcrypt.hash(plainPassword, 10);
 
-    const user = await this.userModel.create({
+    const user: User = await this.userModel.create({
       email,
       password: hashedPassword,
     });
@@ -38,11 +39,12 @@ export class UsersService {
     // TODO: отправка email
     await this.mailService.sendPassword(email, plainPassword);
 
-    return { message: 'Пользователь создан' };
+    return { user: { email, role: user.role }, message: 'Пользователь успешно создан, пароль отправлен на почту' };
   }
 
   async getAllUsers() {
-    return await this.userModel.find({})
+    const users: UserDocument[] = await this.userModel.find({}).sort({ createdAt: -1 })
+    return users.map(user => ({ _id: user._id.toString(), email: user.email, role: user.role }))
   }
 
   async deleteUser(id: string, currentUser: any) {
@@ -66,16 +68,16 @@ export class UsersService {
       throw new ForbiddenException();
     }
 
-    const user = await this.userModel.findById(id).select('-password');
+    const user: UserDocument = await this.userModel.findById(id).select('-password');
 
     if (!user) {
       throw new Error('Пользователь не найден');
     }
 
-    return user;
+    return { _id: user._id.toString(), email: user.email, role: user.role }
   }
 
-  async resetPassword(email: string) {
+  async resetPassword({ email }: RegisterDTO) {
     const user = await this.userModel.findOne({ email });
 
     // не раскрываем существует ли пользователь
@@ -94,7 +96,7 @@ export class UsersService {
     console.log('RESET PASSWORD:', newPassword);
     await this.mailService.sendPassword(email, newPassword);
 
-    return { message: 'If user exists, password was sent' };
+    return { message: 'Если пользователь существует, пароль отправлен вам на почту' };
   }
 
   async getUserByEmail(email: string) {
@@ -119,7 +121,7 @@ export class UsersService {
     });
 
     await admin.save();
-    console.log(`Admin user created: ${adminEmail}`);
+    console.log(`Администратор создан: ${adminEmail}`);
   }
 
 }

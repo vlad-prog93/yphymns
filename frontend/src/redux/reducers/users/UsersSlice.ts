@@ -48,11 +48,11 @@ export const userSlice = createSlice({
         state.users = action.payload
       })
       .addCase(toRegisterUser.fulfilled, (state, action) => {
-        // можно просто оставить пустым или показывать сообщение об успехе
+        console.log(action.payload.message, action.payload.user.email)
       })
       .addCase(toLoginUser.fulfilled, (state, action) => {
         localStorage.setItem('token', action.payload.token)
-        localStorage.setItem('user_id', action.payload.user.id)
+        localStorage.setItem('user_id', action.payload.user._id)
         state.user = action.payload.user
         state.token = action.payload.token
         state.isAuthenticated = true

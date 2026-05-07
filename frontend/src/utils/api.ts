@@ -11,15 +11,15 @@ const USER = '/user'
 const RESET_PASSWORD = '/reset-password'
 const AUTH = '/auth'
 const LOGIN = '/login'
-const EDIT_HYMNS = 'hymn-edits'
-const APPROVE = (id: string) => `hymn-edits/${id}/approve`
-const REJECT = (id: string) => `hymn-edits/${id}/reject`
+const EDIT_ENTITY = 'entity-edits'
+const APPROVE = (id: string) => `entity-edits/${id}/approve`
+const REJECT = (id: string) => `entity-edits/${id}/reject`
 
 export const URL_RES = {
   base: IP_SERVER,
   EDIT_HYMNS: {
-    GET_All: EDIT_HYMNS,
-    EDIT_HYMN: EDIT_HYMNS,
+    GET_All: EDIT_ENTITY,
+    EDIT_HYMN: EDIT_ENTITY,
     APPROVE: APPROVE,
     REJECT: REJECT
   },

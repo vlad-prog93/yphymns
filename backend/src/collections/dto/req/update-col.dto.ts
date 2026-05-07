@@ -1,3 +1,3 @@
-export interface updateColDTO {
+export interface UpdateColDto {
   name: string
 }

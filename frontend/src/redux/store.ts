@@ -5,7 +5,7 @@ import accordsReducer from '@redux/reducers/accords/AccordsSlice'
 import collectionsReducer from '@redux/reducers/collections/CollectionSlice'
 import scrollReducer from '@redux/reducers/scroll/ScrollSlice'
 import userReducer from '@redux/reducers/users/UsersSlice'
-import editHymnsReducer from '@redux/reducers/editHymns/EditHymnsSlice'
+import editHymnsReducer from '@redux/reducers/editEntity/EditEntitySlice'
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +15,7 @@ export const store = configureStore({
     collections: collectionsReducer,
     scroll: scrollReducer,
     user: userReducer,
-    editHymns: editHymnsReducer
+    editEntity: editHymnsReducer
   }
 })
 

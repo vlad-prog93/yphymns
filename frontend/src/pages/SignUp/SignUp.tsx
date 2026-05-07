@@ -1,5 +1,5 @@
 import style from './SignUp.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Title from '@components/UI/Title/Title'
 import { useState } from "react"
 import { toRegisterUser } from "@redux/reducers/users/ActionCreatorUsers"
@@ -12,10 +12,12 @@ const SignUp = () => {
   const dispatch = useAppDispatch()
   const { isLoading } = useAppSelector(s => s.user)
 
+  const navigate = useNavigate()
   const [email, setEmail] = useState("")
 
   const handleRegister = () => {
-    dispatch(toRegisterUser(email))
+    dispatch(toRegisterUser({ email }))
+    navigate(Path_of_Routes.signIn)
   }
 
   return (

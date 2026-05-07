@@ -13,7 +13,7 @@ import { IHymn } from '@features/hymns/model/hymns'
 import { changeViewTextHymn, moveAccordsInText } from '@features/hymns/workWithTextHymns'
 import FormHymn from '@features/hymns/FormHymn/FormHymn'
 import { Path_of_Routes } from '@utils/routes'
-import { IHymnEdit } from '@redux/reducers/editHymns/EditHymnsSlice'
+import { IEntityEdit } from '@redux/reducers/editEntity/EditEntitySlice'
 
 
 const EditHymn = () => {
@@ -42,9 +42,11 @@ const EditHymn = () => {
   const saveHymn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (editHymn) {
-      const cleanData: Partial<IHymnEdit> = {
+      console.log(editHymn)
+      const cleanData: Partial<IEntityEdit> = {
         type: 'update',
-        hymnId: editHymn._id,
+        entityType: 'hymn',
+        entityId: editHymn._id,
         data: {
           _id: editHymn._id,
           collection: editHymn.collection,
